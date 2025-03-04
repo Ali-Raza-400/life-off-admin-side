@@ -1,4 +1,6 @@
 const STRINGS = {
+	MANAGE_COUPONS:"Manage Coupons",
+	MANAGE_PRODUCTS: "Manage Products",
 	USERNAME: "Username",
 	OPRATIONNAME: "Operations",
 	ADD_USER:"Add User",
@@ -45,7 +47,7 @@ const STRINGS = {
 	EARNINGS: "Earnings",
 	VIEW_EARNINGS: "Earnings",
 	STUDENTS_EARNINGS: "Earnings",
-	COURSES: "Manage Trucks",
+	MANAGE_STORES: "Manage Stores",
 	COURSE_VIEW: "View Course ",
 	NEW_COURSE: "Create New Course",
 	COURSE_NAME: "Enter Course Name",

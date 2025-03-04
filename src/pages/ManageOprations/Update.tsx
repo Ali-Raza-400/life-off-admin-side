@@ -3,18 +3,18 @@ import { Form, Input, Select, Card, Typography, Upload, Button } from 'antd';
 import { CloseOutlined, UploadOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from "react-router-dom";
 import type { UploadFile } from 'antd/es/upload/interface';
-import { useGetTrucksQuery } from '../../redux/slices/truck';
 import { useGetUserByRoleQuery } from '../../redux/slices/user';
 import useNotification from '../../components/UI/Notification';
 import GenericButton from '../../components/UI/GenericButton';
 import { useSelector } from 'react-redux';
 import PATH from '../../navigation/Path';
+import { useGetStoresQuery } from '../../redux/slices/truck';
 
 const { Title, Paragraph } = Typography;
 
 const UpdateOperation: React.FC = () => {
     const { Option } = Select;
-    const { data: truck, isLoading: truckLoading } = useGetTrucksQuery({
+    const { data: truck, isLoading: truckLoading } = useGetStoresQuery({
         page: 1,
         pageSize: 8,
     });

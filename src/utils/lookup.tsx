@@ -5,5 +5,6 @@ const Role = {
 	TEACHER: "TeamLead",
 	INDIVIDUAL: "Individual",
 	SUPER_ADMIN: "super_admin",
+	ADMIN:"admin"
 };
 export const LOOKUP_TYPES = { Role };

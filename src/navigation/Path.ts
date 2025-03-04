@@ -2,6 +2,8 @@ const PATH = {
 	NOPAGE: "*",
 	CLOSED: "/closed",
 	CREATE_USER:'/create-user',
+	MANAGE_PRODUCTS:'/product/list',
+	MANAGE_COUPONS:'/coupon/list',
 
 	//  AUTH PATHS
 	LOGIN: "/",
@@ -17,7 +19,7 @@ const PATH = {
 	MANAGE_OPRATION: "/operation/list",
 	MANAGE_OPRATION_CREATE: "/manage-operation/create",
 	MANAGE_OPRATION_UPDATE: "/manage-operation/update",
-	COURSES: "/truck/list",
+	STORES: "/store/list",
 	COURSE_VIEW: "/course/view/:id",
 	COURSE_VIEW_STUDENT: "/student/course/view/:id",
 	NEW_COURSE: "/course/create",

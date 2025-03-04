@@ -5,6 +5,7 @@ export const API_PATHS: { [key: string]: string } = {
 	OPRATION:"photo-logs",
 	USER_BY_ROLE: "users/by-role",
 	TRUCK: "trucks",
+	STORES:"store",
 	INSTITUTE: "institute",
 	REGISTER: "users",
 	DELETE_USER: "users",

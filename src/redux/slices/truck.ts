@@ -6,10 +6,10 @@ import { RTK_TAGS } from "../tags";
 
 const userApi = rtkQApi.injectEndpoints({
     endpoints: (builder) => ({
-        getTrucks: builder.query<any, any>({
+        getStores: builder.query<any, any>({
             query: (params) => {
                 return {
-                    url: API_PATHS.TRUCK,
+                    url: API_PATHS.STORES,
                     method: "GET",
                     params: params,
                 };
@@ -140,7 +140,7 @@ const userApi = rtkQApi.injectEndpoints({
 });
 
 export const {
-    useGetTrucksQuery,
+    useGetStoresQuery,
     useGetUserByIdQuery,
     useAddTruckMutation,
     useUpdateTruckMutation,

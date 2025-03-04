@@ -9,7 +9,7 @@ const CourseStep7: React.FC = () => {
 	const navigate = useNavigate();
 
 	const RedirectCourseList = () => {
-		navigate(PATH.COURSES);
+		navigate(PATH.STORES);
 	};
 
 	return (

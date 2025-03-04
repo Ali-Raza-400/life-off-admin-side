@@ -57,6 +57,7 @@ const Index = (): ReactElement => {
 
   const [form] = Form.useForm();
   const { data, isLoading: userLoading, isFetching, refetch } = useGetUsersQuery(tableOptions);
+  console.log("data::::",data)
   const [deleteUser, { isLoading: deleteUserLoading }] = useDeleteUserMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
@@ -139,14 +140,8 @@ const Index = (): ReactElement => {
   const columns: TableProps<StudentType>["columns"] = [
     {
       title: "Name",
-      key: "first_name",
-      render: (obj) => {
-        return (
-          <div>
-            {obj.first_name} {obj.last_name}
-          </div>
-        )
-      },
+      key: "name",
+      dataIndex: "name",
       width: 150,
     },
     {
@@ -155,24 +150,25 @@ const Index = (): ReactElement => {
       key: "email",
       width: 120,
     },
-    {
-      title: "Phone Number",
-      dataIndex: "phone_number",
-      key: "phone_number",
-      width: 200,
-    },
-    {
-      title: "Cnic Number",
-      dataIndex: "cnic_number",
-      key: "cnic_number",
-      width: 200,
+    // {
+    //   title: "Phone Number",
+    //   dataIndex: "phone_number",
+    //   key: "phone_number",
+    //   width: 200,
+    // },
+    // {
+    //   title: "Cnic Number",
+    //   dataIndex: "cnic_number",
+    //   key: "cnic_number",
+    //   width: 200,
 
-    },
+    // },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
       width: 200,
+      render: (address: string) => address || "N/A",
 
     },
     {

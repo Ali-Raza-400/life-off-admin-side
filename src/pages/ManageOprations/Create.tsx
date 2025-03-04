@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Select, Card, Typography, Upload, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd/es/upload/interface';
-import { useGetTrucksQuery } from '../../redux/slices/truck';
+import { useGetStoresQuery } from '../../redux/slices/truck';
 import { useGetUserByRoleQuery } from '../../redux/slices/user';
 import useNotification from '../../components/UI/Notification';
 import GenericButton from '../../components/UI/GenericButton';
@@ -14,7 +14,7 @@ const { Title, Paragraph } = Typography;
 
 const CreateOperation: React.FC = () => {
   const { Option } = Select;
-  const { data: truck, isLoading: truckLoading } = useGetTrucksQuery({
+  const { data: truck, isLoading: truckLoading } = useGetStoresQuery({
     page: 1,
     pageSize: 8,
   });

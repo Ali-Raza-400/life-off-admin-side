@@ -14,7 +14,7 @@ import { CiSettings } from "react-icons/ci";
 // import { RiCoupon3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
 
 export const items = [
-	
+
 	{
 		key: PATH.STUDENT_DASHBOARD,
 		icon: <MdDashboard />,
@@ -45,14 +45,14 @@ export const items = [
 	{
 		key: PATH.STUDENT_COURSES_LIST,
 		icon: <IoBookSharp />,
-		label: <Link to={PATH.STUDENT_COURSES_LIST}>{STRINGS.COURSES}</Link>,
+		label: <Link to={PATH.STUDENT_COURSES_LIST}>{STRINGS.MANAGE_STORES}</Link>,
 		show: true,
 	},
-	
+
 	{
-		key: PATH.COURSES,
+		key: PATH.STORES,
 		icon: <IoBookSharp />,
-		label: <Link to={PATH.COURSES}>{STRINGS.COURSES}</Link>,
+		label: <Link to={PATH.STORES}>{STRINGS.MANAGE_STORES}</Link>,
 		show: true,
 	},
 	{
@@ -67,13 +67,25 @@ export const items = [
 		label: <Link to={PATH.MANAGE_TEACHER}>{STRINGS.MANAGE_TEACHER}</Link>,
 		show: true,
 	},
+	{
+		key: PATH.MANAGE_PRODUCTS,
+		icon: <MdPerson />,
+		label: <Link to={PATH.MANAGE_PRODUCTS}>{STRINGS.MANAGE_PRODUCTS}</Link>,
+		show: true,
+	},
+	{
+		key: PATH.MANAGE_COUPONS,
+		icon: <MdPerson />,
+		label: <Link to={PATH.MANAGE_COUPONS}>{STRINGS.MANAGE_COUPONS}</Link>,
+		show: true,
+	},
 	// {
 	// 	key: PATH.MANAGE_STUDENTS,
 	// 	icon: <PiUsersFill />,
 	// 	label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.MANAGE_STUDENTS}</Link>,
 	// 	show: true,
 	// },
-	
+
 	{
 		key: STRINGS.USERNAME,
 		icon: <PiUsersFill />,
@@ -82,8 +94,8 @@ export const items = [
 		children: [
 			{
 				key: PATH.MANAGE_STUDENTS,
-				icon:<PiUsersFill />,
-				label:<Link to={PATH.MANAGE_STUDENTS}>{STRINGS.USER}</Link>,
+				icon: <PiUsersFill />,
+				label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.USER}</Link>,
 			},
 			{
 				key: PATH.CREATE_USER,
@@ -100,8 +112,8 @@ export const items = [
 		children: [
 			{
 				key: PATH.MANAGE_OPRATION,
-				icon:<PiUsersFill />,
-				label:<Link to={PATH.MANAGE_OPRATION}>{STRINGS.OPRATION}</Link>,
+				icon: <PiUsersFill />,
+				label: <Link to={PATH.MANAGE_OPRATION}>{STRINGS.OPRATION}</Link>,
 			},
 			{
 				key: PATH.MANAGE_OPRATION_CREATE,
@@ -162,17 +174,19 @@ export const items = [
 
 export const roleBasedItems = {
 	/** INSTITUTE */
-	[LOOKUP_TYPES.Role.SUPER_ADMIN]: [
+	[LOOKUP_TYPES.Role.ADMIN]: [
 		PATH.MANAGE_STUDENTS,
 		PATH.CREATE_USER,
 		PATH.TEACHER_DASHBOARD,
 		PATH.MANAGE_OPRATION,
 		PATH.MANAGE_OPRATION_CREATE,
+		PATH.MANAGE_PRODUCTS,
+		PATH.MANAGE_COUPONS,
 		// PATH.COUPONS,
 		PATH.EARNINGS,
 		// PATH.REGISTRATION_REQUEST,
 		// PATH.COURSE_REQUEST,
-		 PATH.COURSES,
+		PATH.STORES,
 
 		// PATH.INSTITUTE_SETTINGS,
 	],
@@ -184,11 +198,11 @@ export const roleBasedItems = {
 	],
 	/** TEACHER */
 	[LOOKUP_TYPES.Role.TEACHER]: [
-		PATH.COURSES,
+		PATH.STORES,
 		PATH.STUDENTS,
 	],
 	/** INDIVIDUAL */
-	[LOOKUP_TYPES.Role.INDIVIDUAL]: [PATH.COURSES],
+	[LOOKUP_TYPES.Role.INDIVIDUAL]: [PATH.STORES],
 	/** SUPER ADMIN */
 	// [LOOKUP_TYPES.Role.SUPER_ADMIN]: [],
 	/** TEACHING ASSISTANT */

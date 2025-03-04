@@ -37,6 +37,7 @@ const axiosBaseQuery: BaseQueryFn<AxiosBaseQueryArgs> = async (
 	};
 
 	const token = getUser()?.access_token || null;
+	console.log("token::::",token)
 	// const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzaGFmaXFzaWRkaXFAZ21haWwuY29tIiwiZXhwIjoxNzQxMTYwNzI2fQ.3YnbtDaAqk3b2jHjR6O2jGRuck7PzMqY5bTHN2sZf88";
 	if (token) {
 		headers = {
@@ -49,7 +50,7 @@ const axiosBaseQuery: BaseQueryFn<AxiosBaseQueryArgs> = async (
 		const resp = await axios({
 			url: customBaseUrl
 				? customBaseUrl + url
-				: 'https://sa.wholesalerspk.com/' + url,
+				: 'http://localhost:3000/' + url,
 			method,
 			data,
 			params,
@@ -70,11 +71,12 @@ const axiosBaseQuery: BaseQueryFn<AxiosBaseQueryArgs> = async (
 		// 		}
 		// 	]
 		// };
+		
 		if (resp.data) {
-			if (resp.data.data) {
+			if (resp.data) {
 				return {
 					data: {
-						list: resp.data.data,
+						list: resp.data,
 						pagination: resp.data,
 					},
 				};

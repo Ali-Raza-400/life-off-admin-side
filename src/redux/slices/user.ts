@@ -8,20 +8,21 @@ const userApi = rtkQApi.injectEndpoints({
 	endpoints: (builder) => ({
 		getUsers: builder.query<any, any>({
 
-			query: (tableOptions) => {
-				const params = {
-					...tableOptions.filters,
-					skip: `${tableOptions.pagination.page-1}0`,
-					limit: tableOptions.pagination.pageSize,
-				};
+			query: (_tableOptions) => {
+				// const params = {
+				// 	...tableOptions.filters,
+				// 	skip: `${tableOptions.pagination.page-1}0`,
+				// 	limit: tableOptions.pagination.pageSize,
+				// };
 				return {
 					url: 'users',
 					method: "GET",
-					params: params,
+					// params: params,
 				};
 			},
 			providesTags: (result) => providesList(result?.data, RTK_TAGS.USER),
 		}),
+
 		getUserByRole: builder.query<any, any>({
 			query: (params) => {
 				return {

@@ -74,7 +74,6 @@ function PrivateLayout({ children }: LayoutProps) {
 				return roleBasedItems[currentRole]?.includes(item.key) ? item : null;
 			})
 			.filter(Boolean);
-
 	const profileDropdownItems: MenuProps["items"] = [
 		{
 			key: "1",

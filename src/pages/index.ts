@@ -80,10 +80,16 @@ const STUDENT_COURSE_VIEW = React.lazy(
 const STUDENT_ENROLLED_COURSES = React.lazy(
 	() => import("../pages/Students/Courses/EnrolledCourses/Index")
 );
+const MANAGE_PRODUCTS = React.lazy(
+	() => import("../pages/Products/index")
+);
+const MANAGE_COUPONS = React.lazy(
+	() => import("../pages/Coupons/index")
+);
 
 
 //Courses
-const COURSES = React.lazy(() => import("./Courses/List/Index"));
+const STORES = React.lazy(() => import("./Courses/List/Index"));
 const COURSE_VIEW = React.lazy(() => import("./Courses/View/View"));
 const NEW_COURSE = React.lazy(() => import("./Courses/Generate/Index"));
 const STUDENT_COURSES_LIST = React.lazy(
@@ -99,6 +105,8 @@ const WEB_PAGES = {
 	INSTITUTE_SIGNUP,
 	FORGOT_PASSWORD,
 	UPDATE_PASSWORD,
+	MANAGE_PRODUCTS,
+	MANAGE_COUPONS,
 
 	// PROTECTED PAGES
 	ITEM_DASHBOARD,
@@ -140,7 +148,7 @@ const WEB_PAGES = {
 	STUDENTS_EARNINGS,
 
 	//Courses
-	COURSES,
+	STORES,
 	COURSE_VIEW,
 
 	//STUDENT
