@@ -39,7 +39,8 @@ const PATH = {
 	STUDENTS: "/student/list",
 	MANAGE_TEACHER_CREATE: "/manage-teacher/create",
 	TEACHER_PROFILE: "/teacher-profile/:id",
-	TEACHER_DASHBOARD: "/admin-dashboard",
+	ADMIN_DASHBOARD: "/admin-dashboard",
+	USER_DASHBOARD: "/user-dashboard",
 	TEACHER_STUDENT_PROFILE_VIEW: "/teacher/student-profile-view/:id",
 
 	//Finance

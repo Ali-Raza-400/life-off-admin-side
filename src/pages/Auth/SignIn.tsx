@@ -8,7 +8,6 @@ import { getErrorMessage, setThemeInLS, setUser } from "../../utils/helper"
 import InputField from "../../components/Form/InputField"
 import STRINGS from "../../utils/strings"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
-import type { AuthResponseDTO, LoginRequestDTO } from "./type"
 import useNotification from "../../components/UI/Notification"
 import axios from "axios"
 import { FaStore, FaUsers, FaTag } from "react-icons/fa"
@@ -20,7 +19,7 @@ function Index() {
   const [_login, { isLoading: isLoginLoading }] = useLoginMutation()
   const navigate = useNavigate()
 
-  const onFinish = async (values: LoginRequestDTO) => {
+  const onFinish = async (values: any) => {
     dispatch(setTheme("LIGHT"))
     setThemeInLS("LIGHT")
     try {
@@ -29,17 +28,19 @@ function Index() {
         .then((response) => {
           console.log("response:::",response)
           // return
+          // return
           const obj = {
             isActive: true,
             email: values?.email,
             fullName: response?.data?.fullName,
             role: response?.data?.role,
+            user_permissions:response?.data?.user_permissions,
             access_token:
               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzaGFmaXFzaWRkaXFAZ21haWwuY29tIiwiZXhwIjoxNzQxMTk1ODE5fQ.E6V2RmZiia0fSrIUqyN5YPtFrOqcNKDyKaBa6hLOYH8",
           }
           const newObj = { ...obj, access_token: response?.data?.accessToken }
           console.log("newObj:::", newObj)
-          setUser(newObj as AuthResponseDTO)
+          setUser(newObj as any)
           dispatch(setCredentials(newObj))
           navigate("/")
           openNotification({

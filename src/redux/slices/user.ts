@@ -23,6 +23,28 @@ const userApi = rtkQApi.injectEndpoints({
 			providesTags: (result) => providesList(result?.data, RTK_TAGS.USER),
 		}),
 
+		addUser: builder.mutation<UserFormValues, any>({
+			query: (payload) => {
+				return {
+					url: `${API_PATHS.USER}`,
+					method: "POST",
+					data: payload,
+				};
+			},
+			invalidatesTags: [{ type: RTK_TAGS.USER, id: "LIST" }],
+		}),
+		editUser: builder.mutation<UserFormValues, any>({
+			query: ({ payload, userId }) => {
+				console.log("userId::>", userId);
+				return {
+					url: `${API_PATHS.USER}/${userId}`,
+					method: "PATCH",
+					data: payload,
+				};
+			},
+			invalidatesTags: [{ type: RTK_TAGS.USER, id: "LIST" }],
+		}),
+
 		getUserByRole: builder.query<any, any>({
 			query: (params) => {
 				return {
@@ -43,7 +65,7 @@ const userApi = rtkQApi.injectEndpoints({
 				console.log("userId::>", userId);
 				return {
 					url: `${API_PATHS.USER}/${userId}`,
-					method: "PUT",
+					method: "PATCH",
 					data: payload,
 				};
 			},
@@ -140,6 +162,7 @@ const userApi = rtkQApi.injectEndpoints({
 
 export const {
 	useGetUsersQuery,
+	useAddUserMutation,
 	useGetUserByRoleQuery,
 	useLazyGetUsersQuery,
 	useGetUserByIdQuery,
@@ -151,4 +174,5 @@ export const {
 	useLazyGetStatesQuery,
 	useGetCitiesQuery,
 	useLazyGetCitiesQuery,
+	useEditUserMutation
 } = userApi;

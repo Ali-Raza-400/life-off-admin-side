@@ -1,31 +1,31 @@
 import { ReactElement, useEffect, useState } from "react";
-import { Button, Flex, TableProps } from "antd";
+import { Button, Checkbox, Flex, TableProps } from "antd";
 import ActionDropdown from "../../../components/UI/ActionDropdown";
 import useGenericAlert from "../../../components/Hooks/GenericAlert";
 import GenericTable from "../../../components/UI/GenericTable";
 import GenericButton from "../../../components/UI/GenericButton";
 import { FaPlus } from "react-icons/fa6";
-import { useGetUsersQuery, useUpdateUserMutation } from "../../../redux/slices/user";
+import { useAddUserMutation, useGetUsersQuery, useUpdateUserMutation } from "../../../redux/slices/user";
 import { Modal, Form, Input, Select } from "antd";
-import { useDeleteUserMutation, useRegisterMutation } from "../../../redux/slices/auth";
+import { useDeleteUserMutation } from "../../../redux/slices/auth";
 import PageLoader from "../../../components/Loader/PageLoader";
+import useNotification from "../../../components/UI/Notification";
+import { getErrorMessage } from "../../../utils/helper";
 
 const { Option } = Select;
 interface UserFormValues {
-  first_name: string;
-  last_name: string;
+  name: string;
   email: string;
-  address?: string;
-  phone_number: string;
-  cnic_number: string;
-  role: "admin" | "superadmin" | "worker";
   password: string;
+  role: string;
+  permissions: string[]; // this will hold array of permissions
 }
 
 interface AddUserModalProps {
   isVisible: boolean;
   onClose: () => void;
   onAddUser: (user: UserFormValues) => void;
+  loading: boolean;
 }
 interface UpdateUserModalProps {
   isVisible: boolean;
@@ -56,35 +56,35 @@ const Index = (): ReactElement => {
   });
 
   const [form] = Form.useForm();
-  const { data, isLoading: userLoading, isFetching, refetch } = useGetUsersQuery(tableOptions);
-  console.log("data::::",data)
+  const { data, isLoading: userLoading, refetch } = useGetUsersQuery(tableOptions);
+  console.log("data::::", data)
   const [deleteUser, { isLoading: deleteUserLoading }] = useDeleteUserMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
-  const [registerFunc, { isLoading }] = useRegisterMutation();
   const [updateUser, { isLoading: update }] = useUpdateUserMutation();
-  console.log(update);
-  console.log("isLoading", isLoading, isFetching);
+  const [addUser, { isLoading: addUserLoading }] = useAddUserMutation()
+  const { openNotification, contextHolder } = useNotification()
+
   const handleAddUser = async (userData: any) => {
     const payload = {
       ...userData,
     };
-    console.log("payload::::",payload)
+    console.log("payload::::", payload)
     try {
-      await registerFunc(payload).unwrap();
+      await addUser(payload).unwrap();
       showAlert({
         type: "success",
-        title: `User registered!`,
-        message: `User Added Successfully. Welcome to the SA-Enterprize System`,
+        title: `User Created Successfully!`,
+        message: `User Added Successfully. Welcome to the Marketing System`,
         confirmButtonText: "OK",
         onConfirm: () => refetch(),
       });
       form.resetFields();
     } catch (error: unknown) {
-      // openNotification({
-      // 	type: "error",
-      // 	title: getErrorMessage(error),
-      // });
+      openNotification({
+        type: "error",
+        title: getErrorMessage(error),
+      });
     }
   };
   const onEdit = (user: any) => {
@@ -150,26 +150,12 @@ const Index = (): ReactElement => {
       key: "email",
       width: 120,
     },
-    // {
-    //   title: "Phone Number",
-    //   dataIndex: "phone_number",
-    //   key: "phone_number",
-    //   width: 200,
-    // },
-    // {
-    //   title: "Cnic Number",
-    //   dataIndex: "cnic_number",
-    //   key: "cnic_number",
-    //   width: 200,
-
-    // },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Permissions",
+      dataIndex: "permissions",
+      key: "permissions",
       width: 200,
-      render: (address: string) => address || "N/A",
-
+      render: (permissions: string[]) => permissions?.length ? permissions.join(", ") : "N/A",
     },
     {
       title: "Role",
@@ -201,7 +187,7 @@ const Index = (): ReactElement => {
 
   return (
     <>
-      {/* {contextHolder} */}
+      {contextHolder}
       <Flex className="justify-end mb-4">
         {/* <SearchFilter position="end" /> */}
         <GenericButton
@@ -215,6 +201,7 @@ const Index = (): ReactElement => {
           isVisible={isModalVisible}
           onClose={() => setIsModalVisible(false)}
           onAddUser={handleAddUser}
+          loading={addUserLoading}
         />
         <UpdateUserModal
           isVisible={isUpdateModalVisible}
@@ -243,10 +230,18 @@ const Index = (): ReactElement => {
 };
 
 export default Index;
+const permissionsOptions = [
+  { label: "Store Page", value: "visit_store_page" },
+  { label: "Product Page", value: "visit_product_page" },
+  { label: "Coupon Page", value: "visit_coupon_page" },
+];
+
 const AddUserModal: React.FC<AddUserModalProps> = ({ isVisible, onClose, onAddUser }) => {
   const [form] = Form.useForm<UserFormValues>();
+
   const handleSubmit = (values: UserFormValues) => {
-    onAddUser(values);
+    const payload = { ...values }
+    onAddUser(payload);
     form.resetFields();
     onClose();
   };
@@ -256,45 +251,68 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ isVisible, onClose, onAddUs
       open={isVisible}
       onCancel={onClose}
       footer={[
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <div className="gap-2" style={{ display: "flex", justifyContent: "flex-end" }} key="footer">
           <Button key="cancel" onClick={onClose}>
             Cancel
-          </Button>,
+          </Button>
           <Button key="submit" type="primary" onClick={() => form.submit()}>
             Add User
-          </Button>,
+          </Button>
         </div>,
       ]}
     >
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
-        <Form.Item<UserFormValues> name="first_name" label="First Name" rules={[{ required: true, message: "First name is required" }]}>
+        <Form.Item<UserFormValues>
+          name="name"
+          label="Name"
+          rules={[{ required: true, message: "Name is required" }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item<UserFormValues> name="last_name" label="Last Name" rules={[{ required: true, message: "Last name is required" }]}>
+
+        <Form.Item<UserFormValues>
+          name="email"
+          label="Email"
+          rules={[{ required: true, type: "email", message: "Valid email is required" }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item<UserFormValues> name="email" label="Email" rules={[{ required: true, type: "email", message: "Valid email is required" }]}>
-          <Input />
+
+        <Form.Item<UserFormValues>
+          name="password"
+          label="Password"
+          rules={[{ required: true, message: "Password is required" }]}
+        >
+          <Input.Password />
         </Form.Item>
-        <Form.Item<UserFormValues> name="address" label="Address">
+
+        {/* <Form.Item<UserFormValues>
+          name="phone_number"
+          label="Phone Number"
+          rules={[{ required: true, message: "Phone Number is required" }]}
+        >
           <Input />
-        </Form.Item>
-        <Form.Item<UserFormValues> name="phone_number" label="Phone Number" rules={[{ required: true, message: "Phone number is required" }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item<UserFormValues> name="cnic_number" label="CNIC Number" rules={[{ required: true, message: "CNIC is required" }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item<UserFormValues> name="role" label="Role" rules={[{ required: true, message: "Role is required" }]}>
+        </Form.Item> */}
+
+
+        <Form.Item<UserFormValues>
+          name="role"
+          label="Role"
+          rules={[{ required: true, message: "Role is required" }]}
+        >
           <Select placeholder="Select Role">
-            <Option value="super_admin">Superadmin</Option>
-            <Option value="operations_manager">Operations Manager</Option>
-            <Option value="supervisor">Supervisor</Option>
-            <Option value="driver">Driver</Option>
+            <Option value="admin">Admin</Option>
+            <Option value="user">User</Option>
           </Select>
         </Form.Item>
-        <Form.Item<UserFormValues> name="password" label="Password" rules={[{ required: true, message: "Password is required" }]}>
-          <Input.Password />
+
+        {/* Permissions Checkbox Group */}
+        <Form.Item<UserFormValues>
+          name="permissions"
+          label="Permissions"
+          rules={[{ required: true, message: "At least one permission is required" }]}
+        >
+          <Checkbox.Group options={permissionsOptions} />
         </Form.Item>
       </Form>
     </Modal>
@@ -311,6 +329,7 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
   // Set initial values when selectedUser changes
   useEffect(() => {
     if (selectedUser) {
+      console.log("selectedUser::;", selectedUser)
       form.setFieldsValue(selectedUser);
     } else {
       form.resetFields();
@@ -340,31 +359,25 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
       ]}
     >
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
-        <Form.Item name="first_name" label="First Name" rules={[{ required: true, message: "First name is required" }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item name="last_name" label="Last Name" rules={[{ required: true, message: "Last name is required" }]}>
+
+        <Form.Item name="name" label=" Name" rules={[{ required: true, message: "Name is required" }]}>
           <Input />
         </Form.Item>
         <Form.Item name="email" label="Email" rules={[{ required: true, type: "email", message: "Valid email is required" }]}>
           <Input />
         </Form.Item>
-        <Form.Item name="address" label="Address">
-          <Input />
-        </Form.Item>
-        <Form.Item name="phone_number" label="Phone Number" rules={[{ required: true, message: "Phone number is required" }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item name="cnic_number" label="CNIC Number" rules={[{ required: true, message: "CNIC is required" }]}>
-          <Input />
-        </Form.Item>
         <Form.Item name="role" label="Role" rules={[{ required: true, message: "Role is required" }]}>
           <Select placeholder="Select Role">
-            <Option value="super_admin">Superadmin</Option>
-            <Option value="operations_manager">Operations Manager</Option>
-            <Option value="supervisor">Supervisor</Option>
-            <Option value="driver">Driver</Option>
+            <Option value="admin">Admin</Option>
+            <Option value="user">User</Option>
           </Select>
+        </Form.Item>
+        <Form.Item<UserFormValues>
+          name="permissions"
+          label="Permissions"
+          rules={[{ required: true, message: "At least one permission is required" }]}
+        >
+          <Checkbox.Group options={permissionsOptions} />
         </Form.Item>
         {!selectedUser && (
           <Form.Item name="password" label="Password" rules={[{ required: true, message: "Password is required" }]}>

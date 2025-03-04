@@ -78,9 +78,9 @@ export interface UserFormValues {
 	address?: string;
 	phone_number: string;
 	cnic_number: string;
-	role: "admin" | "superadmin" | "worker";
+	role: "admin" | "user";
 	password: string;
-  }
+}
 export interface UpdatePasswordResponseDTO {
 	email: string;
 	password: string;
@@ -93,9 +93,9 @@ export interface UserFormValues {
 	address?: string;
 	phone_number: string;
 	cnic_number: string;
-	role: "admin" | "superadmin" | "worker";
+	role: "admin" | "user";
 	password: string;
-  }
+}
 export type UpdatePasswordRequestDTO = LoginRequestDTO;
 
 export interface UserInterest {

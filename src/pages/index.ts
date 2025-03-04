@@ -39,8 +39,11 @@ const MANAGE_TEACHER_CREATE = React.lazy(
 const TEACHER_PROFILE = React.lazy(
 	() => import("./ManageTeachers/Profile/Index")
 );
-const TEACHER_DASHBOARD = React.lazy(
-	() => import("./ManageTeachers/dashboard/index")
+const ADMIN_DASHBOARD = React.lazy(
+	() => import("./dashboard/admin/index")
+);
+const USER_DASHBOARD = React.lazy(
+	() => import("./dashboard/user/index")
 );
 const TEACHER_STUDENT_PROFILE_VIEW = React.lazy(
 	() => import("../pages/Finance/Earnings/StudentsWise/View")
@@ -135,7 +138,8 @@ const WEB_PAGES = {
 	STUDENTS,
 	MANAGE_TEACHER_CREATE,
 	TEACHER_PROFILE,
-	TEACHER_DASHBOARD,
+	ADMIN_DASHBOARD,
+	USER_DASHBOARD,
 	TEACHER_STUDENT_PROFILE_VIEW,
 
 	//Finance

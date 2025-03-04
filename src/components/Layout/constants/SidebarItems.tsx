@@ -12,7 +12,6 @@ import { TiUserAdd } from "react-icons/ti";
 import { FaFolderPlus } from "react-icons/fa";
 import { CiSettings } from "react-icons/ci";
 // import { RiCoupon3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
-
 export const items = [
 
 	{
@@ -22,9 +21,15 @@ export const items = [
 		show: true,
 	},
 	{
-		key: PATH.TEACHER_DASHBOARD,
+		key: PATH.ADMIN_DASHBOARD,
 		icon: <MdDashboard />,
-		label: <Link to={PATH.TEACHER_DASHBOARD}>{STRINGS.TEACHER_DASHBOARD}</Link>,
+		label: <Link to={PATH.ADMIN_DASHBOARD}>{STRINGS.ADMIN_DASHBOARD}</Link>,
+		show: true,
+	},
+	{
+		key: PATH.USER_DASHBOARD,
+		icon: <MdDashboard />,
+		label: <Link to={PATH.USER_DASHBOARD}>{STRINGS.USER_DAHSBOARD}</Link>,
 		show: true,
 	},
 
@@ -171,29 +176,30 @@ export const items = [
 	// 	],
 	// },
 ];
-
+let user = localStorage.getItem("super_user");
+user = user ? JSON.parse(user) : null;
+console.log("user:::😊😊😊",user)
 export const roleBasedItems = {
 	/** INSTITUTE */
 	[LOOKUP_TYPES.Role.ADMIN]: [
 		PATH.MANAGE_STUDENTS,
 		PATH.CREATE_USER,
-		PATH.TEACHER_DASHBOARD,
-		PATH.MANAGE_OPRATION,
-		PATH.MANAGE_OPRATION_CREATE,
+		PATH.ADMIN_DASHBOARD,
 		PATH.MANAGE_PRODUCTS,
 		PATH.MANAGE_COUPONS,
-		// PATH.COUPONS,
-		PATH.EARNINGS,
-		// PATH.REGISTRATION_REQUEST,
-		// PATH.COURSE_REQUEST,
 		PATH.STORES,
-
-		// PATH.INSTITUTE_SETTINGS,
 	],
 	/** STUDENT */
-	[LOOKUP_TYPES.Role.STUDENT]: [
+	[LOOKUP_TYPES.Role.USER]: [
 		// PATH.STUDENT_DASHBOARD,
-		PATH.STUDENT_ENROLLED_COURSES,
+		PATH.USER_DASHBOARD,
+		//ignore ts
+		//@ts-ignore
+		(user && user.user_permissions?.includes('visit_product_page')) && PATH.MANAGE_PRODUCTS,
+		//@ts-ignore
+		(user && user.user_permissions?.includes('visit_store_page')) && PATH.STORES,
+		//@ts-ignore
+		(user && user.user_permissions?.includes('visit_coupon_page')) && PATH.MANAGE_COUPONS,
 
 	],
 	/** TEACHER */

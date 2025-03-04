@@ -26,7 +26,8 @@ const STRINGS = {
 	STUDENTS: "Students",
 	MANAGE_TEACHER_CREATE: "Create New Teacher",
 	TEACHER_PROFILE: "Teacher Profile",
-	TEACHER_DASHBOARD: "Dashboard",
+	ADMIN_DASHBOARD: "Dashboard",
+	USER_DAHSBOARD: "User Dashboard",
 	TEACHER_STUDENT_PROFILE_VIEW: "Student Profile",
 
 	INSTITUTE_PROFILE: "Institute Profile",

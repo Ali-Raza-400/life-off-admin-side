@@ -13,11 +13,12 @@ function PublicRoute({ element, layout }: RouteTypeProps) {
 	useEffect(() => {
 		if (user) {
 			window.location.href =
-				user.role === LOOKUP_TYPES.Role.STUDENT
-					? PATH.STUDENT_COURSES_LIST
-					: user.role === LOOKUP_TYPES.Role.TEACHER
-						? PATH.TEACHER_DASHBOARD
-						: PATH.MANAGE_STUDENTS; 
+				// user.role === LOOKUP_TYPES.Role.STUDENT
+				// 	? PATH.STUDENT_COURSES_LIST
+				// 	: 
+					user.role === LOOKUP_TYPES.Role.ADMIN
+						? PATH.ADMIN_DASHBOARD
+						: PATH.USER_DASHBOARD; 
 			// axiosInstance.defaults.headers.common['Authorization'] = 'Bearer YOUR_NEW_TOKEN';
 		}
 	}, [user]);
