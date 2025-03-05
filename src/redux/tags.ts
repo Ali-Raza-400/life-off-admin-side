@@ -1,4 +1,5 @@
 export const RTK_TAGS = {
+	STORE:'store',
 	COUPONS: "COUPONS",
 	PRODUCTS: "PRODUCTS",
 	TRUCK: "TRUCKS",

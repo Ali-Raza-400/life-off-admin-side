@@ -92,7 +92,7 @@ const MANAGE_COUPONS = React.lazy(
 
 
 //Courses
-const STORES = React.lazy(() => import("./Courses/List/Index"));
+const STORES = React.lazy(() => import("./ManageStores/Index"));
 const COURSE_VIEW = React.lazy(() => import("./Courses/View/View"));
 const NEW_COURSE = React.lazy(() => import("./Courses/Generate/Index"));
 const STUDENT_COURSES_LIST = React.lazy(
