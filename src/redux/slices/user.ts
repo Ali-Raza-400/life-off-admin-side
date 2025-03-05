@@ -33,6 +33,15 @@ const userApi = rtkQApi.injectEndpoints({
 			},
 			invalidatesTags: [{ type: RTK_TAGS.USER, id: "LIST" }],
 		}),
+
+		deleteUser: builder.mutation<any, string>({
+			query: (id) => ({
+				url: `${API_PATHS.USER}/${id}`,
+				method: "DELETE",
+			}),
+			invalidatesTags: [{ type: RTK_TAGS.USER, id: "LIST" }],
+		}),
+
 		editUser: builder.mutation<UserFormValues, any>({
 			query: ({ payload, userId }) => {
 				console.log("userId::>", userId);
@@ -174,5 +183,6 @@ export const {
 	useLazyGetStatesQuery,
 	useGetCitiesQuery,
 	useLazyGetCitiesQuery,
-	useEditUserMutation
+	useEditUserMutation,
+	useDeleteUserMutation
 } = userApi;

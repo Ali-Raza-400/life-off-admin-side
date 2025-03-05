@@ -1,15 +1,15 @@
 import { ReactElement, useEffect, useState } from "react";
 import { Button, Checkbox, Flex, TableProps } from "antd";
-import ActionDropdown from "../../../components/UI/ActionDropdown";
-import useGenericAlert from "../../../components/Hooks/GenericAlert";
-import GenericTable from "../../../components/UI/GenericTable";
-import GenericButton from "../../../components/UI/GenericButton";
+import ActionDropdown from "../../components/UI/ActionDropdown";
+import useGenericAlert from "../../components/Hooks/GenericAlert";
+import GenericTable from "../../components/UI/GenericTable";
+import GenericButton from "../../components/UI/GenericButton";
 import { FaPlus } from "react-icons/fa6";
-import { useAddUserMutation, useDeleteUserMutation, useGetUsersQuery, useUpdateUserMutation } from "../../../redux/slices/user";
+import { useAddUserMutation, useDeleteUserMutation, useGetUsersQuery, useUpdateUserMutation } from "../../redux/slices/user";
 import { Modal, Form, Input, Select } from "antd";
-import PageLoader from "../../../components/Loader/PageLoader";
-import useNotification from "../../../components/UI/Notification";
-import { getErrorMessage } from "../../../utils/helper";
+import PageLoader from "../../components/Loader/PageLoader";
+import useNotification from "../../components/UI/Notification";
+import { getErrorMessage } from "../../utils/helper";
 
 const { Option } = Select;
 interface UserFormValues {
