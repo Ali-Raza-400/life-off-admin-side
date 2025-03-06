@@ -93,6 +93,8 @@ const MANAGE_COUPONS = React.lazy(
 
 //Courses
 const STORES = React.lazy(() => import("./ManageStores/Index"));
+const ADD_STORE = React.lazy(() => import("./ManageStores/create/index"));
+const SINGLE_STORE = React.lazy(() => import("./ManageStores/singleStore"));
 const COURSE_VIEW = React.lazy(() => import("./Courses/View/View"));
 const NEW_COURSE = React.lazy(() => import("./Courses/Generate/Index"));
 const STUDENT_COURSES_LIST = React.lazy(
@@ -110,6 +112,7 @@ const WEB_PAGES = {
 	UPDATE_PASSWORD,
 	MANAGE_PRODUCTS,
 	MANAGE_COUPONS,
+	SINGLE_STORE,
 
 	// PROTECTED PAGES
 	ITEM_DASHBOARD,
@@ -153,6 +156,7 @@ const WEB_PAGES = {
 
 	//Courses
 	STORES,
+	ADD_STORE,
 	COURSE_VIEW,
 
 	//STUDENT

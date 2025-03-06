@@ -54,12 +54,7 @@ export const items = [
 		show: true,
 	},
 
-	{
-		key: PATH.STORES,
-		icon: <IoBookSharp />,
-		label: <Link to={PATH.STORES}>{STRINGS.MANAGE_STORES}</Link>,
-		show: true,
-	},
+
 	{
 		key: PATH.STUDENTS,
 		icon: <PiUsersFill />,
@@ -91,6 +86,25 @@ export const items = [
 	// 	show: true,
 	// },
 
+	{
+		key: STRINGS.MANAGE_STORES,
+		icon: <IoBookSharp />,
+		label: STRINGS.MANAGE_STORES,
+		show: true,
+		children: [
+			{
+				key: PATH.STORES,
+				icon: <IoBookSharp />,
+				label: <Link to={PATH.STORES}>{STRINGS.STORE}</Link>,
+				show: true,
+			},
+			{
+				key: PATH.ADD_STORES,
+				icon: <FaFolderPlus />,
+				label: <Link to={PATH.ADD_STORES}>{STRINGS.ADD_STORES}</Link>,
+			},
+		],
+	},
 	{
 		key: STRINGS.USERNAME,
 		icon: <PiUsersFill />,
@@ -188,6 +202,7 @@ export const roleBasedItems = {
 		PATH.MANAGE_PRODUCTS,
 		PATH.MANAGE_COUPONS,
 		PATH.STORES,
+		PATH.ADD_STORES,
 	],
 	/** STUDENT */
 	[LOOKUP_TYPES.Role.USER]: [

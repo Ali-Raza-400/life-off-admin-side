@@ -13,6 +13,7 @@ const PATH = {
 	UPDATE_PASSWORD: "/update-password",
 	OTP_SCREEN: "/otp-screen",
 
+
 	INSTITUTE_PROFILE: "/institute-profile",
 	INSTITUTE_SETTINGS: "/institute/settings",
 	MANAGE_STUDENTS: "/user/list",
@@ -20,6 +21,7 @@ const PATH = {
 	MANAGE_OPRATION_CREATE: "/manage-operation/create",
 	MANAGE_OPRATION_UPDATE: "/manage-operation/update",
 	STORES: "/store/list",
+	ADD_STORES: "/create/store",
 	COURSE_VIEW: "/course/view/:id",
 	COURSE_VIEW_STUDENT: "/student/course/view/:id",
 	NEW_COURSE: "/course/create",
@@ -62,6 +64,7 @@ const PATH = {
 	STUDENT_GRADE_ASSIGNMENTS: "/student/grade/assignments",
 	STUDENT_GRADE_QUIZZES: "/student/grade/quizzes",
 	STUDENT_ENROLLED_COURSES: "/opration/list",
+	SINGLE_STORE:'/single-store/:id'
 };
 
 export default PATH;

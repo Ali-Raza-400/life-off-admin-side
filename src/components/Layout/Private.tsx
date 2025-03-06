@@ -36,6 +36,8 @@ import { items, roleBasedItems } from "./constants/SidebarItems";
 import NavigateBackButton from "../UI/NavigateBackButton";
 import PATH from "../../navigation/Path";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import Navbar from "../../pages/ManageStores/components/Navbar";
+import FooterSection from "../../pages/ManageStores/components/Footer_Section";
 // import packageJson from "../../../package.json";
 
 const { Header, Content, Sider } = Layout;
@@ -57,6 +59,7 @@ function PrivateLayout({ children }: LayoutProps) {
 		const route = ROUTES.find((route) => matchPath(route.path, pathname));
 		return route ? route.name : "Page Not Found";
 	};
+	const shouldHideLayout = pathname.includes("/single-store");
 
 	// Filter items based on the current role
 	const getMenuItems = (currentRole: string | number) =>
@@ -139,7 +142,25 @@ function PrivateLayout({ children }: LayoutProps) {
 	// }, []);
 
 	return (
-		<Layout className={`min-h-screen ${theme.toLowerCase()} mobile-responsive`}>
+		<>{shouldHideLayout ? (
+			<>
+				<Navbar />
+				<Content className={`p-8 bg-[#ffffff] dark:bg-[#212529]`}>
+					<div className={` h-full`}>
+						{/* {!match && (
+							<div className="show-on-mobile">
+								<Typography variant="headingFour">{getPageName()}</Typography>
+							</div>
+						)} */}
+						{/* <div className={`bg-white dark:bg-[#2A2E32] h-full rounded-lg p-5`}> */}
+						{children}
+					</div>
+				</Content>
+				<FooterSection/>
+			</>
+		) : <Layout className={`min-h-screen ${theme.toLowerCase()} mobile-responsive`}>
+
+
 			<Sider
 				trigger={null}
 				collapsible
@@ -189,63 +210,64 @@ function PrivateLayout({ children }: LayoutProps) {
 						/>
 					</div>
 					{/* <div className="w-full flex justify-center">
-						<Switch
-							className={`theme-switch ${theme === THEME.LIGHT ? "light-switch" : "dark-switch"}`}
-							unCheckedChildren={<MdDarkMode size={18} fill="black" />}
-							checkedChildren={<MdLightMode size={18} />}
-							defaultChecked={theme === THEME.LIGHT}
-							onChange={switchTheme}
-						/>
-					</div> */}
+				<Switch
+					className={`theme-switch ${theme === THEME.LIGHT ? "light-switch" : "dark-switch"}`}
+					unCheckedChildren={<MdDarkMode size={18} fill="black" />}
+					checkedChildren={<MdLightMode size={18} />}
+					defaultChecked={theme === THEME.LIGHT}
+					onChange={switchTheme}
+				/>
+			</div> */}
 
 					{/* <div className="flex justify-center ">
-						<div className="bg-[#FCAB60] p-2 rounded-[10px] w-[11.5rem]">
-							<Space className="profile-dropdown-space">
-								<Avatar
-									src={`https://ui-avatars.com/api/?name=${`${user?.fullName || "USER"}`}&background=C95151&color=fff`}
-									size={40}
-									className="cursor-pointer"
-									icon={<UserOutlined />}
-								/>
-								<div className=" ">
-									<p
-										className="font-semibold text-white "
-										style={{ fontSize: "clamp(0.75rem, 2.5vw, 1.25rem)" }}
-									>
-										{user?.fullName || "USER"}
-									</p>
-									<Dropdown
-										menu={{
-											items: profileDropdownItems,
-										}}
-										trigger={["click"]}
-										className="profile-dropdown text-white"
-										placement="bottomCenter"
-										overlayClassName="position-fixed"
-									>
-										<Space className="profile-dropdown-space">
-											<Space className="flex cursor-pointer">
-												<Typography variant="bodySmallRegular" color="white">
-													Profile Settings
-												</Typography>
-												<GoChevronDown className="cursor-pointer" />
-											</Space>
-										</Space>
-									</Dropdown>
-								</div>
-							</Space>
-							<Divider className="bg-white my-3" />
-							<div
-								onClick={clearUser}
-								className="flex items-center text-white cursor-pointer"
+				<div className="bg-[#FCAB60] p-2 rounded-[10px] w-[11.5rem]">
+					<Space className="profile-dropdown-space">
+						<Avatar
+							src={`https://ui-avatars.com/api/?name=${`${user?.fullName || "USER"}`}&background=C95151&color=fff`}
+							size={40}
+							className="cursor-pointer"
+							icon={<UserOutlined />}
+						/>
+						<div className=" ">
+							<p
+								className="font-semibold text-white "
+								style={{ fontSize: "clamp(0.75rem, 2.5vw, 1.25rem)" }}
 							>
-								<FiLogOut size={18} className="mr-2" />
-								Logout
-							</div>
+								{user?.fullName || "USER"}
+							</p>
+							<Dropdown
+								menu={{
+									items: profileDropdownItems,
+								}}
+								trigger={["click"]}
+								className="profile-dropdown text-white"
+								placement="bottomCenter"
+								overlayClassName="position-fixed"
+							>
+								<Space className="profile-dropdown-space">
+									<Space className="flex cursor-pointer">
+										<Typography variant="bodySmallRegular" color="white">
+											Profile Settings
+										</Typography>
+										<GoChevronDown className="cursor-pointer" />
+									</Space>
+								</Space>
+							</Dropdown>
 						</div>
-					</div> */}
+					</Space>
+					<Divider className="bg-white my-3" />
+					<div
+						onClick={clearUser}
+						className="flex items-center text-white cursor-pointer"
+					>
+						<FiLogOut size={18} className="mr-2" />
+						Logout
+					</div>
+				</div>
+			</div> */}
 				</div>
 			</Sider>
+
 			<Layout className="ms-[4rem] sm:ms-[4.5rem] md:ms-[4.5rem] lg:ms-[12.5rem] xl:ms-[12.5rem]">
 				<Header
 					className={`bg-white dark:bg-[#212529] px-8 flex justify-between items-center`}
@@ -314,7 +336,9 @@ function PrivateLayout({ children }: LayoutProps) {
 					</div>
 				</Content>
 			</Layout>
-		</Layout>
+		</Layout>}
+
+		</>
 	);
 }
 export default PrivateLayout;

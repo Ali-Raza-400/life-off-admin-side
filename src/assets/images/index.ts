@@ -1,5 +1,6 @@
 import FAULT_IMG from "./fault-img.png";
 import LOGO from "./ALMSystem.svg";
+import STORE_LOGO from "./logo.svg";
 import SAMPLE_WEB from "./WebFlow.png";
 import LMS_IMAGE from "./LMS.png";
 import XEVEN_CARD from "./XevenCard.png";
@@ -25,6 +26,7 @@ import PERSON_IMG from "./person_logo.png";
 const IMAGES = {
 	FAULT_IMG,
 	LOGO,
+	STORE_LOGO,
 	SAMPLE_WEB,
 	LMS_IMAGE,
 	XEVEN_CARD,

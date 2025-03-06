@@ -1,27 +1,31 @@
 import { Checkbox, Col, DatePicker, Flex, Form, Input, Row, Select, TableProps } from "antd";
 import GenericTable from "../../components/UI/GenericTable"
 import ActionDropdown from "../../components/UI/ActionDropdown";
-import { useDeleteCouponMutation, useGetCouponsQuery, useSaveCouponMutation } from "../../redux/slices/coupons";
+import { useDeleteCouponMutation, useEditCouponMutation, useGetCouponsQuery, useSaveCouponMutation } from "../../redux/slices/coupons";
 import GenericModal from "../../components/UI/GenericModal";
 import { getErrorMessage } from "../../utils/helper";
 import useNotification from "../../components/UI/Notification";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useGenericAlert from "../../components/Hooks/GenericAlert";
 import TextArea from "antd/es/input/TextArea";
 import GenericButton from "../../components/UI/GenericButton";
 import { FaPlus } from "react-icons/fa";
 import { useGetProductsQuery } from "../../redux/slices/product";
 import { useGetMyStoresQuery } from "../../redux/slices/store";
+import dayjs from 'dayjs';
 
 const Index = () => {
     const { data, refetch } = useGetCouponsQuery({})
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
+    const [selectedCoupon, setSelectedCoupon] = useState<any>()
     console.log("data::::", data)
     const { openNotification } = useNotification()
     const { showAlert } = useGenericAlert();
     const [form] = Form.useForm();
     const [saveCoupon] = useSaveCouponMutation()
     const [deleteCoupon] = useDeleteCouponMutation()
+    const [editCoupon] = useEditCouponMutation()
 
     const onDelete = async (id: string) => {
         console.log("id:::", id);
@@ -53,6 +57,37 @@ const Index = () => {
         });
     };
 
+    const handleUpdateCoupon = async (userData: any) => {
+        const payload = { ...userData };
+
+        try {
+            await editCoupon({ payload, id: selectedCoupon.id }).unwrap();
+            showAlert({
+                type: "success",
+                title: "Store Content Updated!",
+                message: "The store content has been successfully updated.",
+                confirmButtonText: "OK",
+                onConfirm: () => refetch(),
+            });
+            setIsUpdateModalVisible(false)
+            form.resetFields();
+        } catch (error: any) {
+            console.error("Update store failed:", error);
+            showAlert({
+                type: "error",
+                title: "Update Failed",
+                message: error?.data?.message || "Something went wrong while updating the store.",
+                confirmButtonText: "OK",
+            });
+        }
+    };
+
+    const onEdit = (store: any) => {
+        console.log("store:::", store)
+        // return
+        setIsUpdateModalVisible(true)
+        setSelectedCoupon(store)
+    };
 
     const columns: TableProps<any>["columns"] = [
         {
@@ -60,57 +95,56 @@ const Index = () => {
             dataIndex: "name",
             key: "name",
             width: 200,
+            render: (name) => name || "N/A", // If name is empty, show N/A
         },
         {
             title: "Coupon Code",
             dataIndex: "code",
             key: "code",
             width: 150,
-            render: (code) => <strong>{code}</strong>,
+            render: (code) => code ? <strong>{code}</strong> : "N/A", // If code is empty, show N/A
         },
         {
             title: "Store Name",
             dataIndex: ["store", "name"],
             key: "storeName",
             width: 200,
+            render: (storeName) => storeName || "N/A", // If store name is empty, show N/A
         },
         {
             title: "Category",
             dataIndex: "category",
             key: "category",
             width: 150,
+            render: (category) => category || "N/A", // If category is empty, show N/A
         },
         {
             title: "Start Date",
             dataIndex: "startDate",
             key: "startDate",
             width: 150,
-            render: (date) => new Date(date).toLocaleDateString(),
+            render: (date) => date ? new Date(date).toLocaleDateString() : "N/A", // If date is empty, show N/A
         },
         {
             title: "End Date",
             dataIndex: "endDate",
             key: "endDate",
             width: 150,
-            render: (date) => new Date(date).toLocaleDateString(),
+            render: (date) => date ? new Date(date).toLocaleDateString() : "N/A", // If date is empty, show N/A
         },
         {
             title: "Verified?",
             dataIndex: "isVerified",
             key: "isVerified",
             width: 100,
-            render: (isVerified) => (isVerified ? "Yes" : "No"),
+            render: (isVerified) => (isVerified !== undefined ? (isVerified ? "Yes" : "No") : "N/A"), // If isVerified is undefined, show N/A
         },
         {
             title: "Coupon Link",
             dataIndex: "htmlCodeUrl",
             key: "htmlCodeUrl",
             width: 200,
-            render: (url) => (
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                    View Coupon
-                </a>
-            ),
+            render: (url) => url ? <a href={url} target="_blank" rel="noopener noreferrer">View Coupon</a> : "N/A", // If url is empty, show N/A
         },
         {
             title: "Actions",
@@ -119,12 +153,13 @@ const Index = () => {
             width: 120,
             render: (coupon) => (
                 <ActionDropdown
-                    // editOnClick={() => onEdit(coupon)}
+                    editOnClick={() => onEdit(coupon)}
                     deleteOnClick={() => onDelete(coupon?.id)}
                 />
             ),
         },
     ];
+    
 
     const handleAddCoupon = async (userData: any) => {
         const payload = {
@@ -155,13 +190,20 @@ const Index = () => {
 
                 <GenericButton
                     icon={<FaPlus size={20} />}
-                    label="Create New Store"
+                    label="Create New Coupon"
                     onClick={() => setIsModalVisible(true)}
                 />
                 <AddCouponModal
                     isVisible={isModalVisible}
                     onClose={() => setIsModalVisible(false)}
                     onAddCoupon={handleAddCoupon}
+                    form={form}
+                />
+                <UpdateCouponModal
+                    isVisible={isUpdateModalVisible}
+                    onClose={() => setIsUpdateModalVisible(false)}
+                    onUpdateCoupon={handleUpdateCoupon}
+                    selectedCoupon={selectedCoupon}
                     form={form}
                 />
             </Flex>
@@ -245,7 +287,7 @@ const AddCouponModal: React.FC<any> = ({ isVisible, onClose, onAddCoupon, form }
                         <Form.Item
                             name="code"
                             label="Promo Code"
-                            rules={[{ required: true, message: "Promo Code is required" }]}
+                            rules={[{ required: false, message: "Promo Code is required" }]}
                         >
                             <Input placeholder="SAVE350" style={{ height: 45 }} />
                         </Form.Item>
@@ -396,5 +438,173 @@ const AddCouponModal: React.FC<any> = ({ isVisible, onClose, onAddCoupon, form }
 
         </GenericModal>
 
+    );
+};
+const UpdateCouponModal: React.FC<any> = ({
+    isVisible,
+    onClose,
+    onUpdateCoupon,
+    form,
+    selectedCoupon
+}) => {
+console.log("selectedCoupon:::",selectedCoupon);
+
+    const { data: productsData } = useGetProductsQuery({});
+    const { data: myStore } = useGetMyStoresQuery({});
+
+    useEffect(() => {
+        if (selectedCoupon) {
+            form.setFieldsValue({
+                ...selectedCoupon,
+                startDate: selectedCoupon.startDate ? dayjs(selectedCoupon.startDate) : null,
+                endDate: selectedCoupon.endDate ? dayjs(selectedCoupon.endDate) : null,
+                productIds: (selectedCoupon.products || []).map((p: any) => p.id) // Extract product IDs
+            });
+        } else {
+            form.resetFields();
+        }
+    }, [selectedCoupon, form]);
+
+    const handleSubmit = (values: any) => {
+        const payload = {
+            ...values,
+            startDate: values.startDate ? values.startDate.format('YYYY-MM-DD') : null,
+            endDate: values.endDate ? values.endDate.format('YYYY-MM-DD') : null,
+            rank: Number(values.rank),
+            isFreeShipping: values.isFreeShipping || false,
+            isExclusive: values.isExclusive || false,
+            isVerified: values.isVerified || false,
+            isActive: values.isActive || false,
+            showOnHomePage: values.showOnHomePage || false,
+            isTopCategory: values.isTopCategory || false,
+            productIds: values.productIds || [],
+            storeId: values.storeId || '',
+        };
+        onUpdateCoupon(payload);
+    };
+
+    return (
+        <GenericModal
+            onClose={onClose}
+            show={isVisible}
+            title="Update Coupon"
+            width={900}
+            onOk={() => form.validateFields().then(handleSubmit)}
+            maskClosable={false}
+        >
+            <Form form={form} layout="vertical">
+                <Row gutter={24}>
+                    <Col span={12}>
+                        <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+                            <Input placeholder="Coupon Name" style={{ height: 45 }} />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item name="detail" label="Detail" rules={[{ required: true }]}>
+                            <TextArea rows={2} placeholder="Coupon Details" />
+                        </Form.Item>
+                    </Col>
+                </Row>
+
+                <Row gutter={24}>
+                    <Col span={12}>
+                        <Form.Item name="code" label="Promo Code" rules={[{ required: false }]}>
+                            <Input placeholder="SAVE350" style={{ height: 45 }} />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item name="htmlCodeUrl" label="HTML Code URL" rules={[{ required: true }]}>
+                            <Input placeholder="https://some-url.com" style={{ height: 45 }} />
+                        </Form.Item>
+                    </Col>
+                </Row>
+
+                <Row gutter={24}>
+                    <Col span={12}>
+                        <Form.Item name="startDate" label="Start Date" rules={[{ required: true }]}>
+                            <DatePicker
+                                style={{ width: '100%' }}
+                                format="YYYY-MM-DD"
+                                onChange={() => form.setFieldValue('endDate', null)}
+                            />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item name="endDate" label="End Date" rules={[{ required: true }]}>
+                            <DatePicker
+                                style={{ width: '100%' }}
+                                format="YYYY-MM-DD"
+                                disabledDate={(current) => {
+                                    const startDate = form.getFieldValue('startDate');
+                                    return startDate ? current && current.isBefore(startDate, 'day') : false;
+                                }}
+                            />
+                        </Form.Item>
+                    </Col>
+                </Row>
+
+                <Row gutter={24}>
+                    <Col span={12}>
+                        <Form.Item name="category" label="Category" rules={[{ required: true }]}>
+                            <Input placeholder="Category" style={{ height: 45 }} />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item name="rank" label="Rank" rules={[{ required: true }]}>
+                            <Input type="number" placeholder="Rank" style={{ height: 45 }} />
+                        </Form.Item>
+                    </Col>
+                </Row>
+
+                <Row gutter={24}>
+                    <Col span={12}>
+                        <Form.Item name="productIds" label="Products" rules={[{ required: true }]}>
+                            <Select
+                                mode="tags"
+                                placeholder="Select Products"
+                                options={(productsData?.list || []).map((product: any) => ({
+                                    value: product.id,
+                                    label: product.name,
+                                }))}
+                            />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item name="storeId" label="Store" rules={[{ required: true }]}>
+                            <Select
+                                placeholder="Select Store"
+                                options={(myStore?.list || []).map((store: any) => ({
+                                    value: store.id,
+                                    label: store.name,
+                                }))}
+                            />
+                        </Form.Item>
+                    </Col>
+                </Row>
+
+                <Row gutter={24}>
+                    <Col span={6}>
+                        <Form.Item name="isFreeShipping" valuePropName="checked">
+                            <Checkbox>Free Shipping</Checkbox>
+                        </Form.Item>
+                    </Col>
+                    <Col span={6}>
+                        <Form.Item name="isExclusive" valuePropName="checked">
+                            <Checkbox>Exclusive</Checkbox>
+                        </Form.Item>
+                    </Col>
+                    <Col span={6}>
+                        <Form.Item name="isVerified" valuePropName="checked">
+                            <Checkbox>Verified</Checkbox>
+                        </Form.Item>
+                    </Col>
+                    <Col span={6}>
+                        <Form.Item name="isActive" valuePropName="checked">
+                            <Checkbox>Active</Checkbox>
+                        </Form.Item>
+                    </Col>
+                </Row>
+            </Form>
+        </GenericModal>
     );
 };

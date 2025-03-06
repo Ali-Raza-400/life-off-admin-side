@@ -79,7 +79,7 @@ export const checkApiAccess = async () => {
       merchantsAccess: true,
       vouchersAccess: true
     };
-  } catch (error) {
+  } catch (error:any) {
     console.error('API Access Check Failed:', error);
     return {
       merchantsAccess: false,

@@ -1,4 +1,7 @@
 const STRINGS = {
+	STORE:'Stores',
+	ADD_STORES:'Create Store',
+	SINGLE_STORE:'Single Store',
 	MANAGE_COUPONS:"Manage Coupons",
 	MANAGE_PRODUCTS: "Manage Products",
 	USERNAME: "Username",

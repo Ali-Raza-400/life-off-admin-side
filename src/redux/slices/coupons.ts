@@ -1,3 +1,4 @@
+import { API_PATHS } from "../../utils/apiPaths";
 import { providesList } from "../../utils/helper";
 import { rtkQApi } from "../rtkQApi";
 import { RTK_TAGS } from "../tags";
@@ -23,6 +24,14 @@ const couponsApi = rtkQApi.injectEndpoints({
             },
             invalidatesTags: [{ type: RTK_TAGS.COUPONS, id: "LIST" }],
         }),
+         editCoupon: builder.mutation<any, any>({
+                    query: ({ payload, id }) => ({
+                        url: `${API_PATHS.COUPONS}/${id}`,
+                        method: "PATCH",
+                        data: payload,
+                    }),
+                    invalidatesTags: [{ type: RTK_TAGS.COUPONS, id: "LIST" }],
+                }),
         deleteCoupon: builder.mutation<any, any>({
             query: (id) => {
                 return {
@@ -36,4 +45,4 @@ const couponsApi = rtkQApi.injectEndpoints({
     }),
 })
 
-export const { useGetCouponsQuery,useSaveCouponMutation,useDeleteCouponMutation } = couponsApi;
+export const { useGetCouponsQuery,useSaveCouponMutation,useDeleteCouponMutation,useEditCouponMutation } = couponsApi;

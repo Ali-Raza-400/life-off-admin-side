@@ -10,14 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-react": "^9.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^40.0.0",
+    "@ckeditor/ckeditor5-react": "^6.0.0",
     "@reduxjs/toolkit": "^2.2.7",
     "antd": "^5.21.0",
     "antd-img-crop": "^4.23.0",
     "apexcharts": "^3.50.0",
     "array-move": "^4.0.0",
     "axios": "^1.7.2",
-    "ckeditor5": "^43.0.0",
+    "dayjs": "^1.11.13",
     "json-edit-react": "^1.15.5",
     "jspdf": "^2.5.2",
     "less": "^4.2.0",
@@ -41,6 +42,7 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.16",
     "@types/react": "^18.3.3",
     "@types/react-csv": "^1.1.10",
     "@types/react-dom": "^18.3.0",

@@ -1,18 +1,20 @@
 import { ReactElement, useEffect, useState } from "react";
-import { Checkbox, Col, Flex, Input, Row, Select, TableProps } from "antd";
+import { Checkbox, Col, Collapse, Flex, Input, Row, Select, TableProps } from "antd";
 import ActionDropdown from "../../components/UI/ActionDropdown";
 import GenericTable from "../../components/UI/GenericTable";
 import GenericButton from "../../components/UI/GenericButton";
 import { FaPlus } from "react-icons/fa6";
 import { Form } from "antd";
-import {  useGetStoresQuery } from "../../redux/slices/truck";
-import PageLoader from "../../components/Loader/PageLoader";
+import { useGetStoresQuery } from "../../redux/slices/truck";
 import GenericModal from "../../components/UI/GenericModal";
 import useGenericAlert from "../../components/Hooks/GenericAlert";
 import TextArea from "antd/es/input/TextArea";
 import { useEditStoreMutation, useRemoveStoreMutation, useSaveStoreMutation } from "../../redux/slices/store";
 import { getErrorMessage } from "../../utils/helper";
 import useNotification from "../../components/UI/Notification";
+import { useNavigate } from "react-router-dom";
+import PATH from "../../navigation/Path";
+import CkEditor from '../../components/UI/GenericCkEditor';
 
 
 
@@ -24,9 +26,9 @@ const Index = (): ReactElement => {
 		page: 1,
 		pageSize: 8,
 	});
-	console.log("data::::", data)
+	const navigate = useNavigate()
 
-	const [removeStore, { isLoading: DeleteTruckLoading }] = useRemoveStoreMutation();
+	const [removeStore] = useRemoveStoreMutation();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [saveStore] = useSaveStoreMutation()
 	const [editStore] = useEditStoreMutation()
@@ -134,9 +136,14 @@ const Index = (): ReactElement => {
 			dataIndex: "storeUrl",
 			key: "storeUrl",
 			width: 200,
-			render: (url) => <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>,
+			render: (url, obj) => {
+				console.log("obj:::", obj)
+				return (
+					<div className="cursor-pointer" onClick={() => navigate(PATH.SINGLE_STORE.replace(":id", obj?.id))}>{url}</div>
+				)
+			},
 		},
-
+		// PATH.TEACHER_PROFILE.replace(":id", user.id)
 		{
 			title: "Is Popular?",
 			dataIndex: "isPopularStore",
@@ -196,6 +203,7 @@ export default Index;
 
 const AddStoreModal: React.FC<any> = ({ isVisible, onClose, onAddStore }) => {
 	const [form] = Form.useForm();
+	const { Panel } = Collapse;
 
 	const handleSubmit = (values: any) => {
 		const payload = {
@@ -321,6 +329,48 @@ const AddStoreModal: React.FC<any> = ({ isVisible, onClose, onAddStore }) => {
 						</Form.Item>
 					</Col>
 				</Row>
+				<Collapse className="mb-6">
+                    <Panel header="SEO Information" key="1">
+                        <Row gutter={24}>
+                            <Col span={24}>
+                                <Form.Item name="storeTitle" label="Store Title">
+                                    <Input placeholder="Enter store title" style={{ height: 45 }} />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row gutter={24}>
+                            <Col span={24}>
+                                <Form.Item name="metaDescription" label="Meta Description">
+                                    <TextArea
+                                        placeholder="Enter meta description"
+                                        rows={3}
+                                        showCount
+                                        maxLength={160}
+                                    />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row gutter={24}>
+                            <Col span={24}>
+                                <Form.Item name="storeDescription" label="Store Description">
+                                    <TextArea
+                                        placeholder="Enter store description"
+                                        rows={4}
+                                    />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row gutter={24}>
+                            <Col span={24}>
+                                <CkEditor
+                                    form={form}
+                                    dynamicField="storeArticle"
+                                    label="storeArticle"
+                                />
+                            </Col>
+                        </Row>
+                    </Panel>
+                </Collapse>
 			</Form>
 		</GenericModal>
 	);
@@ -329,6 +379,7 @@ const AddStoreModal: React.FC<any> = ({ isVisible, onClose, onAddStore }) => {
 const UpdateUserModal: React.FC<any> = ({ isVisible, onClose, onUpdateStore, selectedStore }) => {
 	console.log("selectedStore:::", selectedStore)
 	const [form] = Form.useForm();
+	const { Panel } = Collapse;
 
 	useEffect(() => {
 		if (selectedStore) {
@@ -462,6 +513,48 @@ const UpdateUserModal: React.FC<any> = ({ isVisible, onClose, onUpdateStore, sel
 						</Form.Item>
 					</Col>
 				</Row>
+				<Collapse className="mb-6">
+                    <Panel header="SEO Information" key="1">
+                        <Row gutter={24}>
+                            <Col span={24}>
+                                <Form.Item name="storeTitle" label="Store Title">
+                                    <Input placeholder="Enter store title" style={{ height: 45 }} />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row gutter={24}>
+                            <Col span={24}>
+                                <Form.Item name="metaDescription" label="Meta Description">
+                                    <TextArea
+                                        placeholder="Enter meta description"
+                                        rows={3}
+                                        showCount
+                                        maxLength={160}
+                                    />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row gutter={24}>
+                            <Col span={24}>
+                                <Form.Item name="storeDescription" label="Store Description">
+                                    <TextArea
+                                        placeholder="Enter store description"
+                                        rows={4}
+                                    />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row gutter={24}>
+                            <Col span={24}>
+                                <CkEditor
+                                    form={form}
+                                    dynamicField="storeArticle"
+                                    label="storeArticle"
+                                />
+                            </Col>
+                        </Row>
+                    </Panel>
+                </Collapse>
 			</Form>
 		</GenericModal>
 	);

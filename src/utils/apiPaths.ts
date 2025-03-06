@@ -1,4 +1,5 @@
 export const API_PATHS: { [key: string]: string } = {
+	COUPONS:'coupons',
 	LOGIN: "login",
 	ITEMS: "items",
 	USER: "users",
@@ -27,6 +28,7 @@ export const API_PATHS: { [key: string]: string } = {
 	OTP: "verify-otp",
 	RESEND_OTP: "resend-otp",
 	COUNTRIES:"world/countries",
+	COUPONS_PRODUCT:'coupon-product',
 	//teachers endpoints
 
 	TEACHER_PUBLICATION: "teacher-publications",
