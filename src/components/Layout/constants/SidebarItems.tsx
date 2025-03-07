@@ -2,15 +2,16 @@ import PATH from "../../../navigation/Path";
 // import { RiCoupon3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
 import STRINGS from "../../../utils/strings";
 import { Link } from "react-router-dom";
-import { MdDashboard, MdPerson } from "react-icons/md";
-import { FaBookOpen } from "react-icons/fa6";
+import { MdDashboard, MdPerson, MdPostAdd } from "react-icons/md";
 // import { FaBookOpen, FaHandHoldingDollar } from "react-icons/fa6";
 import { IoBookSharp, IoDocumentText } from "react-icons/io5";
 import { PiUsersFill } from "react-icons/pi";
 import { LOOKUP_TYPES } from "../../../utils/lookup";
-import { TiUserAdd } from "react-icons/ti";
-import { FaFolderPlus } from "react-icons/fa";
+import { FaFolderPlus, FaNetworkWired } from "react-icons/fa";
 import { CiSettings } from "react-icons/ci";
+import { BsFilePostFill } from "react-icons/bs";
+import { BiCategory } from "react-icons/bi";
+import { TbCategoryPlus } from "react-icons/tb";
 // import { RiCoupon3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
 export const items = [
 
@@ -142,24 +143,68 @@ export const items = [
 		],
 	},
 	{
-		key: STRINGS.REQUESTS,
-		icon: <FaFolderPlus />,
-		label: STRINGS.REQUESTS,
+		key: STRINGS.BLOGS,
+		icon: <BsFilePostFill />,
+		label: STRINGS.BLOGS,
 		show: true,
 		children: [
 			{
-				key: PATH.REGISTRATION_REQUEST,
-				icon: <TiUserAdd size={18} />,
+				key: PATH.VIEW_BLOG,
+				icon: <BsFilePostFill size={18} />,
 				label: (
-					<Link to={PATH.REGISTRATION_REQUEST}>
-						{STRINGS.REGISTRATION_REQUEST}
+					<Link to={PATH.VIEW_BLOG}>
+						{STRINGS.VIEW_BLOGS}
 					</Link>
 				),
 			},
 			{
-				key: PATH.COURSE_REQUEST,
-				icon: <FaBookOpen size={18} />,
-				label: <Link to={PATH.COURSE_REQUEST}>{STRINGS.COURSE_REQUEST}</Link>,
+				key: PATH.ADD_BLOGS,
+				icon: <MdPostAdd size={18} />,
+				label: <Link to={PATH.ADD_BLOGS}>{STRINGS.ADD_BLOGS}</Link>,
+			},
+		],
+	},
+	{
+		key: STRINGS.CATEGORY,
+		icon: <BiCategory  />,
+		label: STRINGS.CATEGORY,
+		show: true,
+		children: [
+			{
+				key: PATH.VIEW_CATEGORY,
+				icon: <BiCategory size={18} />,
+				label: (
+					<Link to={PATH.VIEW_CATEGORY}>
+						{STRINGS.VIEW_CATEGORY}
+					</Link>
+				),
+			},
+			{
+				key: PATH.ADD_CATEGORY,
+				icon: <TbCategoryPlus />,
+				label: <Link to={PATH.ADD_CATEGORY}>{STRINGS.ADD_CATEGORY}</Link>,
+			},
+		],
+	},
+	{
+		key: STRINGS.NETWORK,
+		icon: <FaNetworkWired  />,
+		label: STRINGS.NETWORK,
+		show: true,
+		children: [
+			{
+				key: PATH.VIEW_NETWORK,
+				icon: <FaNetworkWired  size={18} />,
+				label: (
+					<Link to={PATH.VIEW_NETWORK}>
+						{STRINGS.VIEW_NETWORK}
+					</Link>
+				),
+			},
+			{
+				key: PATH.ADD_NETWORK,
+				icon: <FaNetworkWired />,
+				label: <Link to={PATH.ADD_NETWORK}>{STRINGS.ADD_NETWORK}</Link>,
 			},
 		],
 	},
@@ -203,6 +248,14 @@ export const roleBasedItems = {
 		PATH.MANAGE_COUPONS,
 		PATH.STORES,
 		PATH.ADD_STORES,
+		PATH.ADD_BLOGS,
+		PATH.VIEW_BLOG,
+		PATH.ADD_CATEGORY,
+		PATH.VIEW_CATEGORY,
+		PATH.ADD_NETWORK,
+		PATH.VIEW_EARNINGS,
+		PATH.VIEW_NETWORK
+		
 	],
 	/** STUDENT */
 	[LOOKUP_TYPES.Role.USER]: [

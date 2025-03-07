@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from "react";
-import { Checkbox, Col, Collapse, Flex, Input, Row, Select, TableProps } from "antd";
+import { Button, Checkbox, Col, Collapse, Flex, Input, Row, Select, TableProps } from "antd";
 import ActionDropdown from "../../components/UI/ActionDropdown";
 import GenericTable from "../../components/UI/GenericTable";
 import GenericButton from "../../components/UI/GenericButton";
@@ -15,6 +15,7 @@ import useNotification from "../../components/UI/Notification";
 import { useNavigate } from "react-router-dom";
 import PATH from "../../navigation/Path";
 import CkEditor from '../../components/UI/GenericCkEditor';
+import { MdDelete } from "react-icons/md";
 
 
 
@@ -204,6 +205,23 @@ export default Index;
 const AddStoreModal: React.FC<any> = ({ isVisible, onClose, onAddStore }) => {
 	const [form] = Form.useForm();
 	const { Panel } = Collapse;
+	const [faqs, setFaqs] = useState([{ question: '', answer: '' }]);
+
+	const handleFaqChange = (index: number, field: 'question' | 'answer', value: string) => {
+		const updatedFaqs = [...faqs];
+		updatedFaqs[index][field] = value;
+		setFaqs(updatedFaqs);
+	};
+
+	const removeFaq = (index: any) => {
+		const updatedFaqs = [...faqs];
+		updatedFaqs.splice(index, 1);
+		setFaqs(updatedFaqs);
+	};
+
+	const addFaq = () => {
+		setFaqs([...faqs, { question: '', answer: '' }]);
+	};
 
 	const handleSubmit = (values: any) => {
 		const payload = {
@@ -212,6 +230,7 @@ const AddStoreModal: React.FC<any> = ({ isVisible, onClose, onAddStore }) => {
 			isFeatureStore: values.isFeatureStore || false,
 			isCategoryFeatureStore: values.isCategoryFeatureStore || false,
 			isActive: values.isActive || false,
+			faqs: faqs.filter(faq => faq.question.trim() !== '' && faq.answer.trim() !== '')
 		};
 
 		console.log("Store Payload:", payload);
@@ -330,47 +349,101 @@ const AddStoreModal: React.FC<any> = ({ isVisible, onClose, onAddStore }) => {
 					</Col>
 				</Row>
 				<Collapse className="mb-6">
-                    <Panel header="SEO Information" key="1">
-                        <Row gutter={24}>
-                            <Col span={24}>
-                                <Form.Item name="storeTitle" label="Store Title">
-                                    <Input placeholder="Enter store title" style={{ height: 45 }} />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row gutter={24}>
-                            <Col span={24}>
-                                <Form.Item name="metaDescription" label="Meta Description">
-                                    <TextArea
-                                        placeholder="Enter meta description"
-                                        rows={3}
-                                        showCount
-                                        maxLength={160}
-                                    />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row gutter={24}>
-                            <Col span={24}>
-                                <Form.Item name="storeDescription" label="Store Description">
-                                    <TextArea
-                                        placeholder="Enter store description"
-                                        rows={4}
-                                    />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row gutter={24}>
-                            <Col span={24}>
-                                <CkEditor
-                                    form={form}
-                                    dynamicField="storeArticle"
-                                    label="storeArticle"
-                                />
-                            </Col>
-                        </Row>
-                    </Panel>
-                </Collapse>
+					<Panel header="SEO Information" key="1">
+						<Row gutter={24}>
+							<Col span={24}>
+								<Form.Item name="storeTitle" label="Store Title">
+									<Input placeholder="Enter store title" style={{ height: 45 }} />
+								</Form.Item>
+							</Col>
+						</Row>
+						<Row gutter={24}>
+							<Col span={24}>
+								<Form.Item name="metaDescription" label="Meta Description">
+									<TextArea
+										placeholder="Enter meta description"
+										rows={3}
+										showCount
+										maxLength={160}
+									/>
+								</Form.Item>
+							</Col>
+						</Row>
+						<Row gutter={24}>
+							<Col span={24}>
+								<Form.Item name="storeDescription" label="Store Description">
+									<TextArea
+										placeholder="Enter store description"
+										rows={4}
+									/>
+								</Form.Item>
+							</Col>
+						</Row>
+						<Row gutter={24}>
+							<Col span={24}>
+								<CkEditor
+									form={form}
+									dynamicField="storeArticle"
+									label="storeArticle"
+								/>
+							</Col>
+						</Row>
+						<div className="mt-6">
+							<div className="flex justify-between items-center mb-4">
+								<h3 className="text-lg font-medium">Frequently Asked Questions</h3>
+								<Button
+									type="primary"
+									icon={<FaPlus />}
+									onClick={addFaq}
+								>
+									Add FAQ
+								</Button>
+							</div>
+							<div style={{ maxHeight: '300px', overflowY: 'auto', paddingRight: '10px' }}>
+								{faqs.map((faq, index) => (
+									<div key={index} className="bg-gray-50 p-4 mb-4 rounded-md border border-gray-200">
+										<div className="flex justify-between items-center mb-2">
+											<h4 className="text-base font-medium">FAQ #{index + 1}</h4>
+											{faqs.length > 1 && (
+												<Button
+													danger
+													icon={<MdDelete />}
+													onClick={() => removeFaq(index)}
+													size="small"
+												>
+													Remove
+												</Button>
+											)}
+										</div>
+										<Row gutter={24}>
+											<Col span={24}>
+												<Form.Item label="Question">
+													<Input
+														placeholder="Enter FAQ question"
+														value={faq.question}
+														onChange={(e) => handleFaqChange(index, 'question', e.target.value)}
+														style={{ height: 45 }}
+													/>
+												</Form.Item>
+											</Col>
+											<Col span={24}>
+												<Form.Item label="Answer">
+													<TextArea
+														placeholder="Enter FAQ answer"
+														rows={3}
+														value={faq.answer}
+														onChange={(e) => handleFaqChange(index, 'answer', e.target.value)}
+													/>
+												</Form.Item>
+											</Col>
+										</Row>
+									</div>
+								))}
+							</div>
+
+						</div>
+					</Panel>
+				</Collapse>
 			</Form>
 		</GenericModal>
 	);
@@ -380,6 +453,23 @@ const UpdateUserModal: React.FC<any> = ({ isVisible, onClose, onUpdateStore, sel
 	console.log("selectedStore:::", selectedStore)
 	const [form] = Form.useForm();
 	const { Panel } = Collapse;
+	const [faqs, setFaqs] = useState([{ question: '', answer: '' }]);
+
+	const handleFaqChange = (index: number, field: 'question' | 'answer', value: string) => {
+		const updatedFaqs = [...faqs];
+		updatedFaqs[index][field] = value;
+		setFaqs(updatedFaqs);
+	};
+
+	const removeFaq = (index: any) => {
+		const updatedFaqs = [...faqs];
+		updatedFaqs.splice(index, 1);
+		setFaqs(updatedFaqs);
+	};
+
+	const addFaq = () => {
+		setFaqs([...faqs, { question: '', answer: '' }]);
+	};
 
 	useEffect(() => {
 		if (selectedStore) {
@@ -396,6 +486,7 @@ const UpdateUserModal: React.FC<any> = ({ isVisible, onClose, onUpdateStore, sel
 			isFeatureStore: values.isFeatureStore || false,
 			isCategoryFeatureStore: values.isCategoryFeatureStore || false,
 			isActive: values.isActive || false,
+			faqs: faqs.filter(faq => faq.question.trim() !== '' && faq.answer.trim() !== '')
 		};
 
 		console.log("Store Payload:", payload);
@@ -514,47 +605,101 @@ const UpdateUserModal: React.FC<any> = ({ isVisible, onClose, onUpdateStore, sel
 					</Col>
 				</Row>
 				<Collapse className="mb-6">
-                    <Panel header="SEO Information" key="1">
-                        <Row gutter={24}>
-                            <Col span={24}>
-                                <Form.Item name="storeTitle" label="Store Title">
-                                    <Input placeholder="Enter store title" style={{ height: 45 }} />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row gutter={24}>
-                            <Col span={24}>
-                                <Form.Item name="metaDescription" label="Meta Description">
-                                    <TextArea
-                                        placeholder="Enter meta description"
-                                        rows={3}
-                                        showCount
-                                        maxLength={160}
-                                    />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row gutter={24}>
-                            <Col span={24}>
-                                <Form.Item name="storeDescription" label="Store Description">
-                                    <TextArea
-                                        placeholder="Enter store description"
-                                        rows={4}
-                                    />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row gutter={24}>
-                            <Col span={24}>
-                                <CkEditor
-                                    form={form}
-                                    dynamicField="storeArticle"
-                                    label="storeArticle"
-                                />
-                            </Col>
-                        </Row>
-                    </Panel>
-                </Collapse>
+					<Panel header="SEO Information" key="1">
+						<Row gutter={24}>
+							<Col span={24}>
+								<Form.Item name="storeTitle" label="Store Title">
+									<Input placeholder="Enter store title" style={{ height: 45 }} />
+								</Form.Item>
+							</Col>
+						</Row>
+						<Row gutter={24}>
+							<Col span={24}>
+								<Form.Item name="metaDescription" label="Meta Description">
+									<TextArea
+										placeholder="Enter meta description"
+										rows={3}
+										showCount
+										maxLength={160}
+									/>
+								</Form.Item>
+							</Col>
+						</Row>
+						<Row gutter={24}>
+							<Col span={24}>
+								<Form.Item name="storeDescription" label="Store Description">
+									<TextArea
+										placeholder="Enter store description"
+										rows={4}
+									/>
+								</Form.Item>
+							</Col>
+						</Row>
+						<Row gutter={24}>
+							<Col span={24}>
+								<CkEditor
+									form={form}
+									dynamicField="storeArticle"
+									label="storeArticle"
+								/>
+							</Col>
+						</Row>
+						<div className="mt-6">
+							<div className="flex justify-between items-center mb-4">
+								<h3 className="text-lg font-medium">Frequently Asked Questions</h3>
+								<Button
+									type="primary"
+									icon={<FaPlus />}
+									onClick={addFaq}
+								>
+									Add FAQ
+								</Button>
+							</div>
+							<div style={{ maxHeight: '300px', overflowY: 'auto', paddingRight: '10px' }}>
+								{faqs.map((faq, index) => (
+									<div key={index} className="bg-gray-50 p-4 mb-4 rounded-md border border-gray-200">
+										<div className="flex justify-between items-center mb-2">
+											<h4 className="text-base font-medium">FAQ #{index + 1}</h4>
+											{faqs.length > 1 && (
+												<Button
+													danger
+													icon={<MdDelete />}
+													onClick={() => removeFaq(index)}
+													size="small"
+												>
+													Remove
+												</Button>
+											)}
+										</div>
+										<Row gutter={24}>
+											<Col span={24}>
+												<Form.Item label="Question">
+													<Input
+														placeholder="Enter FAQ question"
+														value={faq.question}
+														onChange={(e) => handleFaqChange(index, 'question', e.target.value)}
+														style={{ height: 45 }}
+													/>
+												</Form.Item>
+											</Col>
+											<Col span={24}>
+												<Form.Item label="Answer">
+													<TextArea
+														placeholder="Enter FAQ answer"
+														rows={3}
+														value={faq.answer}
+														onChange={(e) => handleFaqChange(index, 'answer', e.target.value)}
+													/>
+												</Form.Item>
+											</Col>
+										</Row>
+									</div>
+								))}
+							</div>
+
+						</div>
+					</Panel>
+				</Collapse>
 			</Form>
 		</GenericModal>
 	);

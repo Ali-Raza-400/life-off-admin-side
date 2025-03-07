@@ -242,7 +242,6 @@ const AddCouponModal: React.FC<any> = ({ isVisible, onClose, onAddCoupon, form }
             storeId: values?.storeId || '', // Ensure it's not empty
             productIds: values?.productIds || []
         };
-        // return
         onAddCoupon(payload);
         // form.resetFields();
     };
@@ -301,6 +300,29 @@ const AddCouponModal: React.FC<any> = ({ isVisible, onClose, onAddCoupon, form }
                             rules={[{ required: true, message: "HTML Code URL is required" }]}
                         >
                             <Input placeholder="https://clk.tradedoubler.com/..." style={{ height: 45 }} />
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row gutter={24}>
+                    {/* Promo Code */}
+                    <Col span={12}>
+                        <Form.Item
+                            name="mainImage"
+                            label="Code Image 1"
+                            rules={[{ required: false, message: "Code Image 1 required" }]}
+                        >
+                            <Input placeholder="20%" style={{ height: 45 }} />
+                        </Form.Item>
+                    </Col>
+
+                    {/* HTML Code URL */}
+                    <Col span={12}>
+                        <Form.Item
+                            name="secondaryImage"
+                            label="Code Image 2"
+                            rules={[{ required: true, message: "Code Image 2 URL is required" }]}
+                        >
+                            <Input placeholder="OFF" style={{ height: 45 }} />
                         </Form.Item>
                     </Col>
                 </Row>

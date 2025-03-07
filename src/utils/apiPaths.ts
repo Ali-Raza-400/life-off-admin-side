@@ -1,4 +1,6 @@
 export const API_PATHS: { [key: string]: string } = {
+	CATEGORY:'categories',
+	NETWORK:"networks",
 	COUPONS:'coupons',
 	LOGIN: "login",
 	ITEMS: "items",

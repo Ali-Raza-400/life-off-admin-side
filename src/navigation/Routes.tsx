@@ -293,6 +293,48 @@ const PRIVATE_ROUTES: RouteType[] = [
 		routeType: ProtectedRoute,
 		layout: "private",
 	},
+	{
+		name: STRINGS.VIEW_BLOGS,
+		path: PATH.VIEW_BLOG,
+		page: <WEB_PAGES.VIEW_BLOG />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
+		name: STRINGS.ADD_BLOGS,
+		path: PATH.ADD_BLOGS,
+		page: <WEB_PAGES.ADD_BLOG />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
+		name: STRINGS.VIEW_CATEGORY,
+		path: PATH.VIEW_CATEGORY,
+		page: <WEB_PAGES.VIEW_CATEGORY />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
+		name: STRINGS.ADD_CATEGORY,
+		path: PATH.ADD_CATEGORY,
+		page: <WEB_PAGES.ADD_CATEGORY />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
+		name: STRINGS.VIEW_NETWORK,
+		path: PATH.VIEW_NETWORK,
+		page: <WEB_PAGES.VIEW_NETWORK />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
+		name: STRINGS.ADD_CATEGORY,
+		path: PATH.ADD_NETWORK,
+		page: <WEB_PAGES.ADD_NETWORK />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
 ];
 
 const AUTH_ROUTES: RouteType[] = [

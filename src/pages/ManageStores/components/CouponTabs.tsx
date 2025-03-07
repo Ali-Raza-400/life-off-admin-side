@@ -3,7 +3,6 @@ import { useRef, useState } from "react"
 import { FiClock, FiCheck, FiPlus } from "react-icons/fi"
 
 export default function CouponTabs({ data }: any) {
-    console.log("data", data?.list?.store?.coupons)
     const couponsRef = useRef<HTMLDivElement>(null)
     const storeInfoRef = useRef<HTMLDivElement>(null)
     const faqsRef = useRef<HTMLDivElement>(null)
@@ -131,6 +130,7 @@ export default function CouponTabs({ data }: any) {
                                                                         ? "bg-gray-400 cursor-not-allowed"
                                                                         : "bg-gray-800 hover:bg-gray-700"
                                                                         }`}
+                                                                    onClick={() => window.location.href = data?.list?.store?.htmlCode}
                                                                 >
                                                                     {coupon.buttonText}
                                                                 </button>
@@ -243,31 +243,24 @@ export default function CouponTabs({ data }: any) {
 
                 {/* FAQs Section */}
                 <div ref={faqsRef} className="py-8 border-t">
-                    <h2 className="text-2xl font-bold mb-6">A Beka Book Frequently Asked Questions</h2>
+                    <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
 
                     <div className="space-y-4">
-                        <div className="border-b pb-4">
-                            <button className="flex justify-between items-center w-full text-left font-bold">
-                                What sales does A Beka Book Store have?
-                                <FiPlus className="text-gray-500" />
-                            </button>
-                        </div>
-
-                        <div className="border-b pb-4">
-                            <button className="flex justify-between items-center w-full text-left font-bold">
-                                What is A Beka Book Store's return policy?
-                                <FiPlus className="text-gray-500" />
-                            </button>
-                        </div>
-
-                        <div className="border-b pb-4">
-                            <button className="flex justify-between items-center w-full text-left font-bold">
-                                Does A Beka Book Store have a free trial?
-                                <FiPlus className="text-gray-500" />
-                            </button>
-                        </div>
+                        {(data?.list?.store?.faqs || []).map((faq: any, index: number) => (
+                            <div key={index} className="border-b pb-4">
+                                <details className="group">
+                                    <summary className="flex justify-between items-center w-full text-left font-bold cursor-pointer">
+                                        {faq.question}
+                                        <FiPlus className="text-gray-500 group-open:hidden" />
+                                        <FiCheck className="text-gray-500 hidden group-open:inline" />
+                                    </summary>
+                                    <p className="mt-2 text-gray-700">{faq.answer}</p>
+                                </details>
+                            </div>
+                        ))}
                     </div>
                 </div>
+
             </div>
         </div>
     )

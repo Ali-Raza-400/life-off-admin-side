@@ -64,7 +64,13 @@ const PATH = {
 	STUDENT_GRADE_ASSIGNMENTS: "/student/grade/assignments",
 	STUDENT_GRADE_QUIZZES: "/student/grade/quizzes",
 	STUDENT_ENROLLED_COURSES: "/opration/list",
-	SINGLE_STORE:'/single-store/:id'
+	SINGLE_STORE:'/single-store/:id',
+	VIEW_BLOG:'/blog/view',
+	ADD_BLOGS:'/blog/add',
+	VIEW_CATEGORY:'/category/view',
+	ADD_CATEGORY:'/category/add',
+	VIEW_NETWORK:'/network/view',
+	ADD_NETWORK:'/network/add',
 };
 
 export default PATH;
