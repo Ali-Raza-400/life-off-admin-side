@@ -24,8 +24,16 @@ const categorySlice = rtkQApi.injectEndpoints({
             }),
             invalidatesTags: [{ type: RTK_TAGS.NETWORK, id: "LIST" }],
         }),
+        updateCategory: builder.mutation<any, any>({
+            query: ({payload,id}) => ({
+                url: `${API_PATHS.CATEGORY}/${id}`,
+                method: "POST",
+                data: payload,
+            }),
+            invalidatesTags: [{ type: RTK_TAGS.NETWORK, id: "LIST" }],
+        }),
 
     }),
 });
 
-export const { useGetCategoriesQuery, useSaveNetworkMutation } = categorySlice;
+export const { useGetCategoriesQuery, useSaveNetworkMutation,useUpdateCategoryMutation } = categorySlice;
