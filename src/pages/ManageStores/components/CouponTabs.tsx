@@ -1,6 +1,7 @@
 
 import { useRef, useState } from "react"
 import { FiClock, FiCheck, FiPlus } from "react-icons/fi"
+import ProductSlider from "./ProductSlider"
 
 export default function CouponTabs({ data }: any) {
     const couponsRef = useRef<HTMLDivElement>(null)
@@ -49,7 +50,7 @@ export default function CouponTabs({ data }: any) {
     const [expandedId, setExpandedId] = useState<any>(null);
 
     return (
-        <div className="max-w-6xl mx-auto font-sans">
+        <div className="max-w-[1440px]  font-sans  mx-auto px-4 py-8">
             {/* Fixed Tabs */}
             <div className="sticky top-0 z-10 bg-white border-b">
                 <div className="flex">
@@ -78,7 +79,7 @@ export default function CouponTabs({ data }: any) {
             <div>
                 {/* Coupons Section */}
                 <div ref={couponsRef} className="py-4">
-                    <div className="flex flex-col lg:flex-row gap-4">
+                    <div className="flex flex-col lg:flex-row gap-8">
                         <div className="w-full lg:w-2/3">
                             {["Active", "Unverified", "Expired"].map((section) => {
                                 const filteredCoupons = coupons.filter((coupon) => coupon.type === section);
@@ -163,68 +164,165 @@ export default function CouponTabs({ data }: any) {
 
                         {/* Right sidebar */}
                         <div className="w-full lg:w-1/3">
-                            <div className="border rounded-md p-4 mb-6">
+                            {/* Why Trust Us section */}
+                            <div className="border rounded-lg p-5 mb-6 bg-white shadow-sm">
                                 <h3 className="font-bold text-lg mb-3">Why Trust Us?</h3>
-                                <p className="text-sm text-gray-700 mb-3">
-                                    {data?.list?.store?.metaDescription || "Not all coupon sites are created equal – that's because LeafPromoCode.com has a team and a process that sets us apart. Every day, our team of coupon hunters and deal finders scours the web for all your favorite retailers. Then our validation team tests each and every one to work overnight. After each and every one checks around the clock. From there, our merchandising team reviews each validated code and hand-picks the best coupons for our users. Our team just verified today (date's here) 24 offers for LeafPromoCode.com."}
+                                <p className="text-sm text-gray-700 mb-4 leading-relaxed">
+                                    {data?.list?.store?.metaDescription ||
+                                        "Not all coupon sites are created equal — that's because leafPromoCode.com has a team and a process that sets us apart. Every day, our curation team scours the web for all your favorite retailers. Then, our validation team works overnight to test and verify every code to ensure they work. From there, our merchandising team reviews each validated code and hand-picks the best coupons for our users. Our team just verified today's deals on February 29, 2024."
+                                    }
                                 </p>
-                                <a href="#" className="text-sm text-blue-600 hover:underline">
+
+                                <a href="#" className="text-sm text-blue-600 hover:underline font-medium">
                                     Learn How We Verify Coupons
                                 </a>
                             </div>
 
-                            <div className="text-sm mb-2">leafpromocode.com</div>
-                            <div className="text-sm mb-4">24 Offers Available</div>
-
-                            <div className="mb-4">
-                                <h3 className="text-sm font-medium mb-2">Filters Offers</h3>
-                                <button className="w-full bg-green-600 text-white rounded-md py-2 mb-2">
-                                    All (24)
-                                </button>
-                                <button className="w-full bg-gray-100 text-gray-700 rounded-md py-2 mb-2">
-                                    Deals (10)
-                                </button>
-                                <button className="w-full bg-gray-100 text-gray-700 rounded-md py-2 mb-2">
-                                    Sales (3)
-                                </button>
+                            {/* Website info */}
+                            <div className="mb-4 text-center">
+                                <div className="text-sm font-medium mb-1 underline cursor-pointer">leafpromocode.com</div>
+                                <div className="text-sm font-medium mb-5">24 Offers Available</div>
                             </div>
 
+                            {/* Filters section */}
+                            <div className="mb-6">
+                                <h3 className="text-sm font-medium mb-2">Filters Offers</h3>
+                                <div className="space-y-2">
+                                    <button className="w-full bg-[#7FA842] hover:bg-[#81ac41] transition-colors text-white rounded-full py-2 font-medium text-sm">
+                                        All (24)
+                                    </button>
+                                    <button className="w-full bg-gray-100 hover:bg-gray-200 transition-colors text-gray-700 rounded-full py-2 font-medium text-sm">
+                                        Deals (10)
+                                    </button>
+                                    <button className="w-full bg-gray-100 hover:bg-gray-200 transition-colors text-gray-700 rounded-full py-2 font-medium text-sm">
+                                        Sales (3)
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Similar Stores section */}
                             <div className="mb-6">
                                 <h3 className="text-lg font-bold mb-3">Similar Stores</h3>
-                                <ul className="text-sm space-y-2">
-                                    <li><a href="#" className="text-blue-600 hover:underline">Scholastic</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">Carson Dellosa Education</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">Alpha Omega Publications</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">Trend Enterprises</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">BJU Press</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">Rainbow Resource Center</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">Sonlight</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">Didax</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">UMD Stores</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">DonorChoose.org</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">FunShine Express</a></li>
+                                <ul className="text-sm space-y-1.5">
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            Scholastic
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            Carson Dellosa Education
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            Alpha Omega Publications
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            Trend Enterprises
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            BJU Press
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            Rainbow Resource Center
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            Sonlight
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            Didax
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            UMD Stores
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            DonorsChoose.org
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            FunShine Express
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
 
+                            {/* Popular Stores section */}
                             <div>
-                                <h3 className="text-lg font-bold mb-3">Similar Stores</h3>
-                                <ul className="text-sm space-y-2">
-                                    <li><a href="#" className="text-blue-600 hover:underline">The Mailbox</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">ABCmouse</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">LakeShore Learning</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">Archer and Olive</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">Spellbinders</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">Really Good Stuff</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">School Specialty</a></li>
-                                    <li><a href="#" className="text-blue-600 hover:underline">Creative Teaching</a></li>
+                                <h3 className="text-lg font-bold mb-3">Popular Stores</h3>
+                                <ul className="text-sm space-y-1.5">
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            The Mailbox
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            ABCmouse
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            LakeShore Learning
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            Archer and Olive
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            Spellbinders
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            Really Good Stuff
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            School Specialty
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            Creative Teaching
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="text-blue-600 hover:text-blue-800 hover:underline">
+                                            Discount School Supply
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+                {
+                    data?.list?.store?.products?.length > 0 && <div className="my-16"><ProductSlider data={data} /></div>
+                }
+
 
                 {/* Store Info Section */}
-                <div ref={storeInfoRef} className="py-8 border-t">
+                <div ref={storeInfoRef} className="pt-8 border-t">
                     {/* Render Store Article */}
                     <div
                         ref={storeInfoRef}
@@ -242,8 +340,8 @@ export default function CouponTabs({ data }: any) {
 
 
                 {/* FAQs Section */}
-                <div ref={faqsRef} className="py-8 border-t">
-                    <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+                <div ref={faqsRef} className=" ">
+                    <h2 className="text-2xl font-bold py-12">Frequently Asked Questions</h2>
 
                     <div className="space-y-4">
                         {(data?.list?.store?.faqs || []).map((faq: any, index: number) => (

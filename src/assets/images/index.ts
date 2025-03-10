@@ -1,5 +1,6 @@
 import FAULT_IMG from "./fault-img.png";
 import LOGO from "./ALMSystem.svg";
+import Bike_Img from "./bike.svg";
 import STORE_LOGO from "./logo.svg";
 import SAMPLE_WEB from "./WebFlow.png";
 import LMS_IMAGE from "./LMS.png";
@@ -47,7 +48,8 @@ const IMAGES = {
 	COMING_SOON2,
 	CLOSED,
 	BG_LOGIN,
-	PERSON_IMG
+	PERSON_IMG,
+	Bike_Img
 };
 
 export default IMAGES;
