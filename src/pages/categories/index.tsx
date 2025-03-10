@@ -8,6 +8,8 @@ import useNotification from "../../components/UI/Notification";
 import GenericButton from "../../components/UI/GenericButton";
 import { UploadOutlined } from '@ant-design/icons';
 import { getErrorMessage } from "../../utils/helper";
+import { useNavigate } from "react-router-dom";
+import PATH from "../../navigation/Path";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -16,8 +18,9 @@ const Index = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [form] = Form.useForm();
+  const navigate = useNavigate()
 
-  const onEdit = (category:any) => {
+  const onEdit = (category: any) => {
     setSelectedCategory(category);
     setIsVisible(true);
   };
@@ -32,7 +35,7 @@ const Index = () => {
       title: 'Image',
       dataIndex: 'image',
       key: 'image',
-      render: (text:any) => (
+      render: (text: any) => (
         <img src={text} alt="category" style={{ width: 50, height: 50, objectFit: 'cover' }} />
       ),
     },
@@ -56,8 +59,10 @@ const Index = () => {
       key: "action",
       fixed: "right",
       width: 120,
-      render: (obj:any) => (
-        <ActionDropdown editOnClick={() => onEdit(obj)} />
+      render: (obj: any) => (
+        <>
+          <ActionDropdown editOnClick={() => onEdit(obj)} viewOnClick={() => navigate(PATH.SINGLE_CATEGORY.replace(':id', obj?.id))} />
+        </>
       ),
     },
   ];
@@ -72,7 +77,7 @@ const Index = () => {
 
 export default Index;
 
-const UpdateCategoryModel = ({ isVisible, onClose, form, selectedCategory }:any) => {
+const UpdateCategoryModel = ({ isVisible, onClose, form, selectedCategory }: any) => {
   const [updateCategory] = useUpdateCategoryMutation();
   const { openNotification, contextHolder } = useNotification();
   const [fileList, setFileList] = useState<{ uid: string; url: string; name?: string; originFileObj?: File }[]>([]);
@@ -85,7 +90,7 @@ const UpdateCategoryModel = ({ isVisible, onClose, form, selectedCategory }:any)
         categoryTitle: selectedCategory.categoryTitle,
         categoryDescription: selectedCategory.categoryDescription,
       });
-      
+
       if (selectedCategory.image) {
         setFileList([{ uid: '-1', url: selectedCategory.image, name: 'category-image', originFileObj: undefined }]);
       }
@@ -95,7 +100,7 @@ const UpdateCategoryModel = ({ isVisible, onClose, form, selectedCategory }:any)
     }
   }, [selectedCategory, form]);
 
-  const handleSubmit = async (values:any) => {
+  const handleSubmit = async (values: any) => {
     setIsLoading(true);
     try {
       const formData = {
@@ -113,7 +118,7 @@ const UpdateCategoryModel = ({ isVisible, onClose, form, selectedCategory }:any)
     }
   };
 
-  const handleFileChange = ({ fileList }:any) => {
+  const handleFileChange = ({ fileList }: any) => {
     setFileList(fileList);
     form.setFieldsValue({ image: fileList });
   };

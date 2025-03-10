@@ -59,7 +59,8 @@ function PrivateLayout({ children }: LayoutProps) {
 		const route = ROUTES.find((route) => matchPath(route.path, pathname));
 		return route ? route.name : "Page Not Found";
 	};
-	const shouldHideLayout = pathname.includes("/single-store");
+	const shouldHideLayout = pathname.includes("/single-store") || pathname.includes("/single-category");
+
 
 	// Filter items based on the current role
 	const getMenuItems = (currentRole: string | number) =>
@@ -156,7 +157,7 @@ function PrivateLayout({ children }: LayoutProps) {
 						{children}
 					</div>
 				</Content>
-				<FooterSection/>
+				<FooterSection />
 			</>
 		) : <Layout className={`min-h-screen ${theme.toLowerCase()} mobile-responsive`}>
 
