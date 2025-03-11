@@ -66,6 +66,7 @@ const PATH = {
 	STUDENT_ENROLLED_COURSES: "/opration/list",
 	SINGLE_STORE:'/single-store/:id',
 	SINGLE_CATEGORY:'/single-category/:id',
+	ALL_CATEGORY:'/category/all',
 	VIEW_BLOG:'/blog/view',
 	ADD_BLOGS:'/blog/add',
 	VIEW_CATEGORY:'/category/view',

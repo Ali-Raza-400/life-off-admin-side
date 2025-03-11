@@ -15,6 +15,15 @@ const categorySlice = rtkQApi.injectEndpoints({
             },
             providesTags: (result) => providesList(result?.data, RTK_TAGS.NETWORK),
         }),
+        getSingleCategory: builder.query<any, any>({
+            query: (id) => {
+                return {
+                    url: `${API_PATHS.CATEGORY}/${id}`,
+                    method: "GET",
+                };
+            },
+            providesTags: (result) => providesList(result?.data, RTK_TAGS.NETWORK),
+        }),
 
         saveNetwork: builder.mutation<any, any>({
             query: (payload) => ({
@@ -33,7 +42,8 @@ const categorySlice = rtkQApi.injectEndpoints({
             invalidatesTags: [{ type: RTK_TAGS.NETWORK, id: "LIST" }],
         }),
 
+
     }),
 });
 
-export const { useGetCategoriesQuery, useSaveNetworkMutation,useUpdateCategoryMutation } = categorySlice;
+export const { useGetCategoriesQuery, useSaveNetworkMutation,useUpdateCategoryMutation,useGetSingleCategoryQuery } = categorySlice;

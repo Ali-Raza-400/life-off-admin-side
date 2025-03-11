@@ -1,15 +1,28 @@
-import React from 'react'
-import CategoriesCarousel from './CategoriesCarousel'
-import CouponCategories from './CouponCategories'
-import CategoryGrid from './AllCategories'
-import { useGetCategoriesQuery } from '../../../redux/slices/category'
-import AmazonDealsHeader from './categoryheader'
+import { useParams } from "react-router-dom"
+import { useGetSingleCategoryQuery } from "../../../redux/slices/category"
+import CategoryHeader from "./categoryHeader"
+import AntdCouponPage from "./CouponPage"
+import TopDealsSlider from "./TopDeatils"
+import BlogIcons from "../../blogs/screens/blogLogos"
+import BlogFeaturedSection from "../../blogs/screens/blogFeaturedSection"
+import BlogNewsLayout from "../../blogs/screens/blogNewsLayout"
+import BlogDailyDeals from "./blogdealsData"
 
 const index = () => {
-      const { data } = useGetCategoriesQuery({});
-      
+    const { id } = useParams()
+    const { data } = useGetSingleCategoryQuery(id)
+    console.log("data:::",data);
+    
     return (
-        <div><CategoriesCarousel data={data} /><CategoryGrid  data={data}/><AmazonDealsHeader/></div>
+        <div>
+            <CategoryHeader data={data}/>
+            <TopDealsSlider />
+            <AntdCouponPage />
+            <BlogIcons/>
+            <BlogFeaturedSection/>
+            <BlogNewsLayout/>
+            <BlogDailyDeals/>
+        </div>
     )
 }
 

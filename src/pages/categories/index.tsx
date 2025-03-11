@@ -10,6 +10,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { getErrorMessage } from "../../utils/helper";
 import { useNavigate } from "react-router-dom";
 import PATH from "../../navigation/Path";
+import { FaEye, FaPlus } from "react-icons/fa";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -69,6 +70,14 @@ const Index = () => {
 
   return (
     <>
+    <div className="flex justify-end mb-6">
+
+      <GenericButton
+        icon={<FaEye size={20} />}
+        label="View All Categories"
+        onClick={() => navigate(PATH.ALL_CATEGORY)}
+        />
+        </div>
       <GenericTable loading={false} columns={columns as any} data={data?.list} />
       <UpdateCategoryModel isVisible={isVisible} onClose={onClose} form={form} selectedCategory={selectedCategory} />
     </>

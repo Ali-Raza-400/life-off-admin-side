@@ -59,7 +59,7 @@ function PrivateLayout({ children }: LayoutProps) {
 		const route = ROUTES.find((route) => matchPath(route.path, pathname));
 		return route ? route.name : "Page Not Found";
 	};
-	const shouldHideLayout = pathname.includes("/single-store") || pathname.includes("/single-category");
+	const shouldHideLayout = pathname.includes("/single-store") || pathname.includes("/single-category") ||pathname.includes(PATH.ALL_CATEGORY);
 
 
 	// Filter items based on the current role

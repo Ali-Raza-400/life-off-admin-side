@@ -3,6 +3,7 @@ interface Category {
   id: string;
   image: string;
   title: string;
+  categoryTitle?:string
 }
 
 export default function CategoryGrid({ data }: any) {
@@ -30,7 +31,7 @@ export default function CategoryGrid({ data }: any) {
             </div>
 
             {/* Category title */}
-            <h3 className="text-xs font-medium text-center text-gray-800">{category.categoryTitle}</h3>
+            <h3 className="text-xs font-medium text-center text-gray-800">{category?.categoryTitle}</h3>
           </div>
         ))}
       </div>

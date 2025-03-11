@@ -1,85 +1,43 @@
-import type React from "react";
-import { FiChevronRight } from "react-icons/fi";
-import IMAGES from "../../../assets/images";
+import { FaBolt, FaArrowRight } from "react-icons/fa";
 
-
-export default function AmazonDealsHeader() {
-  // Container styles
-  const containerStyle: React.CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    gap: "20px",
-    padding: "16px",
-    maxWidth: "1200px",
-    margin: "0 auto",
-  };
-
-  // Logo container styles
-  const logoContainerStyle: React.CSSProperties = {
-    position: "relative",
-    width: "64px",
-    height: "64px",
-    flexShrink: 0,
-  };
-
-  // Content container styles
-  const contentStyle: React.CSSProperties = {
-    display: "flex",
-    flexDirection: "column",
-    gap: "4px",
-  };
-
-  // Main heading styles
-  const headingStyle: React.CSSProperties = {
-    fontSize: "24px",
-    fontWeight: "700",
-    margin: 0,
-    color: "#232F3E", // Amazon's dark blue color
-  };
-
-  // Subheading styles
-  const subheadingStyle: React.CSSProperties = {
-    fontSize: "12px",
-    color: "#565959",
-    textTransform: "uppercase",
-    letterSpacing: "0.5px",
-    margin: 0,
-  };
-
-  // Cashback text container styles
-  const cashbackContainerStyle: React.CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-    fontSize: "13px",
-    color: "#565959",
-  };
-
-  // Arrow icon styles
-  const arrowStyle: React.CSSProperties = {
-    color: "#565959",
-  };
+export default function CategoryHeader({ data }: any) {
+  const category = data?.list || {}; // Use `list` as primary source
 
   return (
-    <div style={containerStyle}>
-      <div style={logoContainerStyle}>
-        <img
-          src={IMAGES.Bike_Img}
-          alt="Amazon Logo"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-          }}
-        />
-      </div>
+    <div className="max-w-7xl mx-auto p-4 mt-6">
+      <div className="flex items-center gap-6">
+        {/* Logo Circle */}
+        <div className="relative flex-shrink-0">
+          <div style={{width:'clamp(150px, 18vw, 200px)',height:'clamp(150px, 18vw, 200px)'}} className="w-[200px] h-[200px] rounded-full border-4 border-[#a3e635] flex items-center justify-center bg-[#232F3E]">
+            {/* <img
+              src={category.image || "/placeholder.svg"}
+              alt={category.categoryTitle || "Category Image"}
+              width={60}
+              height={60}
+              className="object-cover rounded-full"
+            /> */}
+              <img
+                  src={category.image || "/placeholder.svg"}
+                  alt={category.title}
+                  
+                  className= " rounded-full w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+          </div>
+        </div>
 
-      <div style={contentStyle}>
-        <h2 style={headingStyle}>Today's Top Deals</h2>
-        <p style={subheadingStyle}>Presented by Amazon</p>
-        <div style={cashbackContainerStyle}>
-          10% CASH BACK ON AMAZON SERVICES
-          <FiChevronRight size={16} style={arrowStyle} />
+        {/* Content */}
+        <div className="flex flex-col gap-1">
+          <h1 className="text-[33.9px] font-bold tracking-tight" style={{fontSize:'clamp(24px, 2vw, 33.9px)'}}>
+            {category.categoryTitle || "Category"}
+          </h1>
+          <p className="text-[15.5px] font-semibold tracking-wider text-gray-600" style={{fontSize:'clamp(12px, 2vw, 15.5px)'}}>
+            {category.categoryDescription || "No description available"}
+          </p>
+          <div className="flex items-center gap-2 mt-1 text-[14.32px] font-medium" style={{fontSize:'clamp(12px, 2vw, 13.5px)'}}>
+            <FaBolt className="text-[#a3e635]" />
+            <span className="tracking-wide">{category.categoryName}</span>
+            <FaArrowRight className="text-gray-600" />
+          </div>
         </div>
       </div>
     </div>

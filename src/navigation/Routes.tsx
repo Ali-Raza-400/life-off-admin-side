@@ -342,6 +342,13 @@ const PRIVATE_ROUTES: RouteType[] = [
 		routeType: ProtectedRoute,
 		layout: "private",
 	},
+	{
+		name: STRINGS.ADD_CATEGORY,
+		path: PATH.ALL_CATEGORY,
+		page: <WEB_PAGES.ALL_CATEGORY />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
 ];
 
 const AUTH_ROUTES: RouteType[] = [

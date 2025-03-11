@@ -101,6 +101,7 @@ const ADD_NETWORK = React.lazy(() => import("./networks/addnetworks/index"));
 const VIEW_NETWORK = React.lazy(() => import("./networks/index"));
 const ADD_STORE = React.lazy(() => import("./ManageStores/create/index"));
 const SINGLE_STORE = React.lazy(() => import("./ManageStores/singleStore"));
+const ALL_CATEGORY = React.lazy(() => import("./categories/AllCategories/index"));
 const SINGLE_CATEGORY = React.lazy(() => import("./categories/singleCategory/index"));
 const COURSE_VIEW = React.lazy(() => import("./Courses/View/View"));
 const NEW_COURSE = React.lazy(() => import("./Courses/Generate/Index"));
@@ -121,6 +122,7 @@ const WEB_PAGES = {
 	MANAGE_COUPONS,
 	SINGLE_STORE,
 	SINGLE_CATEGORY,
+	ALL_CATEGORY,
 
 	// PROTECTED PAGES
 	ITEM_DASHBOARD,
