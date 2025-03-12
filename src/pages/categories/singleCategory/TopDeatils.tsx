@@ -1,8 +1,5 @@
-"use client"
 
 import { useState, useEffect } from "react"
-import { MdChevronLeft, MdChevronRight } from "react-icons/md"
-import { SiAliexpress } from "react-icons/si"
 
 interface Product {
     id: number

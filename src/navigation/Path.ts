@@ -68,6 +68,8 @@ const PATH = {
 	SINGLE_CATEGORY:'/single-category/:id',
 	ALL_CATEGORY:'/category/all',
 	VIEW_BLOG:'/blog/view',
+	ALL_BLOG:'/blog/all',
+	SINGLE_BLOG:'/single-blog/:id',
 	ADD_BLOGS:'/blog/add',
 	VIEW_CATEGORY:'/category/view',
 	ADD_CATEGORY:'/category/add',

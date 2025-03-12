@@ -23,8 +23,26 @@ import COMING_SOON2 from "./comingSoon2.png";
 import CLOSED from "./closed.svg";
 import BG_LOGIN from "./bg-login.jpg";
 import PERSON_IMG from "./person_logo.png";
+import BLOG_LOGO1 from "./blog_logo_1.svg";
+import BLOG_LOGO2 from "./blog_logo_2.svg";
+import BLOG_LOGO3 from "./blog_logo_3.svg";
+import BLOG_LOGO4 from "./blog_logo_4.svg";
+import BLOG_LOGO5 from "./blog_logo_5.svg";
+import BLOG_LOGO6 from "./blog_logo_6.svg";
+import BLOG_LOGO7 from "./blog_logo_7.svg";
+import BLOG_LOGO8 from "./blog_logo_8.svg";
+import BLOG_BANNER from "./blogBanner.svg";
 
 const IMAGES = {
+	BLOG_BANNER,
+	BLOG_LOGO1,
+	BLOG_LOGO2,
+	BLOG_LOGO3,
+	BLOG_LOGO4,
+	BLOG_LOGO5,
+	BLOG_LOGO6,
+	BLOG_LOGO7,
+	BLOG_LOGO8,
 	FAULT_IMG,
 	LOGO,
 	STORE_LOGO,

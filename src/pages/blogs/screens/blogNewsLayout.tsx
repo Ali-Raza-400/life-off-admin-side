@@ -1,98 +1,58 @@
 import { FaCalendarAlt } from "react-icons/fa"
 
-export default function BlogNewsLayout() {
+export default function BlogNewsLayout({ data }: any) {
+  // Ensure data exists before mapping
+  if (!data?.list || data.list.length === 0) return <p>No data available</p>;
+
+  // Split data: First 4 for latest news, rest for trending
+  const latestNews = data.list.slice(0, 4); 
+  const trendingNews = data.list.slice(0,4);
+
   return (
-    <div className="max-w-7xl mx-auto p-4">
+    <div className="max-w-6xl mx-auto py-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column - Latest News */}
         <div className="lg:col-span-6 space-y-8">
-          {/* Latest Section */}
-          <div>
-            <h2 className="text-xl font-bold mb-4">THE LASTEST</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Tech Card */}
-              <div className="border rounded-lg overflow-hidden">
+          <h2 className="text-xl font-bold mb-4">THE LATEST</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {latestNews.map((item:any, index:any) => (
+              <div key={index} className="border rounded-lg overflow-hidden">
                 <img
-                  src="/placeholder.svg?height=200&width=300"
-                  alt="Tech Deals"
+                  src={item.featuredImage || "/placeholder.svg?height=200&width=300"}
+                  alt={item.title}
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-4">
-                  <span className="text-xs font-semibold text-green-600">DAILY DEALS</span>
-                  <h3 className="font-bold mt-2 mb-2">Daily Deals: Apple iPad 10 Price Drop, Amazon Fire TV 4K...</h3>
+                  <span className="text-xs font-semibold text-green-600">
+                    {item.category?.categoryTitle || "CATEGORY"}
+                  </span>
+                  <h3 className="font-bold mt-2 mb-2">{item.title}</h3>
                   <div className="flex items-center text-xs text-gray-500">
                     <FaCalendarAlt className="mr-1" />
-                    Published March 5, 2025
+                    {new Date(item.createdAt).toLocaleDateString()}
                   </div>
                 </div>
               </div>
-
-              {/* Maurices Card */}
-              <div className="border rounded-lg overflow-hidden">
-                <img src="/placeholder.svg?height=200&width=300" alt="Maurices" className="w-full h-48 object-cover" />
-                <div className="p-4">
-                  <span className="text-xs font-semibold text-blue-600">BUDGET</span>
-                  <h3 className="font-bold mt-2 mb-2">You Don't Want To Miss These New Arrivals From maurices</h3>
-                  <div className="flex items-center text-xs text-gray-500">
-                    <FaCalendarAlt className="mr-1" />
-                    Published March 5, 2025
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Luggage Card */}
-            <div className="border rounded-lg overflow-hidden">
-              <img
-                src="/placeholder.svg?height=200&width=300"
-                alt="Luggage Deals"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <span className="text-xs font-semibold text-purple-600">TRAVEL</span>
-                <h3 className="font-bold mt-2 mb-2">Daily Deals: Apple iPad 10 Price Drop, Amazon Fire TV 4K...</h3>
-                <div className="flex items-center text-xs text-gray-500">
-                  <FaCalendarAlt className="mr-1" />
-                  Published March 5, 2025
-                </div>
-              </div>
-            </div>
-
-            {/* Concert Card */}
-            <div className="border rounded-lg overflow-hidden">
-              <img src="/placeholder.svg?height=200&width=300" alt="Concert" className="w-full h-48 object-cover" />
-              <div className="p-4">
-                <span className="text-xs font-semibold text-yellow-600">ENTERTAINMENT</span>
-                <h3 className="font-bold mt-2 mb-2">You Don't Want To Miss These New Arrivals From maurices</h3>
-                <div className="flex items-center text-xs text-gray-500">
-                  <FaCalendarAlt className="mr-1" />
-                  Published March 5, 2025
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
-        {/* Right Column - Trending */}
+        {/* Right Column - Trending News */}
         <div className="lg:col-span-6">
-          <h2 className="text-xl font-bold mb-4">TRENDING</h2>
+          <h2 className="text-xl font-bold mb-8">TRENDING</h2>
           <div className="space-y-4">
-            {/* Trending Items */}
-            {[1, 2, 3, 4, 5].map((item) => (
-              <div key={item} className="flex gap-4 border-b pb-4">
+            {trendingNews.map((item:any, index:any) => (
+              <div key={index} className="flex gap-4 border-b pb-4">
                 <img
-                  src="/placeholder.svg?height=80&width=80"
-                  alt={`Trending ${item}`}
+                  src={item.featuredImage || "/placeholder.svg?height=80&width=80"}
+                  alt={item.title}
                   className="w-20 h-20 object-cover rounded"
                 />
                 <div>
-                  <h3 className="font-bold mb-1">Sorry, These Starbucks Drinks Have Been Discontinued</h3>
+                  <h3 className="font-bold mb-1">{item.title}</h3>
                   <div className="flex items-center text-xs text-gray-500">
                     <FaCalendarAlt className="mr-1" />
-                    Published March 5, 2025
+                    {new Date(item.createdAt).toLocaleDateString()}
                   </div>
                 </div>
               </div>
@@ -124,4 +84,3 @@ export default function BlogNewsLayout() {
     </div>
   )
 }
-

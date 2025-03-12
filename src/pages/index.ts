@@ -94,6 +94,8 @@ const MANAGE_COUPONS = React.lazy(
 //Courses
 const STORES = React.lazy(() => import("./ManageStores/Index"));
 const VIEW_BLOG = React.lazy(() => import("./blogs/index"));
+const SINGLE_BLOG = React.lazy(() => import("./blogs/singleBlog/index"));
+const ALL_BLOGS = React.lazy(() => import("./blogs/View/index"));
 const ADD_BLOG = React.lazy(() => import("./blogs/addblogs/index"));
 const ADD_CATEGORY = React.lazy(() => import("./categories/addcategories/index"));
 const VIEW_CATEGORY = React.lazy(() => import("./categories/index"));
@@ -158,6 +160,8 @@ const WEB_PAGES = {
 	//Finance
 	COUPONS,
 	VIEW_BLOG,
+	ALL_BLOGS,
+	SINGLE_BLOG,
 	ADD_BLOG,
 	ADD_CATEGORY,
 	VIEW_CATEGORY,
@@ -185,6 +189,7 @@ const WEB_PAGES = {
 	STUDENT_COURSE_VIEW,
 	STUDENT_COURSES_LIST,
 	STUDENT_ENROLLED_COURSES,
+
 
 	CLOSED,
 };

@@ -349,6 +349,20 @@ const PRIVATE_ROUTES: RouteType[] = [
 		routeType: ProtectedRoute,
 		layout: "private",
 	},
+	{
+		name: STRINGS.BLOGS,
+		path: PATH.ALL_BLOG,
+		page: <WEB_PAGES.ALL_BLOGS />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
+		name: STRINGS.BLOGS,
+		path: PATH.SINGLE_BLOG,
+		page: <WEB_PAGES.SINGLE_BLOG />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
 ];
 
 const AUTH_ROUTES: RouteType[] = [

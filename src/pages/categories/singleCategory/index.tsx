@@ -3,10 +3,6 @@ import { useGetSingleCategoryQuery } from "../../../redux/slices/category"
 import CategoryHeader from "./categoryHeader"
 import AntdCouponPage from "./CouponPage"
 import TopDealsSlider from "./TopDeatils"
-import BlogIcons from "../../blogs/screens/blogLogos"
-import BlogFeaturedSection from "../../blogs/screens/blogFeaturedSection"
-import BlogNewsLayout from "../../blogs/screens/blogNewsLayout"
-import BlogDailyDeals from "./blogdealsData"
 
 const index = () => {
     const { id } = useParams()
@@ -18,10 +14,8 @@ const index = () => {
             <CategoryHeader data={data}/>
             <TopDealsSlider />
             <AntdCouponPage />
-            <BlogIcons/>
-            <BlogFeaturedSection/>
-            <BlogNewsLayout/>
-            <BlogDailyDeals/>
+
+            {/* <BlogDailyDeals/> */}
         </div>
     )
 }

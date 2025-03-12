@@ -10,7 +10,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { getErrorMessage } from "../../utils/helper";
 import { useNavigate } from "react-router-dom";
 import PATH from "../../navigation/Path";
-import { FaEye, FaPlus } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 
 const { Title, Paragraph, Text } = Typography;
 
