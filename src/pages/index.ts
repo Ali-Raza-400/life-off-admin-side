@@ -103,6 +103,9 @@ const ADD_NETWORK = React.lazy(() => import("./networks/addnetworks/index"));
 const VIEW_NETWORK = React.lazy(() => import("./networks/index"));
 const ADD_STORE = React.lazy(() => import("./ManageStores/create/index"));
 const SINGLE_STORE = React.lazy(() => import("./ManageStores/singleStore"));
+const SINGLE_EVENT = React.lazy(() => import("./eventPage/singleEvent/index"));
+const VIEW_EVENTS = React.lazy(() => import("./eventPage/Index"));
+const VIEW_DEALS = React.lazy(() => import("./Deals/index"));
 const ALL_CATEGORY = React.lazy(() => import("./categories/AllCategories/index"));
 const SINGLE_CATEGORY = React.lazy(() => import("./categories/singleCategory/index"));
 const COURSE_VIEW = React.lazy(() => import("./Courses/View/View"));
@@ -125,9 +128,12 @@ const WEB_PAGES = {
 	SINGLE_STORE,
 	SINGLE_CATEGORY,
 	ALL_CATEGORY,
+	SINGLE_EVENT,
+	VIEW_EVENTS,
 
 	// PROTECTED PAGES
 	ITEM_DASHBOARD,
+	VIEW_DEALS,
 
 	// CREATE COURSE
 	NEW_COURSE,

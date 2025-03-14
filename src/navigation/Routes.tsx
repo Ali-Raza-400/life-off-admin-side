@@ -363,6 +363,27 @@ const PRIVATE_ROUTES: RouteType[] = [
 		routeType: ProtectedRoute,
 		layout: "private",
 	},
+	{
+		name: STRINGS.DEALS,
+		path: PATH.VIEW_DEALS,
+		page: <WEB_PAGES.VIEW_DEALS />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
+		name: STRINGS.EVENTS,
+		path: PATH.SINGLE_EVENT,
+		page: <WEB_PAGES.SINGLE_EVENT />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
+		name: STRINGS.VIEW_EVENTS,
+		path: PATH.VIEW_EVENTS,
+		page: <WEB_PAGES.VIEW_EVENTS />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
 ];
 
 const AUTH_ROUTES: RouteType[] = [

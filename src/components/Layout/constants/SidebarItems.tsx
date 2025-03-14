@@ -165,8 +165,26 @@ export const items = [
 		],
 	},
 	{
+		key: STRINGS.EVENTS,
+		icon: <BiCategory />,
+		label: STRINGS.EVENTS,
+		show: true,
+		children: [
+			{
+				key: PATH.VIEW_EVENTS,
+				icon: <BiCategory size={18} />,
+				label: (
+					<Link to={PATH.VIEW_EVENTS}>
+						{STRINGS.VIEW_EVENTS}
+					</Link>
+				),
+			},
+		
+		],
+	},
+	{
 		key: STRINGS.CATEGORY,
-		icon: <BiCategory  />,
+		icon: <BiCategory />,
 		label: STRINGS.CATEGORY,
 		show: true,
 		children: [
@@ -188,13 +206,13 @@ export const items = [
 	},
 	{
 		key: STRINGS.NETWORK,
-		icon: <FaNetworkWired  />,
+		icon: <FaNetworkWired />,
 		label: STRINGS.NETWORK,
 		show: true,
 		children: [
 			{
 				key: PATH.VIEW_NETWORK,
-				icon: <FaNetworkWired  size={18} />,
+				icon: <FaNetworkWired size={18} />,
 				label: (
 					<Link to={PATH.VIEW_NETWORK}>
 						{STRINGS.VIEW_NETWORK}
@@ -237,7 +255,7 @@ export const items = [
 ];
 let user = localStorage.getItem("super_user");
 user = user ? JSON.parse(user) : null;
-console.log("user:::😊😊😊",user)
+console.log("user:::😊😊😊", user)
 export const roleBasedItems = {
 	/** INSTITUTE */
 	[LOOKUP_TYPES.Role.ADMIN]: [
@@ -254,8 +272,9 @@ export const roleBasedItems = {
 		PATH.VIEW_CATEGORY,
 		PATH.ADD_NETWORK,
 		PATH.VIEW_EARNINGS,
-		PATH.VIEW_NETWORK
-		
+		PATH.VIEW_NETWORK,
+		PATH.VIEW_EVENTS
+
 	],
 	/** STUDENT */
 	[LOOKUP_TYPES.Role.USER]: [

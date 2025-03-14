@@ -1,4 +1,7 @@
 const STRINGS = {
+	DEALS:'Deals',
+	EVENTS:'Events',
+	VIEW_EVENTS:'View Events',
 	BLOGS:' Blogs',
 	VIEW_BLOGS:'View Blog',
 	ADD_BLOGS:'ADD Blog',

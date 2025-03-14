@@ -1,4 +1,5 @@
 export const RTK_TAGS = {
+	EVENTS:'events',
 	BLOGS:'blogs',
 	NETWORK:'networks',
 	STORE:'store',

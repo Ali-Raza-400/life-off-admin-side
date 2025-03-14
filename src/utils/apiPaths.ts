@@ -1,4 +1,5 @@
 export const API_PATHS: { [key: string]: string } = {
+	EVENTS:'events',
 	BLOGS:'blogs',
 	CATEGORY:'categories',
 	NETWORK:"networks",

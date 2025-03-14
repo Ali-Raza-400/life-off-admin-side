@@ -75,6 +75,9 @@ const PATH = {
 	ADD_CATEGORY:'/category/add',
 	VIEW_NETWORK:'/network/view',
 	ADD_NETWORK:'/network/add',
+	VIEW_DEALS:'/deals/add',
+	VIEW_EVENTS:'/event/all/view',
+	SINGLE_EVENT:'/single-event/:id',
 };
 
 export default PATH;
