@@ -25,7 +25,17 @@ const blogApi = rtkQApi.injectEndpoints({
             invalidatesTags: [{ type: RTK_TAGS.BLOGS, id: "LIST" }],
         }),
 
+        getSingleBlog:builder.query<any, any>({
+            query: (id) => {
+                return {
+                    url: `${API_PATHS.BLOGS}/${id}`,
+                    method: "GET",
+                };
+            },
+            providesTags: (result) => providesList(result?.data, RTK_TAGS.BLOGS),
+        }),
+
     }),
 });
 
-export const { useGetBlogsQuery, useSaveBlogsMutation } = blogApi;
+export const { useGetBlogsQuery, useSaveBlogsMutation,useGetSingleBlogQuery } = blogApi;
