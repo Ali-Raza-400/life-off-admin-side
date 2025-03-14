@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom"
 import { useGetSingleCategoryQuery } from "../../../redux/slices/category"
-import CategoryHeader from "./categoryHeader"
 import AntdCouponPage from "./CouponPage"
 import TopDealsSlider from "./TopDeatils"
+import CategoryBanner from "./categoryBanner"
 
 const index = () => {
     const { id } = useParams()
@@ -11,11 +11,9 @@ const index = () => {
     
     return (
         <div>
-            <CategoryHeader data={data}/>
+            <CategoryBanner data={data}/>
             <TopDealsSlider />
             <AntdCouponPage />
-
-            {/* <BlogDailyDeals/> */}
         </div>
     )
 }
