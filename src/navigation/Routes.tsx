@@ -384,6 +384,27 @@ const PRIVATE_ROUTES: RouteType[] = [
 		routeType: ProtectedRoute,
 		layout: "private",
 	},
+	{
+		name: STRINGS.TERMSANDCONDTIONS,
+		path: PATH.TERMS_CONDITIONS,
+		page: <WEB_PAGES.TERMS_CONDITIONS />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
+		name: STRINGS.PRIVACY_POLICY,
+		path: PATH.PRIVACY_POLICY,
+		page: <WEB_PAGES.PRIVACY_POLICY />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
+		name: STRINGS.CONTACT_FORM,
+		path: PATH.CONTACT_FORM,
+		page: <WEB_PAGES.CONTACT_FORM />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
 ];
 
 const AUTH_ROUTES: RouteType[] = [

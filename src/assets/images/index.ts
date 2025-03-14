@@ -32,8 +32,10 @@ import BLOG_LOGO6 from "./blog_logo_6.svg";
 import BLOG_LOGO7 from "./blog_logo_7.svg";
 import BLOG_LOGO8 from "./blog_logo_8.svg";
 import BLOG_BANNER from "./blogBanner.svg";
+import CONTACT_FORM from "./contact_form.svg";
 
 const IMAGES = {
+	CONTACT_FORM,
 	BLOG_BANNER,
 	BLOG_LOGO1,
 	BLOG_LOGO2,

@@ -1,4 +1,7 @@
 const STRINGS = {
+	PRIVACY_POLICY:'Privacy Policy',
+	CONTACT_FORM:'Contact Form',
+	TERMSANDCONDTIONS:'Term and conditions',
 	DEALS:'Deals',
 	EVENTS:'Events',
 	VIEW_EVENTS:'View Events',

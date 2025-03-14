@@ -78,6 +78,9 @@ const PATH = {
 	VIEW_DEALS:'/deals/add',
 	VIEW_EVENTS:'/event/all/view',
 	SINGLE_EVENT:'/single-event/:id',
+	TERMS_CONDITIONS:'/terms-conditions',
+	PRIVACY_POLICY:'/privacy-policy',
+	CONTACT_FORM:'/contact-us'
 };
 
 export default PATH;
