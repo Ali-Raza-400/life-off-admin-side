@@ -24,6 +24,14 @@ const blogApi = rtkQApi.injectEndpoints({
             }),
             invalidatesTags: [{ type: RTK_TAGS.BLOGS, id: "LIST" }],
         }),
+        updateBlog: builder.mutation<any, any>({
+            query: ({payload,id}) => ({
+                url: `${API_PATHS.BLOGS}/${id}`,
+                method: "PATCH",
+                data: payload,
+            }),
+            invalidatesTags: [{ type: RTK_TAGS.BLOGS, id: "LIST" }],
+        }),
 
         getSingleBlog:builder.query<any, any>({
             query: (id) => {
@@ -38,4 +46,4 @@ const blogApi = rtkQApi.injectEndpoints({
     }),
 });
 
-export const { useGetBlogsQuery, useSaveBlogsMutation,useGetSingleBlogQuery } = blogApi;
+export const { useGetBlogsQuery, useSaveBlogsMutation,useGetSingleBlogQuery,useUpdateBlogMutation } = blogApi;

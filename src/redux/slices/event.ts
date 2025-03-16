@@ -25,13 +25,13 @@ const eventSlice = rtkQApi.injectEndpoints({
             providesTags: (result) => providesList(result?.data, RTK_TAGS.EVENTS),
         }),
 
-        saveNetwork: builder.mutation<any, any>({
+        saveEvent: builder.mutation<any, any>({
             query: (payload) => ({
-                url: API_PATHS.NETWORK,
+                url: API_PATHS.EVENTS,
                 method: "POST",
                 data: payload,
             }),
-            invalidatesTags: [{ type: RTK_TAGS.NETWORK, id: "LIST" }],
+            invalidatesTags: [{ type: RTK_TAGS.EVENTS, id: "LIST" }],
         }),
         updateCategory: builder.mutation<any, any>({
             query: ({payload,id}) => ({
@@ -46,4 +46,4 @@ const eventSlice = rtkQApi.injectEndpoints({
     }),
 });
 
-export const { useGetEventsQuery, useSaveNetworkMutation,useUpdateCategoryMutation,useGetSingleEventQuery } = eventSlice;
+export const { useGetEventsQuery, useSaveEventMutation,useUpdateCategoryMutation,useGetSingleEventQuery } = eventSlice;

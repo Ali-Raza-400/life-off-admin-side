@@ -9,7 +9,7 @@ const { Title, Paragraph, Text } = Typography;
 
 const Index = () => {
     const [form] = Form.useForm();
-    const [fileList, setFileList] = useState<any[]>([]);
+    const [fileList, setFileList] = useState<any[]>([]); 
     const [isLoading, setIsLoading] = useState(false);
     const { openNotification, contextHolder } = useNotification();
 

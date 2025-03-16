@@ -54,7 +54,7 @@ const Index = () => {
 			render: (value:any) => (
 				<ActionDropdown
 					viewOnClick={() => navigate(PATH.SINGLE_BLOG.replace(":id", value?.id))}
-					// deleteOnClick={() => onDelete(value?.id)}
+					editOnClick={() => navigate(PATH.UPDATE_BLOG.replace(':id', value?.id))}
 				/>
 			),
 		},

@@ -71,16 +71,18 @@ const PATH = {
 	ALL_BLOG:'/blog/all',
 	SINGLE_BLOG:'/single-blog/:id',
 	ADD_BLOGS:'/blog/add',
+	UPDATE_BLOG:'/update-blog/:id',
 	VIEW_CATEGORY:'/category/view',
 	ADD_CATEGORY:'/category/add',
 	VIEW_NETWORK:'/network/view',
 	ADD_NETWORK:'/network/add',
 	VIEW_DEALS:'/deals/add',
 	VIEW_EVENTS:'/event/all/view',
+	ADD_EVENT:'/event/add',
 	SINGLE_EVENT:'/single-event/:id',
 	TERMS_CONDITIONS:'/terms-conditions',
 	PRIVACY_POLICY:'/privacy-policy',
-	CONTACT_FORM:'/contact-us'
+	CONTACT_FORM:'/contact'
 };
 
 export default PATH;

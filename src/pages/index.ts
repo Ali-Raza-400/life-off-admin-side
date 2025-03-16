@@ -97,6 +97,7 @@ const VIEW_BLOG = React.lazy(() => import("./blogs/index"));
 const SINGLE_BLOG = React.lazy(() => import("./blogs/singleBlog/index"));
 const ALL_BLOGS = React.lazy(() => import("./blogs/View/index"));
 const ADD_BLOG = React.lazy(() => import("./blogs/addblogs/index"));
+const UPDATE_BLOG = React.lazy(() => import("./blogs/updateBlog/index"));
 const ADD_CATEGORY = React.lazy(() => import("./categories/addcategories/index"));
 const VIEW_CATEGORY = React.lazy(() => import("./categories/index"));
 const ADD_NETWORK = React.lazy(() => import("./networks/addnetworks/index"));
@@ -105,6 +106,7 @@ const ADD_STORE = React.lazy(() => import("./ManageStores/create/index"));
 const SINGLE_STORE = React.lazy(() => import("./ManageStores/singleStore"));
 const SINGLE_EVENT = React.lazy(() => import("./eventPage/singleEvent/index"));
 const VIEW_EVENTS = React.lazy(() => import("./eventPage/Index"));
+const ADD_EVENT = React.lazy(() => import("./eventPage/addEvent/index"));
 const VIEW_DEALS = React.lazy(() => import("./Deals/index"));
 const ALL_CATEGORY = React.lazy(() => import("./categories/AllCategories/index"));
 const SINGLE_CATEGORY = React.lazy(() => import("./categories/singleCategory/index"));
@@ -121,6 +123,7 @@ const CLOSED = React.lazy(() => import("./Auth/ClosedScreen"));
 // APP PAGES
 const WEB_PAGES = {
 	// AUTH PAGES
+	UPDATE_BLOG,
 	LOGIN,
 	SIGNUP,
 	INSTITUTE_SIGNUP,
@@ -133,6 +136,7 @@ const WEB_PAGES = {
 	ALL_CATEGORY,
 	SINGLE_EVENT,
 	VIEW_EVENTS,
+	ADD_EVENT,
 	TERMS_CONDITIONS,
 	PRIVACY_POLICY,
 	CONTACT_FORM,

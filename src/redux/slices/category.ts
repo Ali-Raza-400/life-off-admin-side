@@ -36,7 +36,7 @@ const categorySlice = rtkQApi.injectEndpoints({
         updateCategory: builder.mutation<any, any>({
             query: ({payload,id}) => ({
                 url: `${API_PATHS.CATEGORY}/${id}`,
-                method: "POST",
+                method: "PATCH",
                 data: payload,
             }),
             invalidatesTags: [{ type: RTK_TAGS.NETWORK, id: "LIST" }],

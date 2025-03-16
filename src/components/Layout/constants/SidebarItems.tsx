@@ -2,16 +2,12 @@ import PATH from "../../../navigation/Path";
 // import { RiCoupon3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
 import STRINGS from "../../../utils/strings";
 import { Link } from "react-router-dom";
-import { MdDashboard, MdPerson, MdPostAdd } from "react-icons/md";
+import { MdCategory, MdDashboard, MdEvent, MdPrivacyTip } from "react-icons/md";
 // import { FaBookOpen, FaHandHoldingDollar } from "react-icons/fa6";
-import { IoBookSharp, IoDocumentText } from "react-icons/io5";
 import { PiUsersFill } from "react-icons/pi";
 import { LOOKUP_TYPES } from "../../../utils/lookup";
-import { FaFolderPlus, FaNetworkWired } from "react-icons/fa";
-import { CiSettings } from "react-icons/ci";
-import { BsFilePostFill } from "react-icons/bs";
-import { BiCategory } from "react-icons/bi";
-import { TbCategoryPlus } from "react-icons/tb";
+import {  FaBoxOpen, FaFileContract, FaFolderPlus, FaNetworkWired, FaStore, FaTicketAlt } from "react-icons/fa";
+import {  BiNews } from "react-icons/bi";
 // import { RiCoupon3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
 export const items = [
 
@@ -35,73 +31,33 @@ export const items = [
 	},
 
 	{
-		key: PATH.STUDENT_ASSIGNMENTS,
-		icon: <IoDocumentText />,
-		label: (
-			<Link to={PATH.STUDENT_ASSIGNMENTS}>{STRINGS.STUDENT_ASSIGNMENTS}</Link>
-		),
-		show: true,
-	},
-	// {
-	// 	key: PATH.STUDENT_QUIZZES,
-	// 	icon: <MdQuiz />,
-	// 	label: <Link to={PATH.STUDENT_QUIZZES}>{STRINGS.STUDENT_QUIZZES}</Link>,
-	// 	show: true,
-	// },
-	{
-		key: PATH.STUDENT_COURSES_LIST,
-		icon: <IoBookSharp />,
-		label: <Link to={PATH.STUDENT_COURSES_LIST}>{STRINGS.MANAGE_STORES}</Link>,
-		show: true,
-	},
-
-
-	{
-		key: PATH.STUDENTS,
-		icon: <PiUsersFill />,
-		label: <Link to={PATH.STUDENTS}>{STRINGS.STUDENTS}</Link>,
-		show: true,
-	},
-	{
-		key: PATH.MANAGE_TEACHER,
-		icon: <MdPerson />,
-		label: <Link to={PATH.MANAGE_TEACHER}>{STRINGS.MANAGE_TEACHER}</Link>,
-		show: true,
-	},
-	{
 		key: PATH.MANAGE_PRODUCTS,
-		icon: <MdPerson />,
+		icon: <FaBoxOpen />,
 		label: <Link to={PATH.MANAGE_PRODUCTS}>{STRINGS.MANAGE_PRODUCTS}</Link>,
 		show: true,
 	},
 	{
 		key: PATH.MANAGE_COUPONS,
-		icon: <MdPerson />,
+		icon: <FaTicketAlt />,
 		label: <Link to={PATH.MANAGE_COUPONS}>{STRINGS.MANAGE_COUPONS}</Link>,
 		show: true,
 	},
-	// {
-	// 	key: PATH.MANAGE_STUDENTS,
-	// 	icon: <PiUsersFill />,
-	// 	label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.MANAGE_STUDENTS}</Link>,
-	// 	show: true,
-	// },
 
 	{
 		key: STRINGS.MANAGE_STORES,
-		icon: <IoBookSharp />,
+		icon: <FaStore />,
 		label: STRINGS.MANAGE_STORES,
 		show: true,
 		children: [
 			{
 				key: PATH.STORES,
-				icon: <IoBookSharp />,
+				icon: <FaStore />,
 				label: <Link to={PATH.STORES}>{STRINGS.STORE}</Link>,
 				show: true,
 			},
 			{
 				key: PATH.ADD_STORES,
-				icon: <FaFolderPlus />,
+				icon: <FaStore />,
 				label: <Link to={PATH.ADD_STORES}>{STRINGS.ADD_STORES}</Link>,
 			},
 		],
@@ -125,32 +81,14 @@ export const items = [
 		],
 	},
 	{
-		key: STRINGS.OPRATIONNAME,
-		icon: <PiUsersFill />,
-		label: STRINGS.MANAGE_OPRATION,
-		show: true,
-		children: [
-			{
-				key: PATH.MANAGE_OPRATION,
-				icon: <PiUsersFill />,
-				label: <Link to={PATH.MANAGE_OPRATION}>{STRINGS.OPRATION}</Link>,
-			},
-			{
-				key: PATH.MANAGE_OPRATION_CREATE,
-				icon: <FaFolderPlus />,
-				label: <Link to={PATH.MANAGE_OPRATION_CREATE}>{STRINGS.MANAGE_OPRATION_CREATE}</Link>,
-			},
-		],
-	},
-	{
 		key: STRINGS.BLOGS,
-		icon: <BsFilePostFill />,
+		icon: <BiNews />,
 		label: STRINGS.BLOGS,
 		show: true,
 		children: [
 			{
 				key: PATH.VIEW_BLOG,
-				icon: <BsFilePostFill size={18} />,
+				icon: <BiNews />,
 				label: (
 					<Link to={PATH.VIEW_BLOG}>
 						{STRINGS.VIEW_BLOGS}
@@ -159,38 +97,52 @@ export const items = [
 			},
 			{
 				key: PATH.ADD_BLOGS,
-				icon: <MdPostAdd size={18} />,
+				icon: <BiNews />,
 				label: <Link to={PATH.ADD_BLOGS}>{STRINGS.ADD_BLOGS}</Link>,
+			},
+			{
+				key: PATH.UPDATE_BLOG,
+				icon: <BiNews />,
+				label: <Link to={PATH.UPDATE_BLOG}>{STRINGS.UPDATE_BLOG}</Link>,
 			},
 		],
 	},
 	{
 		key: STRINGS.EVENTS,
-		icon: <BiCategory />,
+		icon: <MdEvent />,
 		label: STRINGS.EVENTS,
 		show: true,
 		children: [
 			{
 				key: PATH.VIEW_EVENTS,
-				icon: <BiCategory size={18} />,
+				icon: <MdEvent />,
 				label: (
 					<Link to={PATH.VIEW_EVENTS}>
 						{STRINGS.VIEW_EVENTS}
 					</Link>
 				),
 			},
-		
+			{
+				key: PATH.ADD_EVENT,
+				icon: <MdEvent />,
+				label: (
+					<Link to={PATH.ADD_EVENT}>
+						{STRINGS.ADD_EVENT}
+					</Link>
+				),
+			},
+
 		],
 	},
 	{
 		key: STRINGS.CATEGORY,
-		icon: <BiCategory />,
+		icon: <MdCategory />,
 		label: STRINGS.CATEGORY,
 		show: true,
 		children: [
 			{
 				key: PATH.VIEW_CATEGORY,
-				icon: <BiCategory size={18} />,
+				icon: <MdCategory />,
 				label: (
 					<Link to={PATH.VIEW_CATEGORY}>
 						{STRINGS.VIEW_CATEGORY}
@@ -199,7 +151,7 @@ export const items = [
 			},
 			{
 				key: PATH.ADD_CATEGORY,
-				icon: <TbCategoryPlus />,
+				icon: <MdCategory />,
 				label: <Link to={PATH.ADD_CATEGORY}>{STRINGS.ADD_CATEGORY}</Link>,
 			},
 		],
@@ -212,7 +164,7 @@ export const items = [
 		children: [
 			{
 				key: PATH.VIEW_NETWORK,
-				icon: <FaNetworkWired size={18} />,
+				icon: <FaNetworkWired />,
 				label: (
 					<Link to={PATH.VIEW_NETWORK}>
 						{STRINGS.VIEW_NETWORK}
@@ -227,35 +179,24 @@ export const items = [
 		],
 	},
 	{
-		key: PATH.INSTITUTE_SETTINGS,
-		icon: <CiSettings size={18} />,
+		key: PATH.PRIVACY_POLICY,
+		icon: <MdPrivacyTip />,
 		label: (
-			<Link to={PATH.INSTITUTE_SETTINGS}>{STRINGS.INSTITUTE_SETTINGS}</Link>
+			<Link to={PATH.PRIVACY_POLICY}>{STRINGS.PRIVACY_POLICY}</Link>
 		),
 		show: true,
 	},
-	// {
-	// 	key: STRINGS.STUDENT_GRADING,
-	// 	icon: <MdAssessment />,
-	// 	label: STRINGS.STUDENT_GRADING,
-	// 	show: true,
-	// 	children: [
-	// 		{
-	// 			key: PATH.STUDENT_GRADE_ASSIGNMENTS,
-	// 			icon: <IoDocumentText size={18}/>,
-	// 			label: <Link to={PATH.STUDENT_GRADE_ASSIGNMENTS}>{STRINGS.STUDENT_GRADE_ASSIGNMENTS}</Link>,
-	// 		},
-	// 		{
-	// 			key: PATH.STUDENT_GRADE_QUIZZES,
-	// 			icon: <MdQuiz size={18} />,
-	// 			label: <Link to={PATH.STUDENT_GRADE_QUIZZES}>{STRINGS.STUDENT_GRADE_QUIZZES}</Link>,
-	// 		},
-	// 	],
-	// },
+	{
+		key: PATH.TERMS_CONDITIONS,
+		icon: <FaFileContract />,
+		label: (
+			<Link to={PATH.TERMS_CONDITIONS}>{STRINGS.TERMSANDCONDTIONS}</Link>
+		),
+		show: true,
+	},
 ];
 let user = localStorage.getItem("super_user");
 user = user ? JSON.parse(user) : null;
-console.log("user:::😊😊😊", user)
 export const roleBasedItems = {
 	/** INSTITUTE */
 	[LOOKUP_TYPES.Role.ADMIN]: [
@@ -267,13 +208,17 @@ export const roleBasedItems = {
 		PATH.STORES,
 		PATH.ADD_STORES,
 		PATH.ADD_BLOGS,
+		// PATH.UPDATE_BLOG,
 		PATH.VIEW_BLOG,
 		PATH.ADD_CATEGORY,
 		PATH.VIEW_CATEGORY,
 		PATH.ADD_NETWORK,
 		PATH.VIEW_EARNINGS,
 		PATH.VIEW_NETWORK,
-		PATH.VIEW_EVENTS
+		PATH.VIEW_EVENTS,
+		PATH.PRIVACY_POLICY,
+		PATH.TERMS_CONDITIONS,
+		PATH.ADD_EVENT
 
 	],
 	/** STUDENT */

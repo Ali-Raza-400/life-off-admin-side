@@ -3,11 +3,14 @@ import GenericTable from "../../components/UI/GenericTable";
 import { useGetEventsQuery } from "../../redux/slices/event";
 import ActionDropdown from "../../components/UI/ActionDropdown";
 import PATH from "../../navigation/Path";
+import GenericButton from "../../components/UI/GenericButton";
+import { FaPlus } from "react-icons/fa";
+import { Flex } from "antd";
 
 const Index = () => {
   const { data } = useGetEventsQuery({});
   console.log("data::::", data);
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   const columns = [
     {
@@ -50,20 +53,30 @@ const Index = () => {
       render: (isTrending: boolean) => (isTrending ? "Yes" : "No"),
     },
     {
-			title: "Action",
-			key: "action",
-			fixed: "right",
-			width: 100,
-			render: (value:any) => (
-				<ActionDropdown
-					viewOnClick={() => navigate(PATH.SINGLE_EVENT.replace(":id", value?.id))}
-				/>
-			),
-		},
+      title: "Action",
+      key: "action",
+      fixed: "right",
+      width: 100,
+      render: (value: any) => (
+        <ActionDropdown
+          viewOnClick={() => navigate(PATH.SINGLE_EVENT.replace(":id", value?.id))}
+        />
+      ),
+    },
   ];
 
   return (
-    <GenericTable loading={!data} columns={columns as any} data={data?.list || []} />
+    <>
+      <Flex className="justify-end mb-4">
+
+        <GenericButton
+          icon={<FaPlus size={20} />}
+          label="Create New Event"
+          onClick={() => navigate(PATH.ADD_EVENT)}
+        />
+      </Flex>
+      <GenericTable loading={!data} columns={columns as any} data={data?.list || []} />
+    </>
   );
 };
 

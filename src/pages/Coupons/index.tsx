@@ -13,6 +13,7 @@ import { FaPlus } from "react-icons/fa";
 import { useGetProductsQuery } from "../../redux/slices/product";
 import { useGetMyStoresQuery } from "../../redux/slices/store";
 import dayjs from 'dayjs';
+import { useGetCategoriesQuery } from "../../redux/slices/category";
 
 const Index = () => {
     const { data, refetch } = useGetCouponsQuery({})
@@ -26,6 +27,9 @@ const Index = () => {
     const [saveCoupon] = useSaveCouponMutation()
     const [deleteCoupon] = useDeleteCouponMutation()
     const [editCoupon] = useEditCouponMutation()
+    const { data: categoryList } = useGetCategoriesQuery({})
+
+
 
     const onDelete = async (id: string) => {
         console.log("id:::", id);
@@ -159,7 +163,7 @@ const Index = () => {
             ),
         },
     ];
-    
+
 
     const handleAddCoupon = async (userData: any) => {
         const payload = {
@@ -198,6 +202,7 @@ const Index = () => {
                     onClose={() => setIsModalVisible(false)}
                     onAddCoupon={handleAddCoupon}
                     form={form}
+                    categoryList={categoryList}
                 />
                 <UpdateCouponModal
                     isVisible={isUpdateModalVisible}
@@ -205,6 +210,8 @@ const Index = () => {
                     onUpdateCoupon={handleUpdateCoupon}
                     selectedCoupon={selectedCoupon}
                     form={form}
+                    categoryList={categoryList}
+
                 />
             </Flex>
             <GenericTable loading={false} columns={columns} data={data ? data.list : []} />
@@ -214,10 +221,10 @@ const Index = () => {
 
 export default Index
 
-const AddCouponModal: React.FC<any> = ({ isVisible, onClose, onAddCoupon, form }) => {
+const AddCouponModal: React.FC<any> = ({ isVisible, onClose, onAddCoupon, form, categoryList }) => {
     const { data: productsData } = useGetProductsQuery({})
     const { data: myStore } = useGetMyStoresQuery({})
-    console.log("myStore:::", myStore)
+    console.log("categoryList:::", categoryList)
 
     const handleSubmit = (values: any) => {
         console.log("values:::", values)
@@ -365,13 +372,26 @@ const AddCouponModal: React.FC<any> = ({ isVisible, onClose, onAddCoupon, form }
 
                 <Row gutter={24}>
                     {/* Category */}
-                    <Col span={12}>
+                    {/* <Col span={12}>
                         <Form.Item
                             name="category"
                             label="Category"
                             rules={[{ required: true, message: "Category is required" }]}
                         >
                             <Input placeholder="Electronics" style={{ height: 45 }} />
+                        </Form.Item>
+                    </Col> */}
+                    <Col span={12}>
+                        <Form.Item name="category" label="Categories" rules={[{ required: false }]}>
+                           
+                             <Select
+                                placeholder="Select Category"
+                                style={{ width: '100%' }}
+                                options={(categoryList?.list || []).map((store: any) => ({
+                                    value: store.id,
+                                    label: store.categoryName,
+                                }))}
+                            />
                         </Form.Item>
                     </Col>
 
@@ -467,9 +487,9 @@ const UpdateCouponModal: React.FC<any> = ({
     onClose,
     onUpdateCoupon,
     form,
-    selectedCoupon
+    selectedCoupon,categoryList
 }) => {
-console.log("selectedCoupon:::",selectedCoupon);
+    console.log("selectedCoupon:::", selectedCoupon);
 
     const { data: productsData } = useGetProductsQuery({});
     const { data: myStore } = useGetMyStoresQuery({});
@@ -566,9 +586,22 @@ console.log("selectedCoupon:::",selectedCoupon);
                 </Row>
 
                 <Row gutter={24}>
-                    <Col span={12}>
+                    {/* <Col span={12}>
                         <Form.Item name="category" label="Category" rules={[{ required: true }]}>
                             <Input placeholder="Category" style={{ height: 45 }} />
+                        </Form.Item>
+                    </Col> */}
+                    <Col span={12}>
+                        <Form.Item name="category" label="Category" rules={[{ required: false }]}>
+                           
+                             <Select
+                                placeholder="Select Category"
+                                style={{ width: '100%' }}
+                                options={(categoryList?.list || []).map((store: any) => ({
+                                    value: store.id,
+                                    label: store.categoryName,
+                                }))}
+                            />
                         </Form.Item>
                     </Col>
                     <Col span={12}>

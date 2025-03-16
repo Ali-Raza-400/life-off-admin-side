@@ -301,6 +301,13 @@ const PRIVATE_ROUTES: RouteType[] = [
 		layout: "private",
 	},
 	{
+		name: STRINGS.UPDATE_BLOG,
+		path: PATH.UPDATE_BLOG,
+		page: <WEB_PAGES.UPDATE_BLOG />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
 		name: STRINGS.VIEW_CATEGORY,
 		path: PATH.VIEW_CATEGORY,
 		page: <WEB_PAGES.VIEW_CATEGORY />,
@@ -374,6 +381,13 @@ const PRIVATE_ROUTES: RouteType[] = [
 		name: STRINGS.EVENTS,
 		path: PATH.SINGLE_EVENT,
 		page: <WEB_PAGES.SINGLE_EVENT />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
+		name: STRINGS.ADD_EVENT,
+		path: PATH.ADD_EVENT,
+		page: <WEB_PAGES.ADD_EVENT />,
 		routeType: ProtectedRoute,
 		layout: "private",
 	},

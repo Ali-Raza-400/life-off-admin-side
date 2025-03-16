@@ -70,14 +70,14 @@ const Index = () => {
 
   return (
     <>
-    <div className="flex justify-end mb-6">
+      <div className="flex justify-end mb-6">
 
-      <GenericButton
-        icon={<FaEye size={20} />}
-        label="View All Categories"
-        onClick={() => navigate(PATH.ALL_CATEGORY)}
+        <GenericButton
+          icon={<FaEye size={20} />}
+          label="View All Categories"
+          onClick={() => navigate(PATH.ALL_CATEGORY)}
         />
-        </div>
+      </div>
       <GenericTable loading={false} columns={columns as any} data={data?.list} />
       <UpdateCategoryModel isVisible={isVisible} onClose={onClose} form={form} selectedCategory={selectedCategory} />
     </>
@@ -114,10 +114,9 @@ const UpdateCategoryModel = ({ isVisible, onClose, form, selectedCategory }: any
     try {
       const formData = {
         ...values,
-        id: selectedCategory?.id,
         imageFile: fileList.length > 0 ? fileList[0]?.originFileObj : null,
       };
-      await updateCategory(formData).unwrap();
+      await updateCategory({ payload: formData, id: selectedCategory?.id }).unwrap();
       openNotification({ type: "success", title: "Category Updated Successfully!" });
       onClose();
     } catch (error) {
@@ -136,12 +135,13 @@ const UpdateCategoryModel = ({ isVisible, onClose, form, selectedCategory }: any
     <GenericModal
       onClose={onClose}
       show={isVisible}
-      title="Update Category"
+      // title="Update Category"
       width={900}
       onOk={() => form.validateFields().then(handleSubmit)}
       maskClosable={false}
+      showFooter={false}
     >
-      <Card bordered={false} className="w-full max-w-4xl mx-auto shadow-lg p-6 rounded-lg">
+      <div className="w-full max-w-4xl mx-auto p-6 rounded-lg">
         {contextHolder}
         <div>
           <Title level={3}>Update Category</Title>
@@ -197,7 +197,7 @@ const UpdateCategoryModel = ({ isVisible, onClose, form, selectedCategory }: any
             </div>
           </Form>
         </div>
-      </Card>
+      </div>
     </GenericModal>
   );
 };

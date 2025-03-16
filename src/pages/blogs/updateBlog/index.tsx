@@ -1,14 +1,15 @@
 "use client"
 
-import { Form, Input, Select, Card, Typography, Checkbox } from "antd"
+import { Form, Input, Select, Card, Typography, Checkbox, Spin } from "antd"
+import { useEffect } from "react"
+import { useParams, useNavigate } from "react-router-dom"
 import GenericButton from "../../../components/UI/GenericButton"
-import { useSaveBlogsMutation } from "../../../redux/slices/blog"
-import PATH from "../../../navigation/Path"
-import { useNavigate } from "react-router-dom"
 import { useGetCategoriesQuery } from "../../../redux/slices/category"
+import { useGetSingleBlogQuery, useUpdateBlogMutation } from "../../../redux/slices/blog"
+import PATH from "../../../navigation/Path"
 import useGenericAlert from "../../../components/Hooks/GenericAlert"
 import useNotification from "../../../components/UI/Notification"
-import { useSelector } from "react-redux"
+import { getErrorMessage } from "../../../utils/helper"
 
 const { Title, Paragraph } = Typography
 const { Option } = Select
@@ -22,61 +23,73 @@ interface BlogFormValues {
   isFeatured: boolean
   isTrending: boolean
   categoryId: string
-  // No author field in the form values since we'll get it from Redux
+  author: string
 }
 
-export default function CreateBlog() {
+export default function UpdateBlog() {
   const [form] = Form.useForm<BlogFormValues>()
-  const [saveBlogs, { isLoading }] = useSaveBlogsMutation()
-  const { data: categoryList } = useGetCategoriesQuery({})
+  const { id: blogId } = useParams()
   const navigate = useNavigate()
   const { showAlert } = useGenericAlert()
   const { openNotification, contextHolder } = useNotification()
 
-  // Get the current user from Redux store
-  const currentUser = useSelector((state: any) => state.auth.user)
+  // Fetch categories
+  const { data: categoryList, isLoading: isCategoriesLoading } = useGetCategoriesQuery({})
 
-  const handleAddBlog = async (blogData: BlogFormValues) => {
+  // Fetch blog details
+  const { data: blogData, isFetching: isFetchingBlog } = useGetSingleBlogQuery(blogId, {
+    skip: !blogId, // Skip API call if blogId is not available
+  })
+
+  // Update blog mutation
+  const [updateBlog, { isLoading: isUpdating }] = useUpdateBlogMutation()
+
+  // Populate form with existing blog data when fetched
+  useEffect(() => {
+    if (blogData) {
+      form.setFieldValue('categoryId', blogData?.list?.category?.id)
+      form.setFieldsValue(blogData.list)
+    }
+  }, [blogData, form])
+
+  // Handle update blog
+  const handleUpdateBlog = async (values: BlogFormValues) => {
     try {
-      // Change "authorId" to "author" to match the backend DTO
-      const blogWithAuthor = {
-        ...blogData,
-        // authorId: currentUser.id, // Changed from "authorId" to "author"
-        isFeatured: blogData.isFeatured || false,
-        isTrending: blogData.isTrending || false,
+      const payload = {
+        ...values
       }
-
-      console.log("Blog data submitted:", blogWithAuthor)
-      // return
-
-      // Use unwrap() to properly handle the promise
-      const response = await saveBlogs(blogWithAuthor).unwrap()
-      console.log("Blog creation response:", response)
-
-      // Show success message
+      await updateBlog({ id: blogId, payload }).unwrap()
       showAlert({
         type: "success",
-        title: "Blog Created Successfully!",
-        message: "Your blog post has been published.",
+        title: "Blog Updated Successfully!",
+        message: "Your blog post has been updated.",
         confirmButtonText: "OK",
-        onConfirm: () => {
-          form.resetFields()
-          navigate(PATH.VIEW_BLOG)
-        },
+        onConfirm: () => navigate(PATH.VIEW_BLOG),
       })
-    } catch (error: any) {
-      console.error("Error creating blog:", error)
-
-      // Show error notification
+    } catch (error) {
+      console.error("Error updating blog:", error)
       openNotification({
         type: "error",
-        title: error?.data?.message || "Failed to create blog. Please try again.",
+        title: getErrorMessage(error) || "Failed to update blog. Please try again.",
       })
     }
   }
 
-  const handleSubmit = (values: BlogFormValues) => {
-    handleAddBlog(values)
+  if (isFetchingBlog || isCategoriesLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <Spin size="large" tip="Loading blog data..." />
+      </div>
+    )
+  }
+
+  if (!blogId) {
+    return (
+      <div className="text-center p-8">
+        <h2 className="text-xl font-semibold text-red-500">Error</h2>
+        <p className="mt-2">Blog ID is missing. Please provide a valid blog ID.</p>
+      </div>
+    )
   }
 
   return (
@@ -85,31 +98,18 @@ export default function CreateBlog() {
       <div>
         <div className="mb-6">
           <Title level={3} style={{ margin: 0, marginBottom: "8px" }}>
-            Create New Blog Post
+            Update Blog Post
           </Title>
-          <Paragraph type="secondary">
-            Fill in the details to publish a new blog post
-            {currentUser && <span className="ml-2 text-blue-500">(Publishing as: {currentUser.name})</span>}
-          </Paragraph>
+          <Paragraph type="secondary">Edit the details of your blog post</Paragraph>
         </div>
 
-        <Form
-          form={form}
-          layout="vertical"
-          onFinish={handleSubmit}
-          requiredMark="optional"
-          className="space-y-4"
-          initialValues={{
-            isFeatured: false,
-            isTrending: false,
-          }}
-        >
+        <Form form={form} layout="vertical" onFinish={handleUpdateBlog} requiredMark="optional" className="space-y-4">
           <Form.Item<BlogFormValues>
             name="title"
             label="Blog Title"
             rules={[{ required: true, message: "Title is required" }]}
           >
-            <Input size="large" style={{ height: "40px" }} placeholder="Enter blog title" />
+            <Input size="large" />
           </Form.Item>
 
           <Form.Item<BlogFormValues>
@@ -117,13 +117,8 @@ export default function CreateBlog() {
             label="Category"
             rules={[{ required: true, message: "Category is required" }]}
           >
-            <Select
-              placeholder="Select Category"
-              size="large"
-              style={{ width: "100%" }}
-              dropdownStyle={{ maxHeight: "200px" }}
-            >
-              {(categoryList?.list || []).map((category: any) => (
+            <Select placeholder="Select Category" size="large" style={{ width: "100%" }}>
+              {categoryList?.list.map((category: any) => (
                 <Option key={category.id} value={category.id}>
                   {category.categoryName}
                 </Option>
@@ -155,12 +150,7 @@ export default function CreateBlog() {
             label="Featured Image"
             rules={[{ required: true, message: "Featured image is required" }]}
           >
-            <Input
-              addonBefore="Image URL"
-              placeholder="https://example.com/image.jpg"
-              size="large"
-              style={{ height: "40px" }}
-            />
+            <Input addonBefore="Image URL" placeholder="https://example.com/image.jpg" size="large" />
           </Form.Item>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -176,17 +166,9 @@ export default function CreateBlog() {
           <div className="flex justify-end pt-4">
             <GenericButton
               htmlType="submit"
-              disabled={isLoading}
-              loading={isLoading}
-              label={isLoading ? "Publishing..." : "Publish Blog"}
-              style={{
-                height: "44px",
-                minWidth: "120px",
-                background: "#1890ff",
-                color: "white",
-                borderRadius: "6px",
-                fontWeight: 500,
-              }}
+              disabled={isUpdating}
+              className="h-11 min-w-[120px] bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md"
+              label={isUpdating ? "Updating..." : "Update Blog"}
             />
           </div>
         </Form>
@@ -194,4 +176,3 @@ export default function CreateBlog() {
     </Card>
   )
 }
-
