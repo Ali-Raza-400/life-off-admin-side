@@ -3,7 +3,7 @@ import ActionDropdown from "../../components/UI/ActionDropdown";
 import GenericTable from "../../components/UI/GenericTable";
 import { useGetCategoriesQuery, useUpdateCategoryMutation } from "../../redux/slices/category";
 import GenericModal from "../../components/UI/GenericModal";
-import { Button, Card, Col, Form, Input, Row, Typography, Upload } from "antd";
+import { Button, Col, Form, Input, Row, Typography, Upload } from "antd";
 import useNotification from "../../components/UI/Notification";
 import GenericButton from "../../components/UI/GenericButton";
 import { UploadOutlined } from '@ant-design/icons';
