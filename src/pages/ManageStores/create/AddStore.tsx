@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Row, Col, Checkbox, Select, Card, Collapse, Button } from 'antd';
+import { Form, Input, Row, Col, Checkbox, Select, Card, Collapse, Button, Typography } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import GenericButton from '../../../components/UI/GenericButton';
 import CkEditor from '../../../components/UI/GenericCkEditor';
@@ -11,6 +11,7 @@ const { Panel } = Collapse;
 const AddStore: React.FC<{ onAddStore: (values: any) => void }> = ({ onAddStore }) => {
     const [form] = Form.useForm();
     const [faqs, setFaqs] = useState([{ question: '', answer: '' }]);
+    const { Title, Paragraph } = Typography
 
     const handleFaqChange = (index: number, field: 'question' | 'answer', value: string) => {
         const updatedFaqs = [...faqs];
@@ -52,7 +53,12 @@ const AddStore: React.FC<{ onAddStore: (values: any) => void }> = ({ onAddStore 
 
     return (
         <Card bordered={false} className="w-full max-w-7xl mx-auto shadow-lg p-6 rounded-lg">
-            <h2>Add New Store</h2>
+            <div className="mb-6">
+                    <Title level={3} style={{ margin: 0, marginBottom: "8px" }}>
+                        Create New Store
+                    </Title>
+                    <Paragraph type="secondary">Fill in the details to add a new user to the system</Paragraph>
+                </div>
             <Form form={form} layout="vertical">
                 <Row gutter={24}>
                     <Col span={12}>
