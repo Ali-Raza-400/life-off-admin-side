@@ -1,4 +1,5 @@
 export const RTK_TAGS = {
+	PRIVACY_POLICY: "privacy-policy",
 	EVENTS:'events',
 	BLOGS:'blogs',
 	NETWORK:'networks',

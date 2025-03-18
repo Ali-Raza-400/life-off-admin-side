@@ -112,6 +112,7 @@ const ALL_CATEGORY = React.lazy(() => import("./categories/AllCategories/index")
 const SINGLE_CATEGORY = React.lazy(() => import("./categories/singleCategory/index"));
 const TERMS_CONDITIONS = React.lazy(() => import("./TermsAndConditions/index"));
 const PRIVACY_POLICY = React.lazy(() => import("./PrivacyPolicy/index"));
+const EDIT_PRIVACY_POLICY= React.lazy(() => import("./PrivacyPolicy/edit/index"));
 const CONTACT_FORM = React.lazy(() => import("./ContactForm/index"));
 const COURSE_VIEW = React.lazy(() => import("./Courses/View/View"));
 const NEW_COURSE = React.lazy(() => import("./Courses/Generate/Index"));
@@ -139,6 +140,7 @@ const WEB_PAGES = {
 	ADD_EVENT,
 	TERMS_CONDITIONS,
 	PRIVACY_POLICY,
+	EDIT_PRIVACY_POLICY,
 	CONTACT_FORM,
 	// PROTECTED PAGES
 	ITEM_DASHBOARD,

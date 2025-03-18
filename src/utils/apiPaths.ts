@@ -1,4 +1,5 @@
 export const API_PATHS: { [key: string]: string } = {
+	PRIVACY_POLICY: "privacy-policy",
 	EVENTS:'events',
 	BLOGS:'blogs',
 	CATEGORY:'categories',

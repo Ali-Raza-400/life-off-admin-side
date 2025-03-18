@@ -1,4 +1,5 @@
 const STRINGS = {
+	EDIT_PRIVACY_POLICY:'Edit Privacy Policy',
 	ADD_EVENT:'Add Event',
 	UPDATE_BLOG:"Update Blog",
 	PRIVACY_POLICY:'Privacy Policy',

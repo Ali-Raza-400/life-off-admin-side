@@ -413,6 +413,13 @@ const PRIVATE_ROUTES: RouteType[] = [
 		layout: "private",
 	},
 	{
+		name: STRINGS.EDIT_PRIVACY_POLICY,
+		path: PATH.EDIT_PRIVACY_POLICY,
+		page: <WEB_PAGES.EDIT_PRIVACY_POLICY />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
 		name: STRINGS.CONTACT_FORM,
 		path: PATH.CONTACT_FORM,
 		page: <WEB_PAGES.CONTACT_FORM />,

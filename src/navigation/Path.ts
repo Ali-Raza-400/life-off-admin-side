@@ -4,6 +4,7 @@ const PATH = {
 	CREATE_USER:'/create-user',
 	MANAGE_PRODUCTS:'/product/list',
 	MANAGE_COUPONS:'/coupon/list',
+	EDIT_PRIVACY_POLICY:'/edit-privacy-policy',
 
 	//  AUTH PATHS
 	LOGIN: "/",
