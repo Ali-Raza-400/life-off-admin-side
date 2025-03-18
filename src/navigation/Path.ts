@@ -1,10 +1,12 @@
 const PATH = {
+
 	NOPAGE: "*",
 	CLOSED: "/closed",
 	CREATE_USER:'/create-user',
 	MANAGE_PRODUCTS:'/product/list',
 	MANAGE_COUPONS:'/coupon/list',
 	EDIT_PRIVACY_POLICY:'/edit-privacy-policy',
+	EDIT_TERMS_CONDITIONS:'/edit-terms-conditions',
 
 	//  AUTH PATHS
 	LOGIN: "/",

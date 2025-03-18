@@ -1,90 +1,72 @@
+import { FaEdit } from "react-icons/fa";
+import GenericButton from "../../components/UI/GenericButton";
+import { useEffect } from "react";
+import PATH from "../../navigation/Path";
+import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 import Link from "antd/es/typography/Link";
+import { useLazyGetSingleTermAndConditionQuery } from "../../redux/slices/termsdConditions";
 
-export default function TermsOfUse() {
+export default function Index() {
+  const [getSingleTermAndCondition, { data, isLoading }] = useLazyGetSingleTermAndConditionQuery();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getSingleTermAndCondition("1ab5374e-0504-414a-ba16-95233c852b92").catch((err) => {
+      console.error(err);
+    });
+  }, []);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (!data?.list) return <p>No Terms Conditions Found</p>;
+console.log("data.list::",data.list);
+
+  const { title, description, sections:questions, dateOfCreation } = data.list;
+
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
-      <h1 className="text-3xl font-bold mb-8">Terms of Use</h1>
-
-      <div className="space-y-6 text-gray-700">
-        {/* Initial Agreement */}
-        <p>
-          By entering your email, logging into your account, or accepting notifications, you agree to receive
-          personalized liveoff deals each day. You may unsubscribe at any time.
-        </p>
-
-        {/* Welcome Message */}
-        <p>
-          Welcome to the liveoffcoupon Site (defined below). By using it, you are agreeing to these Terms of Use
-          (defined below). Please read them carefully. If you have any questions,{" "}
-        <Link href="/contact" className="text-green-600 hover:text-green-700 underline">
-            contact us here
-          </Link>
-          .
-        </p>
-
-        {/* Last Updated */}
-        <p className="text-sm text-gray-500">These Terms of Use were last updated on January 7, 2025.</p>
-
-        {/* Acceptance Section */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold mt-8 mb-4">ACCEPTANCE OF TERMS OF USE</h2>
-          <p className="text-justify">
-            Liveoffcoupon, (" Liveoff " " we " or " us " or " our ") owns and operates the website, www.groupon.com, the
-            mobile and touch versions and any sites we have now or in the future that reference these Terms of Use
-            (collectively, "Site"). By (a) using the Site and Groupon's services through the Site, (b) signing up for an
-            account and/or (c) completing a purchase on the Site, you agree to these Terms of Use (defined below) and
-            any additional terms applicable to certain programs in which you may elect to participate. You also agree to
-            our Privacy Statement, incorporated herein by reference and located within our{" "}
-            <Link href="/privacy" className="text-green-600 hover:text-green-700 underline">
-              Privacy Policy
-            </Link>{" "}
-            ("Privacy Statement"), and acknowledge that you will regularly visit the Terms of Use (defined below) to
-            familiarize yourself with any updates. The Privacy Statement, together with these terms of use, and any
-            other terms contained herein or incorporated herein by reference, are collectively referred to as the "
-            Terms of Use." The term "using" also includes any person or entity that accesses or uses the Site with
-            crawlers, robots, data mining, or extraction tools or any other functionality.
-          </p>
-
-          <p className="text-justify font-medium">
-            IF YOU DO NOT AGREE TO THESE TERMS OF USE, IMMEDIATELY STOP USING THE SITE AND DO NOT USE ANY GROUPON
-            SERVICE, PARTICIPATE IN ANY PROGRAM OR PURCHASE ANY VOUCHER, PRODUCT OR OTHER GOOD OR SERVICE OFFERED
-            THROUGH THE SITE.
-          </p>
-
-          <p className="text-justify">
-            PLEASE REVIEW THE FOLLOWING SECTIONS OF THESE TERMS OF USE CAREFULLY: (A) DISPUTE RESOLUTION/ARBITRATION
-            AGREEMENT, INCLUDING THE CLASS ACTION WAIVER DESCRIBED THEREIN, (B) LIMITATION OF LIABILITY, AND (C)
-            INDEMNIFICATION/RELEASE.
-          </p>
-        </section>
-
-        {/* About the Site Section */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold mt-8 mb-4">About the Site</h2>
-          <p className="text-justify">
-            The Site is a platform through which certain merchants (" Merchants ") (a) sell vouchers for goods,
-            services, or experiences (" Vouchers "), (b) sell travel goods and services (" Getaways "), (c) gift cards
-            (" Merchant Gift Cards "), (c) sell goods and services directly to you (" Physical Products "), (d) make
-            available coupons, promotional codes, giveaways, samples, and offers for software downloads (" Coupons "),
-            (e) sell dining experiences for specific dates and times (" Reservations "), (f) sell food, beverage and
-            other products for delivery and takeout (" Online Ordering "), (g) make available certain offers, including
-            " card linked deals " (as defined in the Special Programs section of the Terms of Use), and (h) enable you
-            to schedule use of your Voucher on a specific date and time (" Bookings ") (collectively (a)-(h): " Merchant
-            Offerings "). Merchants are the sellers and issuers of the Merchant Offerings and are solely responsible for
-            redeeming any Merchant Offering. Vouchers may be distributed by Groupon Merchant Services, LLC (" GMS ") or
-            Groupon. More information about the distributor of a particular Voucher is available upon request. Groupon
-            is not an agent of GMS, the Merchants, GMS is not an agent of Groupon or Merchants.
-          </p>
-
-          <p className="text-justify">
-            In addition, the Site also provides a platform through which you can purchase products from Groupon ("
-            Products ") and participate in other available programs. Certain Merchant Offerings, Products, and programs
-            may be subject to additional terms, which may change at any time in Groupon's sole discretion, without
-            notice.
-          </p>
-        </section>
+    <div className="max-w-4xl mx-auto px-6 py-10 md:py-12 bg-white shadow-md rounded-lg">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold text-gray-800">{title || "Terms Conditions"}</h1>
+        <GenericButton
+          icon={<FaEdit size={18} />}
+          label="Edit Terms Conditions"
+          onClick={() =>
+            navigate(PATH.EDIT_TERMS_CONDITIONS, { state: { termsConditionID: "1ab5374e-0504-414a-ba16-95233c852b92" } })
+          }
+        />
       </div>
-    </div>
-  )
-}
 
+      {/* Effective Date */}
+      {dateOfCreation && (
+        <p className="text-green-600 mb-6">
+          <span className="font-medium">Effective Date:</span> {dayjs(dateOfCreation).format("MMMM D, YYYY")}
+        </p>
+      )}
+
+      {/* Introduction */}
+      <p className="text-gray-700 mb-8 leading-relaxed">{description || "No description provided."}</p>
+
+      {/* Dynamically Rendered Sections */}
+      {questions?.length > 0 && (
+        <section className="mt-8">
+          {questions.map((section: any, index: number) => (
+            <div key={index} className="mb-8">
+              <h2 className="text-2xl font-bold mb-3">{section.title || "Untitled Section"}</h2>
+              <p className="text-gray-700 leading-relaxed">{section.description || "No content available."}</p>
+            </div>
+          ))}
+        </section>
+      )}
+
+      {/* Additional Info */}
+      <p className="text-sm text-gray-600 mt-8">
+        This Terms Conditions may be updated periodically. Please review it regularly. For more details, check our{" "}
+        <Link href="/terms" className="text-green-600 hover:text-green-700 underline">
+          Terms of Use
+        </Link>
+        .
+      </p>
+    </div>
+  );
+}
