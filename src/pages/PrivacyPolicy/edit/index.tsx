@@ -57,6 +57,7 @@ const UpdatePrivacyPolicy: React.FC = () => {
 
     const handleSectionChange = (index: number, field: keyof Section, value: string) => {
         const updatedSections = [...sections];
+        // @ts-ignore
         updatedSections[index][field] = value;
         updatedSections[index].error = false; // Remove error when user types
         setSections(updatedSections);
