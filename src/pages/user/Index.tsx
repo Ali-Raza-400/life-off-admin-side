@@ -10,6 +10,8 @@ import { Modal, Form, Input, Select } from "antd";
 import PageLoader from "../../components/Loader/PageLoader";
 import useNotification from "../../components/UI/Notification";
 import { getErrorMessage } from "../../utils/helper";
+import SearchFilterWithDrawer from "../../components/UI/SearchFilterWithDrawer";
+import useDebounce from "../../components/Hooks/useDebounce";
 
 const { Option } = Select;
 interface UserFormValues {
@@ -46,16 +48,18 @@ interface StudentType {
 const Index = (): ReactElement => {
   const [selectedUser, setSelectedUser] = useState<any>()
   console.log("selectedUser", selectedUser);
-  const [tableOptions, setTableOptions] = useState({
+  const defaultTableOptions = {
     filters: {},
     pagination: {
       page: 1,
       pageSize: 10,
     },
-  });
+  };
+  const [tableOptions, setTableOptions] = useState(defaultTableOptions);
 
   const [form] = Form.useForm();
-  const { data, isLoading: userLoading, refetch } = useGetUsersQuery(tableOptions);
+  const debouncedTableOptions = useDebounce(tableOptions, 500, ["name"]);
+  const { data, isLoading: userLoading, refetch } = useGetUsersQuery(debouncedTableOptions);
   console.log("data::::", data)
   const [deleteUser, { isLoading: deleteUserLoading }] = useDeleteUserMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -184,14 +188,24 @@ const Index = (): ReactElement => {
     return <><PageLoader /></>
   }
 
+  const searchBar = (
+    <SearchFilterWithDrawer
+      defaultTableOptions={defaultTableOptions}
+      setTableOptions={setTableOptions}
+      form={form}
+    />
+  );
+
   return (
     <>
       {contextHolder}
+      <Flex className="justify-start">
+        <div className="mt-10">{searchBar}</div>
+      </Flex>
       <Flex className="justify-end mb-4">
-        {/* <SearchFilter position="end" /> */}
         <GenericButton
           icon={<FaPlus size={20} />}
-          label="Create New User"
+          label="Create New Usersdsd"
           onClick={() => setIsModalVisible(true)}
         />
 

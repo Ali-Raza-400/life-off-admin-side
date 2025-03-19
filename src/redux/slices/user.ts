@@ -8,16 +8,16 @@ const userApi = rtkQApi.injectEndpoints({
 	endpoints: (builder) => ({
 		getUsers: builder.query<any, any>({
 
-			query: (_tableOptions) => {
-				// const params = {
-				// 	...tableOptions.filters,
-				// 	skip: `${tableOptions.pagination.page-1}0`,
-				// 	limit: tableOptions.pagination.pageSize,
-				// };
+			query: (tableOptions) => {
+				const params = {
+					...tableOptions.filters,
+					page: tableOptions.pagination.page,
+					limit: tableOptions.pagination.pageSize,
+				};
 				return {
 					url: 'users',
 					method: "GET",
-					// params: params,
+					params: params,
 				};
 			},
 			providesTags: (result) => providesList(result?.data, RTK_TAGS.USER),
