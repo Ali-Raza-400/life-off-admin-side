@@ -59,7 +59,7 @@ function PrivateLayout({ children }: LayoutProps) {
 		const route = ROUTES.find((route) => matchPath(route.path, pathname));
 		return route ? route.name : "Page Not Found";
 	};
-	const shouldHideLayout = pathname.includes("/single-store") || pathname.includes("/single-category") || pathname.includes(PATH.ALL_CATEGORY) || pathname.includes(PATH.ALL_BLOG) || pathname.includes('/single-blog/')|| pathname.includes('/single-event');
+	const shouldHideLayout = pathname.includes("/single-store") || pathname.includes("/single-category") || pathname.includes(PATH.ALL_CATEGORY) || pathname.includes(PATH.ALL_BLOG) || pathname.includes('/single-blog/') || pathname.includes('/single-event');
 
 
 	// Filter items based on the current role
@@ -181,7 +181,7 @@ function PrivateLayout({ children }: LayoutProps) {
 					bottom: 0,
 					scrollbarWidth: "thin",
 					scrollbarColor: "unset",
-					backgroundColor: theme === THEME.DARK ? "#212529" : "#8970D6", // Replace this with your custom color
+					backgroundColor: theme === THEME.DARK ? "#212529" : "#7FA842", // Replace this with your custom color
 				}}
 				theme={theme.toLowerCase()}
 			>
@@ -197,16 +197,19 @@ function PrivateLayout({ children }: LayoutProps) {
 						)}
 					</span>
 				</div>
-				<div className="flex flex-col h-full justify-between py-5 px-1">
+				<div className="flex flex-col h-full justify-between pb-5  px-0 bg-[#7FA842]">
 					<div>
-						<img src={IMAGES.ALMS_LOGO_NEW2} className="mb-5 w-[60%] mx-auto" />
+						<div className="w-full bg-[#ffffff]  py-2 pb-0  ">
+
+							<img src={IMAGES.LiveoffLogo} className="mb-5 w-[80%] mx-auto bg-[#ffffff]" />
+						</div>
 						<Menu
 							theme={theme.toLowerCase()}
 							mode="inline"
 							selectedKeys={[pathname]}
 							items={getMenuItems(user?.role)}
 							style={{
-								backgroundColor: theme === THEME.DARK ? "#212529" : "#8970D6", // Replace with your custom color
+								backgroundColor: theme === THEME.DARK ? "#212529" : "#7FA842", // Replace with your custom color
 							}}
 						/>
 					</div>

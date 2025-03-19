@@ -33,6 +33,7 @@ import BLOG_LOGO7 from "./blog_logo_7.svg";
 import BLOG_LOGO8 from "./blog_logo_8.svg";
 import BLOG_BANNER from "./blogBanner.svg";
 import CONTACT_FORM from "./contact_form.svg";
+import LiveoffLogo from "./liveoff-logo.svg";
 
 const IMAGES = {
 	CONTACT_FORM,
@@ -69,7 +70,7 @@ const IMAGES = {
 	CLOSED,
 	BG_LOGIN,
 	PERSON_IMG,
-	Bike_Img
+	Bike_Img, LiveoffLogo
 };
 
 export default IMAGES;

@@ -10,8 +10,7 @@ import STRINGS from "../../utils/strings"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import useNotification from "../../components/UI/Notification"
 import axios from "axios"
-import { FaStore, FaUsers, FaTag } from "react-icons/fa"
-import { MdDashboard, MdOutlineAdminPanelSettings } from "react-icons/md"
+import IMAGES from "../../assets/images"
 
 function Index() {
   const { openNotification, contextHolder } = useNotification()
@@ -26,16 +25,16 @@ function Index() {
       axios
         .post("http://localhost:3000/users/login", values)
         .then((response) => {
-          console.log("response:::",response)
+          console.log("response:::", response)
           // return
           // return
           const obj = {
-            id:response?.data?.userId,
+            id: response?.data?.userId,
             isActive: true,
             email: values?.email,
             fullName: response?.data?.fullName,
             role: response?.data?.role,
-            user_permissions:response?.data?.user_permissions,
+            user_permissions: response?.data?.user_permissions,
             access_token:
               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzaGFmaXFzaWRkaXFAZ21haWwuY29tIiwiZXhwIjoxNzQxMTk1ODE5fQ.E6V2RmZiia0fSrIUqyN5YPtFrOqcNKDyKaBa6hLOYH8",
           }
@@ -50,10 +49,10 @@ function Index() {
           })
         })
         .catch((err) => {
-          console.log("err:::",err)
+          console.log("err:::", err)
           openNotification({
             type: "error",
-            title:  getErrorMessage(err),
+            title: getErrorMessage(err),
           })
         })
     } catch (error: unknown) {
@@ -66,96 +65,42 @@ function Index() {
       {contextHolder}
 
       <div className="min-h-screen w-full relative">
-        {/* Background */}
+        {/* Background - Solid green instead of image */}
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1607083206968-13611e3d76db?q=80&w=2070&auto=format&fit=crop')`,
-            filter: "blur(2px)",
+            backgroundColor: "#7FA842",
           }}
         />
-
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/60 to-indigo-900/85" />
 
         <div className="relative z-10 min-h-screen">
           {/* Mobile Header - Only visible on small screens */}
           <div className="lg:hidden w-full bg-black/30 backdrop-blur-sm p-4">
             <div className="flex items-center justify-center gap-3">
-              <MdOutlineAdminPanelSettings className="text-white text-2xl" />
-              <h1 className="text-xl font-bold text-white">MarketPro</h1>
+              <img src={IMAGES.LiveoffLogo || "/placeholder.svg"} alt="LiveOff Logo" className="h-8" />
             </div>
           </div>
 
           {/* Main Content */}
           <div className="flex min-h-[calc(100vh-64px)] lg:min-h-screen">
             {/* Left Content - Hidden on small screens */}
-            <div className="hidden lg:flex lg:w-[60%] xl:w-[65%] items-center justify-center p-8 bg-gradient-to-r from-transparent to-black/20">
-              <div className="max-w-2xl">
-                <div className="flex items-center mb-8">
-                  <MdOutlineAdminPanelSettings className="text-white text-5xl mr-4" />
-                  <h1 className="text-4xl font-bold text-white">MarketPro</h1>
-                </div>
-
-                <div className="backdrop-blur-sm p-8 rounded-2xl border border-white/10">
-                  <h2 className="text-3xl font-bold text-white mb-4">Digital Marketing Admin Portal</h2>
-                  <p className="text-xl text-white/80 mb-6">
-                    Manage users, stores, products, and promotional campaigns from one central dashboard.
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-6 mt-8">
-                    <div className="bg-white/5 backdrop-blur-md p-4 rounded-xl flex items-center">
-                      <div className="bg-purple-500/20 p-3 rounded-full mr-4">
-                        <FaUsers className="text-white text-2xl" />
-                      </div>
-                      <div>
-                        <h3 className="text-white font-medium">User Management</h3>
-                        <p className="text-white/70 text-sm">Create and manage user access</p>
-                      </div>
-                    </div>
-
-                    <div className="bg-white/5 backdrop-blur-md p-4 rounded-xl flex items-center">
-                      <div className="bg-blue-500/20 p-3 rounded-full mr-4">
-                        <FaStore className="text-white text-2xl" />
-                      </div>
-                      <div>
-                        <h3 className="text-white font-medium">Store Management</h3>
-                        <p className="text-white/70 text-sm">Create and configure stores</p>
-                      </div>
-                    </div>
-
-                    <div className="bg-white/5 backdrop-blur-md p-4 rounded-xl flex items-center">
-                      <div className="bg-indigo-500/20 p-3 rounded-full mr-4">
-                        <MdDashboard className="text-white text-2xl" />
-                      </div>
-                      <div>
-                        <h3 className="text-white font-medium">Product Catalog</h3>
-                        <p className="text-white/70 text-sm">Manage your product listings</p>
-                      </div>
-                    </div>
-
-                    <div className="bg-white/5 backdrop-blur-md p-4 rounded-xl flex items-center">
-                      <div className="bg-pink-500/20 p-3 rounded-full mr-4">
-                        <FaTag className="text-white text-2xl" />
-                      </div>
-                      <div>
-                        <h3 className="text-white font-medium">Coupon System</h3>
-                        <p className="text-white/70 text-sm">Create and track promotions</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div
+              className="hidden lg:flex lg:w-[60%] xl:w-[65%] items-center justify-center p-8"
+              style={{ backgroundColor: "#f5f5f5" }}
+            >
+              <div className="max-w-2xl flex flex-col items-center justify-center">
+                <img src={IMAGES.LiveoffLogo || "/placeholder.svg"} alt="LiveOff Logo" className="w-64 mb-8" />
               </div>
             </div>
 
             {/* Right side - Login Form */}
-            <div className="w-full lg:w-[40%] xl:w-[35%] flex items-center justify-center p-4 lg:bg-black/20">
+            <div className="w-full lg:w-[40%] xl:w-[35%] flex items-center justify-center p-4">
               <div className="w-full max-w-md">
-                <div className="backdrop-blur-md rounded-2xl border border-white/10 p-6 lg:p-8">
+                <div className="backdrop-blur-md rounded-2xl p-6 lg:p-8 bg-white/20 shadow-lg">
                   {/* Logo and Title - Different versions for mobile and desktop */}
                   <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/10 mb-4">
-                      <MdOutlineAdminPanelSettings className="text-white text-3xl" />
+                    <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white mb-4">
+                      <img src={IMAGES.LiveoffLogo || "/placeholder.svg"} alt="LiveOff Logo" className="h-16" />
                     </div>
                     <Typography
                       variant="headingOneLight"
@@ -164,9 +109,9 @@ function Index() {
                     >
                       {/* Different text for mobile and desktop */}
                       <span className="lg:hidden">Welcome Back</span>
-                      <span className="hidden lg:block">Marketing Admin Portal</span>
+                      <span className="hidden lg:block">LiveOff Coupon Portal</span>
                     </Typography>
-                    <p className="text-white/80 mt-2 text-sm lg:text-base">Sign in to access your dashboard</p>
+                    <p className="text-white/90 mt-2 text-sm lg:text-base">Sign in to access your dashboard</p>
                   </div>
 
                   <Form
@@ -186,10 +131,10 @@ function Index() {
                         },
                       ]}
                       autoComplete="off"
-                      inputPrefix={<UserOutlined className="text-white/60" />}
+                      inputPrefix={<UserOutlined className="text-white/80" />}
                       placeholder={STRINGS.EMAIL}
                       inputType="input"
-                      itemClassName="!bg-white/10 !border-white/20 !text-white placeholder:text-white/60 h-12"
+                      itemClassName="!bg-white/20 !border-0 !text-white placeholder:text-white/80 h-12 !rounded-lg"
                     />
 
                     <InputField
@@ -203,24 +148,25 @@ function Index() {
                       autoComplete="off"
                       placeholder={STRINGS.PASSWORD}
                       inputType="password"
-                      inputPrefix={<LockOutlined className="text-white/60" />}
+                      inputPrefix={<LockOutlined className="text-white/80" />}
                       margin="small"
-                      itemClassName="!bg-white/10 !border-white/20 !text-white placeholder:text-white/60 h-12"
+                      itemClassName="!bg-white/20 !border-0 !text-white placeholder:text-white/80 h-12 !rounded-lg"
                     />
 
                     <Button
-                      type="primary"
+                      type="link"
                       htmlType="submit"
                       size="large"
-                      className="w-full mt-6 !h-12 !bg-gradient-to-r !from-purple-600 !to-indigo-600 !border-0 !text-white font-medium text-base hover:!from-purple-700 hover:!to-indigo-700 shadow-lg"
+                      className="text-[#ffffff] w-full mt-6 !h-12 !bg-[#629516] hover:!bg-[#7fa842] !border-0  font-medium !text-white shadow-lg !rounded-lg"
                       disabled={isLoginLoading}
                       loading={isLoginLoading}
+                      style={{color:'white'}}
                     >
                       Sign In to Dashboard
                     </Button>
 
                     <div className="text-center mt-6">
-                      <p className="text-white/60 text-sm">© 2023 MarketPro Digital Marketing Platform</p>
+                      <p className="text-white/80 text-sm">© 2025 LiveOff Coupon Platform</p>
                     </div>
                   </Form>
                 </div>
