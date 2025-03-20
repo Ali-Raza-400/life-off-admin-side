@@ -5,7 +5,6 @@ import GenericTable from "../../components/UI/GenericTable";
 import GenericButton from "../../components/UI/GenericButton";
 import { FaPlus } from "react-icons/fa6";
 import { Form } from "antd";
-import { useGetStoresQuery } from "../../redux/slices/truck";
 import GenericModal from "../../components/UI/GenericModal";
 import useGenericAlert from "../../components/Hooks/GenericAlert";
 import TextArea from "antd/es/input/TextArea";

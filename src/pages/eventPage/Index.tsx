@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import GenericTable from "../../components/UI/GenericTable";
-import { useGetEventsQuery, useGetEventsWithFilterQuery } from "../../redux/slices/event";
+import {  useGetEventsWithFilterQuery } from "../../redux/slices/event";
 import ActionDropdown from "../../components/UI/ActionDropdown";
 import PATH from "../../navigation/Path";
 import GenericButton from "../../components/UI/GenericButton";

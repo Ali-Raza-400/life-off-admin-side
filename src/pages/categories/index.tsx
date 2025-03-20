@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ActionDropdown from "../../components/UI/ActionDropdown";
 import GenericTable from "../../components/UI/GenericTable";
-import { useGetCategoriesQuery, useGetCategoriesWithSearchQuery, useUpdateCategoryMutation } from "../../redux/slices/category";
+import {useGetCategoriesWithSearchQuery, useUpdateCategoryMutation } from "../../redux/slices/category";
 import GenericModal from "../../components/UI/GenericModal";
 import { Button, Col, Flex, Form, Input, Row, Typography, Upload } from "antd";
 import useNotification from "../../components/UI/Notification";

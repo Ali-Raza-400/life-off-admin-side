@@ -1,7 +1,7 @@
 import { Checkbox, Col, DatePicker, Flex, Form, Input, Row, Select, TableProps } from "antd";
 import GenericTable from "../../components/UI/GenericTable"
 import ActionDropdown from "../../components/UI/ActionDropdown";
-import { useDeleteCouponMutation, useEditCouponMutation, useGetCouponsQuery, useGetCouponsWithSearchAndCouponQuery, useSaveCouponMutation } from "../../redux/slices/coupons";
+import { useDeleteCouponMutation, useEditCouponMutation, useGetCouponsWithSearchAndCouponQuery, useSaveCouponMutation } from "../../redux/slices/coupons";
 import GenericModal from "../../components/UI/GenericModal";
 import { getErrorMessage } from "../../utils/helper";
 import useNotification from "../../components/UI/Notification";
