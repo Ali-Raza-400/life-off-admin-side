@@ -187,7 +187,7 @@ function PrivateLayout({ children }: LayoutProps) {
 			>
 				<div
 					onClick={() => setCollapsed(!collapsed)}
-					className="cursor-pointer hidden lg:hidden bg-[#BEB0E8] py-2 w-full justify-center items-center max-lg:flex"
+					className="cursor-pointer hidden lg:hidden bg-[#7FA842] py-2 w-full justify-center items-center max-lg:flex"
 				>
 					<span className="!min-w-0 ">
 						{collapsed ? (
@@ -298,7 +298,7 @@ function PrivateLayout({ children }: LayoutProps) {
 					</div>
 					<div className="flex justify-center items-center gap-2 xs:gap-4">
 						<div className="p-2 rounded-full">
-							<LuBell size={25} color="#8970D6" />
+							<LuBell size={25} color="#7FA842" />
 						</div>
 						<div>
 							<Dropdown

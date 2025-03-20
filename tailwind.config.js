@@ -7,6 +7,9 @@ export default {
 			screens: {
 				xs: "480px", // Example: for screens smaller than `sm`
 			},
+			colors: {
+				themeColor: "#7FA842", // Example: for screens smaller than `sm`
+			},
 		},
 	},
 	plugins: [],
