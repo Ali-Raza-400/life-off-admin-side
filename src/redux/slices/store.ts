@@ -15,6 +15,21 @@ const storeApi = rtkQApi.injectEndpoints({
             },
             providesTags: (result) => providesList(result?.data, RTK_TAGS.STORE),
         }),
+        getStoresWithSearch: builder.query<any, any>({
+            query: (tableOptions) => {
+                const params = {
+					...tableOptions.filters,
+					page: tableOptions.pagination.page,
+					limit: tableOptions.pagination.pageSize,
+				};
+                return {
+                    url: `${API_PATHS.STORES}/search`,
+                    method: "GET",
+                    params: params,
+                };
+            },
+            providesTags: (result) => providesList(result?.data, RTK_TAGS.STORE),
+        }),
         getCouponsProductByStoreId: builder.query<any, any>({
             query: (id) => {
                 return {
@@ -61,4 +76,4 @@ const storeApi = rtkQApi.injectEndpoints({
     }),
 });
 
-export const { useGetStoresQuery, useSaveStoreMutation, useEditStoreMutation,useRemoveStoreMutation,useGetMyStoresQuery,useGetCouponsProductByStoreIdQuery } = storeApi;
+export const {useGetStoresWithSearchQuery, useGetStoresQuery, useSaveStoreMutation, useEditStoreMutation,useRemoveStoreMutation,useGetMyStoresQuery,useGetCouponsProductByStoreIdQuery } = storeApi;

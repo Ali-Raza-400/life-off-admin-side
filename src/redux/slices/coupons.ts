@@ -14,6 +14,21 @@ const couponsApi = rtkQApi.injectEndpoints({
             },
             providesTags: (result) => providesList(result?.data, RTK_TAGS.COUPONS),
         }),
+        getCouponsWithSearchAndCoupon: builder.query<any, any>({
+            query: (tableOptions) => {
+                const params = {
+					...tableOptions.filters,
+					page: tableOptions.pagination.page,
+					limit: tableOptions.pagination.pageSize,
+				};
+                return {
+                    url: 'coupons/search',
+                    method: "GET",
+                    params: params,
+                };
+            },
+            providesTags: (result) => providesList(result?.data, RTK_TAGS.COUPONS),
+        }),
         saveCoupon: builder.mutation<any, any>({
             query: (payload) => {
                 return {
@@ -45,4 +60,4 @@ const couponsApi = rtkQApi.injectEndpoints({
     }),
 })
 
-export const { useGetCouponsQuery,useSaveCouponMutation,useDeleteCouponMutation,useEditCouponMutation } = couponsApi;
+export const {useGetCouponsWithSearchAndCouponQuery, useGetCouponsQuery,useSaveCouponMutation,useDeleteCouponMutation,useEditCouponMutation } = couponsApi;

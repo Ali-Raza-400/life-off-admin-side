@@ -15,6 +15,21 @@ const eventSlice = rtkQApi.injectEndpoints({
             },
             providesTags: (result) => providesList(result?.data, RTK_TAGS.EVENTS),
         }),
+        getEventsWithFilter: builder.query<any, any>({
+            query: (tableOptions) => {
+                const params = {
+                    ...tableOptions.filters,
+                    page: tableOptions.pagination.page,
+                    limit: tableOptions.pagination.pageSize,
+                };
+                return {
+                    url: `${API_PATHS.EVENTS}/search`,
+                    method: "GET",
+                    params: params,
+                };
+            },
+            providesTags: (result) => providesList(result?.data, RTK_TAGS.EVENTS),
+        }),
         getSingleEvent: builder.query<any, any>({
             query: (id) => {
                 return {
@@ -34,7 +49,7 @@ const eventSlice = rtkQApi.injectEndpoints({
             invalidatesTags: [{ type: RTK_TAGS.EVENTS, id: "LIST" }],
         }),
         updateCategory: builder.mutation<any, any>({
-            query: ({payload,id}) => ({
+            query: ({ payload, id }) => ({
                 url: `${API_PATHS.CATEGORY}/${id}`,
                 method: "POST",
                 data: payload,
@@ -46,4 +61,4 @@ const eventSlice = rtkQApi.injectEndpoints({
     }),
 });
 
-export const { useGetEventsQuery, useSaveEventMutation,useUpdateCategoryMutation,useGetSingleEventQuery } = eventSlice;
+export const { useGetEventsWithFilterQuery, useGetEventsQuery, useSaveEventMutation, useUpdateCategoryMutation, useGetSingleEventQuery } = eventSlice;

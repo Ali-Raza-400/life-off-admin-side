@@ -13,8 +13,23 @@ const productApi = rtkQApi.injectEndpoints({
             },
             providesTags: (result) => providesList(result?.data, RTK_TAGS.PRODUCTS),
         }),
+        getProductsSearch: builder.query<any, any>({
+            query: (tableOptions) => {
+                const params = {
+					...tableOptions.filters,
+					page: tableOptions.pagination.page,
+					limit: tableOptions.pagination.pageSize,
+				};
+                return {
+                    url: 'product/search',
+                    method: "GET",
+                    params: params,
+                };
+            },
+            providesTags: (result) => providesList(result?.data, RTK_TAGS.PRODUCTS),
+        }),
 
     }),
 })
 
-export const { useGetProductsQuery } = productApi;
+export const { useGetProductsQuery ,useGetProductsSearchQuery} = productApi;

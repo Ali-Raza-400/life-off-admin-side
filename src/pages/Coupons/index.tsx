@@ -1,7 +1,7 @@
 import { Checkbox, Col, DatePicker, Flex, Form, Input, Row, Select, TableProps } from "antd";
 import GenericTable from "../../components/UI/GenericTable"
 import ActionDropdown from "../../components/UI/ActionDropdown";
-import { useDeleteCouponMutation, useEditCouponMutation, useGetCouponsQuery, useSaveCouponMutation } from "../../redux/slices/coupons";
+import { useDeleteCouponMutation, useEditCouponMutation, useGetCouponsQuery, useGetCouponsWithSearchAndCouponQuery, useSaveCouponMutation } from "../../redux/slices/coupons";
 import GenericModal from "../../components/UI/GenericModal";
 import { getErrorMessage } from "../../utils/helper";
 import useNotification from "../../components/UI/Notification";
@@ -14,9 +14,21 @@ import { useGetProductsQuery } from "../../redux/slices/product";
 import { useGetMyStoresQuery } from "../../redux/slices/store";
 import dayjs from 'dayjs';
 import { useGetCategoriesQuery } from "../../redux/slices/category";
+import useDebounce from "../../components/Hooks/useDebounce";
+import SearchFilterWithDrawer from "../../components/UI/SearchFilterWithDrawer";
 
 const Index = () => {
-    const { data, refetch } = useGetCouponsQuery({})
+    const defaultTableOptions = {
+        filters: {},
+        pagination: {
+            page: 1,
+            pageSize: 10,
+        },
+    };
+    const [tableOptions, setTableOptions] = useState(defaultTableOptions);
+    const debouncedTableOptions = useDebounce(tableOptions, 500, ["name"]);
+    const { data, refetch } = useGetCouponsWithSearchAndCouponQuery(debouncedTableOptions)
+    // const { data, refetch } = useGetCouponsQuery({})
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
     const [selectedCoupon, setSelectedCoupon] = useState<any>()
@@ -188,10 +200,18 @@ const Index = () => {
         }
     };
 
+    const searchBar = (
+        <SearchFilterWithDrawer
+            defaultTableOptions={defaultTableOptions}
+            setTableOptions={setTableOptions}
+            form={form}
+        />
+    );
+
     return (
         <>
             <Flex className="justify-end mb-4">
-
+                <div className="w-full">{searchBar}</div>
                 <GenericButton
                     icon={<FaPlus size={20} />}
                     label="Create New Coupon"
@@ -214,7 +234,10 @@ const Index = () => {
 
                 />
             </Flex>
-            <GenericTable loading={false} columns={columns} data={data ? data.list : []} />
+            <GenericTable loading={false} columns={columns} data={data} updatePaginationFunc={(data: { page: number; pageSize: number }) => {
+                setTableOptions({ ...tableOptions, pagination: data })
+            }}
+                enablePagination={true} />
         </>
     )
 }
@@ -383,8 +406,8 @@ const AddCouponModal: React.FC<any> = ({ isVisible, onClose, onAddCoupon, form, 
                     </Col> */}
                     <Col span={12}>
                         <Form.Item name="category" label="Categories" rules={[{ required: false }]}>
-                           
-                             <Select
+
+                            <Select
                                 placeholder="Select Category"
                                 style={{ width: '100%' }}
                                 options={(categoryList?.list || []).map((store: any) => ({
@@ -487,7 +510,7 @@ const UpdateCouponModal: React.FC<any> = ({
     onClose,
     onUpdateCoupon,
     form,
-    selectedCoupon,categoryList
+    selectedCoupon, categoryList
 }) => {
     console.log("selectedCoupon:::", selectedCoupon);
 
@@ -593,8 +616,8 @@ const UpdateCouponModal: React.FC<any> = ({
                     </Col> */}
                     <Col span={12}>
                         <Form.Item name="category" label="Category" rules={[{ required: false }]}>
-                           
-                             <Select
+
+                            <Select
                                 placeholder="Select Category"
                                 style={{ width: '100%' }}
                                 options={(categoryList?.list || []).map((store: any) => ({

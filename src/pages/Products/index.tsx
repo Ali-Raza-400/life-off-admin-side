@@ -1,10 +1,24 @@
-import { TableProps } from "antd";
+import { Form, TableProps } from "antd";
 import GenericTable from "../../components/UI/GenericTable"
-import { useGetProductsQuery } from "../../redux/slices/product";
+import { useGetProductsSearchQuery } from "../../redux/slices/product";
 import ActionDropdown from "../../components/UI/ActionDropdown";
+import { useState } from "react";
+import useDebounce from "../../components/Hooks/useDebounce";
+import SearchFilterWithDrawer from "../../components/UI/SearchFilterWithDrawer";
 
 const Index = () => {
-    const { data } = useGetProductsQuery({})
+    const defaultTableOptions = {
+        filters: {},
+        pagination: {
+            page: 1,
+            pageSize: 10,
+        },
+    };
+    const [tableOptions, setTableOptions] = useState(defaultTableOptions);
+    const debouncedTableOptions = useDebounce(tableOptions, 500, ["name"]);
+    // const { data } = useGetProductsQuery({})
+    const { data } = useGetProductsSearchQuery(debouncedTableOptions)
+    const [form] = Form.useForm();
     console.log("data::::", data)
 
     const columns: TableProps<any>["columns"] = [
@@ -60,9 +74,22 @@ const Index = () => {
             ),
         },
     ];
+    const searchBar = (
+        <SearchFilterWithDrawer
+            defaultTableOptions={defaultTableOptions}
+            setTableOptions={setTableOptions}
+            form={form}
+        />
+    );
 
     return (
-        <GenericTable loading={false} columns={columns} data={data ? data.list : []} />
+        <>
+            <div className="w-full">{searchBar}</div>
+            <GenericTable loading={false} columns={columns} data={data} updatePaginationFunc={(data: { page: number; pageSize: number }) => {
+                setTableOptions({ ...tableOptions, pagination: data })
+            }}
+                enablePagination={true} />
+        </>
     )
 }
 
