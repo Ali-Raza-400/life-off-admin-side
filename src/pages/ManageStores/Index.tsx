@@ -17,6 +17,9 @@ import CkEditor from '../../components/UI/GenericCkEditor';
 import { MdDelete } from "react-icons/md";
 import useDebounce from "../../components/Hooks/useDebounce";
 import SearchFilterWithDrawer from "../../components/UI/SearchFilterWithDrawer";
+// import DateField from "../../components/Form/DateField";
+import GenericDrawer from "../../components/UI/GenericDrawer";
+// import { useGetCategoriesQuery } from "../../redux/slices/category";
 
 
 
@@ -45,6 +48,10 @@ const Index = (): ReactElement => {
 	const [saveStore] = useSaveStoreMutation()
 	const [editStore] = useEditStoreMutation()
 	const { openNotification, contextHolder } = useNotification()
+	const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+	const { Option } = Select;
+	// const { data: categoryList } = useGetCategoriesQuery({})
+
 	const handleUpdateStore = async (userData: any) => {
 		const payload = { ...userData };
 
@@ -178,19 +185,76 @@ const Index = (): ReactElement => {
 		},
 	];
 
-    const searchBar = (
-        <SearchFilterWithDrawer
-            defaultTableOptions={defaultTableOptions}
-            setTableOptions={setTableOptions}
-            form={form}
-        />
-    );
+
+	const filterDrawer = (
+		<GenericDrawer
+			visible={isDrawerVisible}
+			onClose={() => setIsDrawerVisible(false)}
+			setTableOptions={setTableOptions}
+			form={form}
+			title="Store Filters"
+		>
+			{/* <Form.Item name="name" label="Course Title">
+				<Input
+					style={{ width: "100%" }}
+					placeholder="Enter Title"
+					className="h-10"
+				/>
+			</Form.Item> */}
+			<Form.Item name="isActive" label="isActive">
+				<Select
+					allowClear
+					placeholder="isActive"
+					className="h-10"
+				>
+					<Option value={true}>Yes</Option>
+					<Option value={false}>No</Option>
+				</Select>
+			</Form.Item>
+			{/* <Form.Item name="categoryId" label="Categories">
+				<Select
+					placeholder="Select Category"
+					style={{ width: '100%' }}
+					options={(categoryList?.list || []).map((store: any) => ({
+						value: store.id,
+						label: store.categoryName,
+					}))}
+				/>
+			</Form.Item> */}
+
+			{/* <Form.Item name="price" label="Price">
+      <InputNumber
+          style={{ width: "100%" }}
+          placeholder="Enter price"
+          min={0}
+          className="h-10"
+      />
+  </Form.Item> */}
+			{/* <Form.Item name="name" label="Course Name">
+      <Input placeholder="Search by name" />
+  </Form.Item> */}
+			{/* <DateField name={"fromDate"} label="From Date" className="h-10 w-full" />
+			<DateField name={"toDate"} label="To Date" className="h-10 w-full" /> */}
+		</GenericDrawer>
+	);
+
+
+
+	const searchBar = (
+		<SearchFilterWithDrawer
+			defaultTableOptions={defaultTableOptions}
+			setTableOptions={setTableOptions}
+			form={form}
+			onOpenDrawer={() => setIsDrawerVisible(true)}
+		/>
+	);
 
 	console.log("isUpdateModalVisible:::", isUpdateModalVisible)
 
 	return (
 		<>
 			{contextHolder}
+			{filterDrawer}
 			<Flex className="justify-end mb-4">
 				{/* <SearchFilter position="end" /> */}
 				<div className="w-full">{searchBar}</div>

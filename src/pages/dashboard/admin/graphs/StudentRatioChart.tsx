@@ -60,7 +60,7 @@ const TruckOperationsChart: React.FC = () => {
         min: 0,
       },
       title: {
-        text: "Waste Collection Performance",
+        text: "Store and Coupon Stats",
         align: "center",
         style: {
           fontSize: '18px',

@@ -51,7 +51,7 @@ const TopDrivers = () => {
         <div className="flex items-center gap-2 mb-4">
           <FaTruck className="text-green-600 text-xl" />
           <Typography variant="headingThreeLight" className="text-[#2F3237]">
-            Top Performing Drivers
+            Top Users
           </Typography>
         </div>
         <List

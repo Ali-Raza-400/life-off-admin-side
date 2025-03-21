@@ -5,6 +5,7 @@ import GenericButton from '../../../components/UI/GenericButton';
 import CkEditor from '../../../components/UI/GenericCkEditor';
 import { FaPlus } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
+import { useGetCategoriesQuery } from '../../../redux/slices/category';
 
 const { Panel } = Collapse;
 
@@ -12,6 +13,7 @@ const AddStore: React.FC<{ onAddStore: (values: any) => void }> = ({ onAddStore 
     const [form] = Form.useForm();
     const [faqs, setFaqs] = useState([{ question: '', answer: '' }]);
     const { Title, Paragraph } = Typography
+     const { data: categoryList } = useGetCategoriesQuery({})
 
     const handleFaqChange = (index: number, field: 'question' | 'answer', value: string) => {
         const updatedFaqs = [...faqs];
@@ -54,11 +56,11 @@ const AddStore: React.FC<{ onAddStore: (values: any) => void }> = ({ onAddStore 
     return (
         <Card bordered={false} className="w-full max-w-7xl mx-auto shadow-lg p-6 rounded-lg">
             <div className="mb-6">
-                    <Title level={3} style={{ margin: 0, marginBottom: "8px" }}>
-                        Create New Store
-                    </Title>
-                    <Paragraph type="secondary">Fill in the details to add a new user to the system</Paragraph>
-                </div>
+                <Title level={3} style={{ margin: 0, marginBottom: "8px" }}>
+                    Create New Store
+                </Title>
+                <Paragraph type="secondary">Fill in the details to add a new user to the system</Paragraph>
+            </div>
             <Form form={form} layout="vertical">
                 <Row gutter={24}>
                     <Col span={12}>
@@ -126,7 +128,16 @@ const AddStore: React.FC<{ onAddStore: (values: any) => void }> = ({ onAddStore 
                 </Row>
 
                 <Form.Item name="categories" label="Categories">
-                    <Select mode="tags" placeholder="Add categories" style={{ width: '100%' }} tokenSeparators={[',']} />
+                    <Select
+                        mode="tags"
+                        placeholder="Select Category"
+                        style={{ width: '100%' }}
+                        options={(categoryList?.list || []).map((store: any) => ({
+                            value: store.id,
+                            label: store.categoryName,
+                        }))}
+                    />
+                    {/* <Select mode="tags" placeholder="Add categories" style={{ width: '100%' }} tokenSeparators={[',']} /> */}
                 </Form.Item>
 
                 <Form.Item name="htmlCode" label="HTML Code">
