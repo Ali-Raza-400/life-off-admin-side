@@ -15,6 +15,21 @@ const categorySlice = rtkQApi.injectEndpoints({
             },
             providesTags: (result) => providesList(result?.data, RTK_TAGS.NETWORK),
         }),
+        getCategoriesWithSearch: builder.query<any, any>({
+            query: (tableOptions) => {
+                const params = {
+					...tableOptions.filters,
+					page: tableOptions.pagination.page,
+					limit: tableOptions.pagination.pageSize,
+				};
+                return {
+                    url: API_PATHS.CATEGORYWITHSEARCH,
+                    method: "GET",
+                    params: params,
+                };
+            },
+            providesTags: (result) => providesList(result?.data, RTK_TAGS.NETWORK),
+        }),
         getSingleCategory: builder.query<any, any>({
             query: (id) => {
                 return {
@@ -46,4 +61,4 @@ const categorySlice = rtkQApi.injectEndpoints({
     }),
 });
 
-export const { useGetCategoriesQuery, useSaveNetworkMutation,useUpdateCategoryMutation,useGetSingleCategoryQuery } = categorySlice;
+export const { useGetCategoriesQuery,useGetCategoriesWithSearchQuery, useSaveNetworkMutation,useUpdateCategoryMutation,useGetSingleCategoryQuery } = categorySlice;

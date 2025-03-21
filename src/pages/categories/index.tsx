@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import ActionDropdown from "../../components/UI/ActionDropdown";
 import GenericTable from "../../components/UI/GenericTable";
-import { useGetCategoriesQuery, useUpdateCategoryMutation } from "../../redux/slices/category";
+import {useGetCategoriesWithSearchQuery, useUpdateCategoryMutation } from "../../redux/slices/category";
 import GenericModal from "../../components/UI/GenericModal";
-import { Button, Col, Form, Input, Row, Typography, Upload } from "antd";
+import { Button, Col, Flex, Form, Input, Row, Typography, Upload } from "antd";
 import useNotification from "../../components/UI/Notification";
 import GenericButton from "../../components/UI/GenericButton";
 import { UploadOutlined } from '@ant-design/icons';
@@ -11,11 +11,25 @@ import { getErrorMessage } from "../../utils/helper";
 import { useNavigate } from "react-router-dom";
 import PATH from "../../navigation/Path";
 import { FaEye } from "react-icons/fa";
+import useDebounce from "../../components/Hooks/useDebounce";
+import SearchFilterWithDrawer from "../../components/UI/SearchFilterWithDrawer";
 
 const { Title, Paragraph, Text } = Typography;
 
 const Index = () => {
-  const { data } = useGetCategoriesQuery({});
+  const defaultTableOptions = {
+    filters: {},
+    pagination: {
+      page: 1,
+      pageSize: 10,
+    },
+  };
+  const [tableOptions, setTableOptions] = useState(defaultTableOptions);
+  const debouncedTableOptions = useDebounce(tableOptions, 500, ["name"]);
+  const { data } = useGetCategoriesWithSearchQuery(debouncedTableOptions)
+  console.log("data:::", data);
+
+  // const { data } = useGetCategoriesQuery({});
   const [isVisible, setIsVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [form] = Form.useForm();
@@ -68,17 +82,31 @@ const Index = () => {
     },
   ];
 
+  const searchBar = (
+    <SearchFilterWithDrawer
+      defaultTableOptions={defaultTableOptions}
+      setTableOptions={setTableOptions}
+      form={form}
+    />
+  );
+
   return (
     <>
-      <div className="flex justify-end mb-6">
+      <Flex className="justify-between mb-4">
+        {/* <SearchFilter position="end" /> */}
+        <div className="w-full">{searchBar}</div>
 
         <GenericButton
           icon={<FaEye size={20} />}
-          label="View All Categories"
+          label="View All"
           onClick={() => navigate(PATH.ALL_CATEGORY)}
         />
-      </div>
-      <GenericTable loading={false} columns={columns as any} data={data?.list} />
+      </Flex>
+      <GenericTable loading={false} columns={columns as any} data={data} updatePaginationFunc={(data: { page: number; pageSize: number }) => {
+        setTableOptions({ ...tableOptions, pagination: data })
+      }}
+        enablePagination={true}
+      />
       <UpdateCategoryModel isVisible={isVisible} onClose={onClose} form={form} selectedCategory={selectedCategory} />
     </>
   );

@@ -5,17 +5,18 @@ import GenericTable from "../../components/UI/GenericTable";
 import GenericButton from "../../components/UI/GenericButton";
 import { FaPlus } from "react-icons/fa6";
 import { Form } from "antd";
-import { useGetStoresQuery } from "../../redux/slices/truck";
 import GenericModal from "../../components/UI/GenericModal";
 import useGenericAlert from "../../components/Hooks/GenericAlert";
 import TextArea from "antd/es/input/TextArea";
-import { useEditStoreMutation, useRemoveStoreMutation, useSaveStoreMutation } from "../../redux/slices/store";
+import { useEditStoreMutation, useGetStoresWithSearchQuery, useRemoveStoreMutation, useSaveStoreMutation } from "../../redux/slices/store";
 import { getErrorMessage } from "../../utils/helper";
 import useNotification from "../../components/UI/Notification";
 import { useNavigate } from "react-router-dom";
 import PATH from "../../navigation/Path";
 import CkEditor from '../../components/UI/GenericCkEditor';
 import { MdDelete } from "react-icons/md";
+import useDebounce from "../../components/Hooks/useDebounce";
+import SearchFilterWithDrawer from "../../components/UI/SearchFilterWithDrawer";
 
 
 
@@ -23,10 +24,20 @@ const Index = (): ReactElement => {
 	const [form] = Form.useForm();
 	const [selectedStore, setSelectedStore] = useState<any>()
 	const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
-	const { data, isLoading: storeLoading, refetch } = useGetStoresQuery({
-		page: 1,
-		pageSize: 8,
-	});
+	const defaultTableOptions = {
+		filters: {},
+		pagination: {
+			page: 1,
+			pageSize: 10,
+		},
+	};
+	const [tableOptions, setTableOptions] = useState(defaultTableOptions);
+	const debouncedTableOptions = useDebounce(tableOptions, 500, ["name"]);
+	const { data, isLoading: storeLoading, refetch } = useGetStoresWithSearchQuery(debouncedTableOptions)
+	// const { data, isLoading: storeLoading, refetch } = useGetStoresQuery({
+	// 	page: 1,
+	// 	pageSize: 8,
+	// });
 	const navigate = useNavigate()
 
 	const [removeStore] = useRemoveStoreMutation();
@@ -167,7 +178,13 @@ const Index = (): ReactElement => {
 		},
 	];
 
-
+    const searchBar = (
+        <SearchFilterWithDrawer
+            defaultTableOptions={defaultTableOptions}
+            setTableOptions={setTableOptions}
+            form={form}
+        />
+    );
 
 	console.log("isUpdateModalVisible:::", isUpdateModalVisible)
 
@@ -176,6 +193,7 @@ const Index = (): ReactElement => {
 			{contextHolder}
 			<Flex className="justify-end mb-4">
 				{/* <SearchFilter position="end" /> */}
+				<div className="w-full">{searchBar}</div>
 				<GenericButton
 					icon={<FaPlus size={20} />}
 					label="Create New Store"
@@ -195,7 +213,10 @@ const Index = (): ReactElement => {
 					selectedStore={selectedStore}
 				/>
 			</Flex>
-			<GenericTable loading={storeLoading} columns={columns} data={data ? data.list : []} />
+			<GenericTable loading={storeLoading} columns={columns} data={data} updatePaginationFunc={(data: { page: number; pageSize: number }) => {
+				setTableOptions({ ...tableOptions, pagination: data })
+			}}
+				enablePagination={true} />
 		</>
 	);
 };
