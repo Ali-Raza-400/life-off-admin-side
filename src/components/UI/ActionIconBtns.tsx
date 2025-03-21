@@ -46,7 +46,7 @@ const ActionIconBtns: React.FC<ButtonGroupProps> = ({
 						className="hover:bg-[#DED7F4] p-1 flex items-center rounded-sm cursor-pointer"
 						onClick={onView}
 					>
-						<FaEye className="text-[#8970D6] text-[1rem]" />
+						<FaEye className="text-[#7FA842] text-[1rem]" />
 					</span>
 				</Tooltip>
 			)}

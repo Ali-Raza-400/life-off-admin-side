@@ -11,7 +11,7 @@ const DataOverviewCards = () => {
   const { data: couponStats } = useGetCouponCountsQuery({});
   const { data: storeStats } = useGetStoreCountQuery({});
 console.log("couponStats", couponStats)
-  const purpleColor = "#8970d6"; // Your original purple color
+  const purpleColor = "#7FA842"; // Your original purple color
 
   const cardData = [
     {

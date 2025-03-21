@@ -25,7 +25,7 @@ const Introduction: React.FC<ProfileProps> = ({
           <div className="p-1">
             {hasEditAccess && (
               <div className="flex justify-end">
-                <CiEdit size={25} color="#8970D6" className="cursor-pointer" onClick={() => onEdit("1")} />
+                <CiEdit size={25} color="#7FA842" className="cursor-pointer" onClick={() => onEdit("1")} />
               </div>
             )}
             <div className="flex lg:block xl:flex items-center gap-10">

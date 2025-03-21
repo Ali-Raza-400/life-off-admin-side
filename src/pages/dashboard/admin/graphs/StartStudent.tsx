@@ -49,7 +49,7 @@ const TopDrivers = () => {
     <Col span={24} sm={12} md={12} lg={12}>
       <div className="bg-white shadow-md rounded-lg p-6 pb-4">
         <div className="flex items-center gap-2 mb-4">
-          <FaTruck className="text-green-600 text-xl" />
+          <FaTruck className="text-themeColor text-xl" />
           <Typography variant="headingThreeLight" className="text-[#2F3237]">
             Top Performing Drivers
           </Typography>

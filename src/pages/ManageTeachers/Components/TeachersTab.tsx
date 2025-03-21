@@ -119,7 +119,7 @@ const TeachersTab = ({
                       PATH.TEACHER_PROFILE.replace(":id", obj?.teacher?.id)
                     )
                   }
-                  fill="#8970D6"
+                  fill="#7FA842"
                   size={16}
                 />
               </div>
