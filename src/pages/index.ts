@@ -117,6 +117,8 @@ const EDIT_TERM_AND_CONDITIONS= React.lazy(() => import("./TermsAndConditions/ed
 const CONTACT_FORM = React.lazy(() => import("./ContactForm/index"));
 const COURSE_VIEW = React.lazy(() => import("./Courses/View/View"));
 const NEW_COURSE = React.lazy(() => import("./Courses/Generate/Index"));
+const SHIPPING_PAGE_VIEW = React.lazy(() => import("./shipping/view/index"));
+const SHIPPING_PAGE_ALL = React.lazy(() => import("./shipping/index"));
 const STUDENT_COURSES_LIST = React.lazy(
 	() => import("./Students/Courses/Index")
 );
@@ -147,6 +149,8 @@ const WEB_PAGES = {
 	// PROTECTED PAGES
 	ITEM_DASHBOARD,
 	VIEW_DEALS,
+	SHIPPING_PAGE_VIEW,
+	SHIPPING_PAGE_ALL,
 
 	// CREATE COURSE
 	NEW_COURSE,

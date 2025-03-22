@@ -8,6 +8,7 @@ import { PiUsersFill } from "react-icons/pi";
 import { LOOKUP_TYPES } from "../../../utils/lookup";
 import {  FaBoxOpen, FaFileContract, FaFolderPlus, FaNetworkWired, FaStore, FaTicketAlt } from "react-icons/fa";
 import {  BiNews } from "react-icons/bi";
+import { AiOutlineTag } from "react-icons/ai";
 // import { RiCoupon3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
 export const items = [
 
@@ -194,6 +195,14 @@ export const items = [
 		),
 		show: true,
 	},
+	{
+		key: PATH.SHIPPING_PAGE_ALL,
+		icon: <AiOutlineTag />,
+		label: (
+			<Link to={PATH.SHIPPING_PAGE_ALL}>{STRINGS.SHIPPING_PAGE_ALL}</Link>
+		),
+		show: true,
+	},
 ];
 let user = localStorage.getItem("super_user");
 user = user ? JSON.parse(user) : null;
@@ -218,7 +227,8 @@ export const roleBasedItems = {
 		PATH.VIEW_EVENTS,
 		PATH.PRIVACY_POLICY,
 		PATH.TERMS_CONDITIONS,
-		PATH.ADD_EVENT
+		PATH.ADD_EVENT,
+		PATH.SHIPPING_PAGE_ALL,
 
 	],
 	/** STUDENT */

@@ -1,4 +1,5 @@
 export const RTK_TAGS = {
+	SHIPPING: "SHIPPING",
 	TERM_AND_CONDITIONS: "TERM_AND_CONDITIONS",
 	PRIVACY_POLICY: "privacy-policy",
 	EVENTS:'events',

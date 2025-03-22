@@ -85,7 +85,9 @@ const PATH = {
 	SINGLE_EVENT:'/single-event/:id',
 	TERMS_CONDITIONS:'/terms-conditions',
 	PRIVACY_POLICY:'/privacy-policy',
-	CONTACT_FORM:'/contact'
+	CONTACT_FORM:'/contact',
+	SHIPPING_PAGE:'/shipping/view',
+	SHIPPING_PAGE_ALL:'/shipping/all',
 };
 
 export default PATH;

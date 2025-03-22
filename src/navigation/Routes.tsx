@@ -433,6 +433,20 @@ const PRIVATE_ROUTES: RouteType[] = [
 		routeType: ProtectedRoute,
 		layout: "private",
 	},
+	{
+		name: STRINGS.SHIPPING_PAGE,
+		path: PATH.SHIPPING_PAGE,
+		page: <WEB_PAGES.SHIPPING_PAGE_VIEW />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
+		name: STRINGS.SHIPPING_PAGE_ALL,
+		path: PATH.SHIPPING_PAGE_ALL,
+		page: <WEB_PAGES.SHIPPING_PAGE_ALL />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
 ];
 
 const AUTH_ROUTES: RouteType[] = [

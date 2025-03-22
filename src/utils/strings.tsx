@@ -1,4 +1,6 @@
 const STRINGS = {
+	SHIPPING_PAGE_ALL: "Shipping Page",
+	SHIPPING_PAGE: "Shipping Page",
 	EDIT_TERM_AND_CONDITIONS:'Edit Term and Conditions',
 	EDIT_PRIVACY_POLICY:'Edit Privacy Policy',
 	ADD_EVENT:'Add Event',

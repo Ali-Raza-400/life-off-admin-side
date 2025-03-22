@@ -1,4 +1,5 @@
 export const API_PATHS: { [key: string]: string } = {
+	SHIPPING: "codes",
 	TERM_AND_CONDITIONS:'terms-conditions',
 	PRIVACY_POLICY: "privacy-policy",
 	EVENTS:'events',
